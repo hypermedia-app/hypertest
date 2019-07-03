@@ -1,0 +1,7 @@
+.settings
+bin
+src-gen/
+model/
+xtend-gen/
+target/
+xtext-gen/
