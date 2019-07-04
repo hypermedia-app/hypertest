@@ -7,8 +7,30 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>com.zazuko.apitesting.dsl.ide</artifactId>
-	<packaging>jar</packaging>
+	<packaging>eclipse-plugin</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.lsp4j</groupId>
+			<artifactId>org.eclipse.lsp4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-commons</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-tree</artifactId>
+		</dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -16,28 +38,77 @@
 				<artifactId>xtend-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.9.1</version>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<configuration>
+					<pomDependencies>consider</pomDependencies>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
-						<id>add-source</id>
-						<phase>initialize</phase>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
 						<goals>
-							<goal>add-source</goal>
-							<goal>add-resource</goal>
+							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<sources>
-								<source>src/main/xtext-gen</source>
-							</sources>
+							<outputDirectory>${project.build.directory}/libs</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<excludeTransitive>true</excludeTransitive>
+							<excludeArtifactIds>
+								com.ibm.icu,
+								org.apache.ant,
+								org.apache.commons.lang,
+								org.apache.commons.logging,
+								org.eclipse.core.commands,
+								org.eclipse.core.contenttype,
+								org.eclipse.core.expressions,
+								org.eclipse.core.filesystem,
+								org.eclipse.core.jobs,
+								org.eclipse.core.resources,
+								org.eclipse.core.runtime,
+								org.eclipse.core.variables,
+								org.eclipse.debug.core,
+								org.eclipse.emf.codegen.ecore,
+								org.eclipse.emf.codegen,
+								org.eclipse.emf.mwe.core,
+								org.eclipse.emf.mwe.utils,
+								org.eclipse.emf.mwe2.lib,
+								org.eclipse.emf.mwe2.runtime,
+								org.eclipse.equinox.app,
+								org.eclipse.equinox.preferences,
+								org.eclipse.equinox.registry,
+								org.eclipse.jdt.core,
+								org.eclipse.jdt.debug,
+								org.eclipse.jdt.launching,
+								org.eclipse.text,
+								org.eclipse.xtend.typesystem.emf,
+								org.eclipse.xtend,
+							</excludeArtifactIds>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.googlecode.addjars-maven-plugin</groupId>
+				<artifactId>addjars-maven-plugin</artifactId>
+				<version>1.0.5</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>add-jars</goal>
+						</goals>
+						<configuration>
 							<resources>
 								<resource>
-									<directory>src/main/xtext-gen</directory>
-									<excludes>
-										<exclude>**/*.java</exclude>
-										<exclude>**/*.g</exclude>
-									</excludes>
+									<directory>${project.build.directory}/libs</directory>
 								</resource>
 							</resources>
 						</configuration>
@@ -59,6 +130,18 @@
 							<resource>plugin.properties</resource>
 						</transformer>
 					</transformers>
+					<artifactSet>
+						<excludes><!-- avoid duplicate inclusion due to addjars plugin -->
+							<exclude>*:com.zazuko.apitesting.dsl.ide-org.eclipse.lsp4j*</exclude>
+							<exclude>*:com.zazuko.apitesting.dsl.ide-org.eclipse.xtext.xbase.lib*</exclude>
+							<exclude>*:com.zazuko.apitesting.dsl.ide-org.eclipse.xtend.lib*</exclude>
+							<exclude>*:com.zazuko.apitesting.dsl.ide-com.google.guava*</exclude>
+							<exclude>*:com.zazuko.apitesting.dsl.ide-asm*</exclude>
+							<exclude>*:com.zazuko.apitesting.dsl.ide-log4j*</exclude>
+							<exclude>*:com.zazuko.apitesting.dsl.ide-org.objectweb.asm*</exclude>
+							<exclude>*:com.zazuko.apitesting.dsl.ide-org.apache.log4j*</exclude>
+						</excludes>
+					</artifactSet>
 					<filters>
 						<filter>
 							<artifact>*:*</artifact>
@@ -100,21 +183,4 @@
 		</plugins>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>com.zazuko.apitesting.dsl</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.ide</artifactId>
-			<version>${xtextVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.xtext</groupId>
-			<artifactId>org.eclipse.xtext.xbase.ide</artifactId>
-			<version>${xtextVersion}</version>
-		</dependency>
-	</dependencies>
 </project>

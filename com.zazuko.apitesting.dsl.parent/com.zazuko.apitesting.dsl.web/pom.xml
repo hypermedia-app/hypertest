@@ -10,6 +10,16 @@
 	<packaging>war</packaging>
 
 	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+					<exclude>**/*.xtend</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
@@ -19,7 +29,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.2.0</version>
 				<configuration>
-					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<warSourceDirectory>WebRoot</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
@@ -28,7 +38,7 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.4.14.v20181114</version>
 				<configuration>
-					<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
+					<webAppSourceDirectory>WebRoot</webAppSourceDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -45,11 +55,11 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>src/main/xtext-gen</source>
+								<source>src-gen</source>
 							</sources>
 							<resources>
 								<resource>
-									<directory>src/main/xtext-gen</directory>
+									<directory>src-gen</directory>
 									<excludes>
 										<exclude>**/*.java</exclude>
 									</excludes>
