@@ -1,0 +1,13 @@
+With Class "http://schema.org/Person" {	
+	Expect Property "http://schema.org/name" {
+		++,"value": "Tomasz"++
+	}
+	
+	Expect Property "knows" {
+        Expect Property "name" {
+        	++,"value": "Michael"++
+        }
+    }
+    
+    ++,"foo": "bar", "baz": {"p": "v"}++        
+}
