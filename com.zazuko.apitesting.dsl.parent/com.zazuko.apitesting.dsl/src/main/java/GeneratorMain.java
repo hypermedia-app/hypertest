@@ -21,13 +21,15 @@ public class GeneratorMain {
 	private static Injector injector = new CoreStandaloneSetup().createInjectorAndDoEMFRegistration();
 
 	public static void main(String[] args) {
+		final String input = args[0];
+		
 		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
-		Resource resource = resourceSet.getResource(URI.createFileURI("/Users/tomaszpluskiewicz/projects/zazuko/api-testing-dsl/api-examples/simple.api"), true);
+		Resource resource = resourceSet.getResource(URI.createFileURI(input), true);
 		
 		IResourceValidator validator = ((XtextResource)resource).getResourceServiceProvider().getResourceValidator();
 		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
 		for (Issue issue : issues) {
-		  System.out.println(issue.getMessage());
+		  // System.out.println(issue.getMessage());
 		}
 		
 		// Code Generator
@@ -35,8 +37,7 @@ public class GeneratorMain {
 		InMemoryFileSystemAccess fsa = new InMemoryFileSystemAccess();
 		generator.doGenerate(resource, fsa);
 		for (Entry<String, CharSequence> file : fsa.getTextFiles().entrySet()) {
-		  System.out.println("Generated file path : "+file.getKey());
-		  System.out.println("Generated file contents : "+file.getValue());
+		  System.out.println(file.getValue());
 		}
 	}
 }
