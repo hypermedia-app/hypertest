@@ -24,9 +24,8 @@ class CoreGenerator extends AbstractGenerator {
 		
 		if ( ! blocks.empty) {
 			val String dslFileName = resource.getURI().lastSegment.toString();
-			val String outFileBase = dslFileName.substring(0, dslFileName.lastIndexOf("."));
 			
-			fsa.generateFile(outFileBase + '.json', generateSteps(blocks));
+			fsa.generateFile(dslFileName + '.json', generateSteps(blocks));
 		}		
 	}	
 	

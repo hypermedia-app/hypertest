@@ -5,3 +5,4 @@ model/
 xtend-gen/
 target/
 xtext-gen/
+*.api.json
