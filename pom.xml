@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.zazuko.apitesting.dsl</groupId>
+	<groupId>app.hypermedia.testing.dsl</groupId>
 	<version>1.0.0-SNAPSHOT</version>
-	<artifactId>com.zazuko.apitesting.dsl.parent</artifactId>
+	<artifactId>app.hypermedia.testing.dsl.parent</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -13,10 +13,10 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 	<modules>
-		<module>com.zazuko.apitesting.dsl</module>
-		<module>com.zazuko.apitesting.dsl.cli</module>
-		<module>com.zazuko.apitesting.dsl.ide</module>
-		<module>com.zazuko.apitesting.dsl.web</module>
+		<module>app.hypermedia.testing.dsl</module>
+		<module>app.hypermedia.testing.dsl.cli</module>
+		<module>app.hypermedia.testing.dsl.ide</module>
+		<module>app.hypermedia.testing.dsl.web</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

@@ -1,0 +1,30 @@
+grammar app.hypermedia.testing.dsl.Core with org.eclipse.xtext.common.Terminals
+
+generate core "http://www.zazuko.com/apitesting/dsl/ApiTestingDsl"
+
+Model:
+    (elements+=Element)*;
+	
+Element:
+	ClassBlock;
+	
+ClassLevelAssertion:
+	PropertyAssertion;
+
+ClassBlock:
+	'With' 'Class' name=STRING '{'
+		(assertions+=ClassLevelAssertion)*
+		hatch=HATCH?
+	'}';
+
+PropertyAssertion:
+	'Expect' 'Property' name=STRING
+	(
+		'{'
+			(assertions+=ClassLevelAssertion)*
+			hatch=HATCH?
+		'}'
+	)?
+;
+
+terminal HATCH: '++' -> '++';
