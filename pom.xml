@@ -14,6 +14,7 @@
 	</properties>
 	<modules>
 		<module>com.zazuko.apitesting.dsl</module>
+		<module>com.zazuko.apitesting.dsl.cli</module>
 		<module>com.zazuko.apitesting.dsl.ide</module>
 		<module>com.zazuko.apitesting.dsl.web</module>
 	</modules>
