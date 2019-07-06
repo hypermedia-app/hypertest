@@ -2,14 +2,13 @@
   "bin": {
     "hypertest-compiler": "jdeploy-bundle/jdeploy.js"
   },
-  "author": "",
+  "author": "Tomasz Pluskiewicz <awesome@hypermedia.app>",
   "description": "",
-  "main": "index.js",
   "preferGlobal": true,
-  "repository": "",
-  "version": "1.0.0",
+  "repository": "https://github.com/hypermedia-app/hypertest",
+  "version": "0.0.0",
   "jdeploy": {
-    "jar": "com.zazuko.apitesting.dsl.cli/target/com.zazuko.apitesting.cli.jar"
+    "jar": "com.zazuko.apitesting.dsl.cli/target/com.zazuko.apitesting.dsl.cli-1.0.0-SNAPSHOT-shaded.jar"
   },
   "dependencies": {
     "shelljs": "^0.7.5"
