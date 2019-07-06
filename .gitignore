@@ -6,3 +6,5 @@ xtend-gen/
 target/
 xtext-gen/
 *.api.json
+node_modules/
+jdeploy-bundle/
