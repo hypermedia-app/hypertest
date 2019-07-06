@@ -37,6 +37,7 @@ public class GeneratorMain {
 	public static void main(String[] args) {
 		GeneratorMain main = injector.getInstance(GeneratorMain.class);
 		main.generateDirectory(args[0]);
+		System.out.println("Done!");
 	}
 	
 	protected void generateDirectory(String directoryName) {
@@ -54,13 +55,21 @@ public class GeneratorMain {
 		ResourceSet resourceSet = resourceSetProvider.get();
 		Resource resource = resourceSet.getResource(URI.createFileURI(input.getPath()), true);
 		
-		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
-		if (!issues.isEmpty()) {
-			issues.forEach(issue -> System.out.println(issue.getMessage()));
+		if (!this.validate(resource)) {
 			return;
 		}
 
 		fileAccess.setOutputPath(input.getParentFile().getPath());
 		generator.generate(resource, fileAccess, new GeneratorContext());	
+	}
+	
+	private boolean validate(Resource resource) {
+		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
+		if (!issues.isEmpty()) {
+			issues.forEach(issue -> System.out.println(issue.getMessage()));
+			return false;
+		}
+
+		return true;
 	}
 }
