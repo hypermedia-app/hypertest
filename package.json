@@ -28,7 +28,7 @@
   "scripts": {
     "release": "standard-version"
   },
-  "publish": {
+  "publishConfig": {
     "access": "public"
   },
   "config": {
