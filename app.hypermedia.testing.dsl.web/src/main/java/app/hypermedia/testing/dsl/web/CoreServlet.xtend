@@ -13,20 +13,20 @@ import org.eclipse.xtext.web.servlet.XtextServlet
 @WebServlet(name = 'XtextServices', urlPatterns = '/xtext-service/*')
 class CoreServlet extends XtextServlet {
 	
-	DisposableRegistry disposableRegistry
+    DisposableRegistry disposableRegistry
 	
-	override init() {
-		super.init()
-		val injector = new CoreWebSetup().createInjectorAndDoEMFRegistration()
-		disposableRegistry = injector.getInstance(DisposableRegistry)
-	}
+    override init() {
+        super.init()
+        val injector = new CoreWebSetup().createInjectorAndDoEMFRegistration()
+        disposableRegistry = injector.getInstance(DisposableRegistry)
+    }
 	
-	override destroy() {
-		if (disposableRegistry !== null) {
-			disposableRegistry.dispose()
-			disposableRegistry = null
-		}
-		super.destroy()
-	}
+    override destroy() {
+        if (disposableRegistry !== null) {
+            disposableRegistry.dispose()
+            disposableRegistry = null
+        }
+        super.destroy()
+    }
 	
 }

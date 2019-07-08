@@ -24,52 +24,52 @@ import app.hypermedia.testing.dsl.CoreStandaloneSetup;
 
 public class GeneratorMain {
 
-	private static Injector injector = new CoreStandaloneSetup().createInjectorAndDoEMFRegistration();
+    private static Injector injector = new CoreStandaloneSetup().createInjectorAndDoEMFRegistration();
 
-	@Inject Provider<ResourceSet> resourceSetProvider;
+    @Inject Provider<ResourceSet> resourceSetProvider;
 
-	@Inject IResourceValidator validator;
+    @Inject IResourceValidator validator;
 
-	@Inject GeneratorDelegate generator;
+    @Inject GeneratorDelegate generator;
 
-	@Inject JavaIoFileSystemAccess fileAccess;
+    @Inject JavaIoFileSystemAccess fileAccess;
 	
-	public static void main(String[] args) {
-		GeneratorMain main = injector.getInstance(GeneratorMain.class);
-		main.generateDirectory(args[0]);
-		System.out.println("Done!");
-	}
+    public static void main(String[] args) {
+        GeneratorMain main = injector.getInstance(GeneratorMain.class);
+        main.generateDirectory(args[0]);
+        System.out.println("Done!");
+    }
 	
-	protected void generateDirectory(String directoryName) {
-		File dir = new File(directoryName);
-		Collection<File> files = FileUtils.listFiles(dir, new WildcardFileFilter("*.api"), null);
+    protected void generateDirectory(String directoryName) {
+        File dir = new File(directoryName);
+        Collection<File> files = FileUtils.listFiles(dir, new WildcardFileFilter("*.api"), null);
 		
-		for (File file : files) {
-			this.generateOne(file);
-		}
-	}
+        for (File file : files) {
+            this.generateOne(file);
+        }
+    }
 		
-	protected void generateOne(File input) {
-		System.out.printf("Compiling %s %n", input.getPath());
+    protected void generateOne(File input) {
+        System.out.printf("Compiling %s %n", input.getPath());
 	
-		ResourceSet resourceSet = resourceSetProvider.get();
-		Resource resource = resourceSet.getResource(URI.createFileURI(input.getPath()), true);
+        ResourceSet resourceSet = resourceSetProvider.get();
+        Resource resource = resourceSet.getResource(URI.createFileURI(input.getPath()), true);
 		
-		if (!this.validate(resource)) {
-			return;
-		}
+        if (!this.validate(resource)) {
+            return;
+        }
 
-		fileAccess.setOutputPath(input.getParentFile().getPath());
-		generator.generate(resource, fileAccess, new GeneratorContext());	
-	}
+        fileAccess.setOutputPath(input.getParentFile().getPath());
+        generator.generate(resource, fileAccess, new GeneratorContext());	
+    }
 	
-	private boolean validate(Resource resource) {
-		List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
-		if (!issues.isEmpty()) {
-			issues.forEach(issue -> System.out.println(issue.getMessage()));
-			return false;
-		}
+    private boolean validate(Resource resource) {
+        List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
+        if (!issues.isEmpty()) {
+            issues.forEach(issue -> System.out.println(issue.getMessage()));
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 }
