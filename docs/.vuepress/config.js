@@ -22,7 +22,7 @@ module.exports = {
                 }
             ]
         },
-        repo: 'hypermedia-app/testing.hypermedia.app',
+        repo: 'hypermedia-app/hypertest',
         docsDir: 'guides',
         editLinks: true,
         editLinkText: 'Edit Page',
