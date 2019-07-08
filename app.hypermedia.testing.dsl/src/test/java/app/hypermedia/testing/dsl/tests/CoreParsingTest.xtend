@@ -8,9 +8,10 @@ import app.hypermedia.testing.dsl.core.Model
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
+import static org.junit.Assert.assertEquals
+import app.hypermedia.testing.dsl.core.ClassBlock
 
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
@@ -19,14 +20,18 @@ class CoreParsingTest {
 	ParseHelper<Model> parseHelper
 	
 	@Test
-	def void loadModel() {
+	def void withClass_ParsesName() {
+		// when
 		val result = parseHelper.parse('''
 			With Class "Foo" {
 				
 			}
 		''')
-		Assertions.assertNotNull(result)
-		val errors = result.eResource.errors
-		Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
+		
+		// then
+		TestHelpers.assertModelParsedSuccessfully(result)
+		
+		val classBlock = result.elements.get(0) as ClassBlock
+		assertEquals(classBlock.name, "Foo")
 	}
 }
