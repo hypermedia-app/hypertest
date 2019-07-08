@@ -16,22 +16,22 @@ import app.hypermedia.testing.dsl.core.ClassBlock
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
 class CoreParsingTest {
-	@Inject
-	ParseHelper<Model> parseHelper
+    @Inject
+    ParseHelper<Model> parseHelper
 	
-	@Test
-	def void withClass_ParsesName() {
-		// when
-		val result = parseHelper.parse('''
-			With Class "Foo" {
+    @Test
+    def void withClass_ParsesName() {
+        // when
+        val result = parseHelper.parse('''
+            With Class "Foo" {
 				
-			}
-		''')
+            }
+        ''')
 		
-		// then
-		TestHelpers.assertModelParsedSuccessfully(result)
+        // then
+        TestHelpers.assertModelParsedSuccessfully(result)
 		
-		val classBlock = result.elements.get(0) as ClassBlock
-		assertEquals(classBlock.name, "Foo")
-	}
+        val classBlock = result.elements.get(0) as ClassBlock
+        assertEquals(classBlock.name, "Foo")
+    }
 }

@@ -9,7 +9,7 @@ package app.hypermedia.testing.dsl
  */
 class CoreStandaloneSetup extends CoreStandaloneSetupGenerated {
 
-	def static void doSetup() {
-		new CoreStandaloneSetup().createInjectorAndDoEMFRegistration()
-	}
+    def static void doSetup() {
+        new CoreStandaloneSetup().createInjectorAndDoEMFRegistration()
+    }
 }

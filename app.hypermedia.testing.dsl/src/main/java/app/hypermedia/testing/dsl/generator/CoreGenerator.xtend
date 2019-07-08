@@ -18,55 +18,55 @@ import org.eclipse.xtext.generator.IGeneratorContext
  */
 class CoreGenerator extends AbstractGenerator {
 
-	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+    override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		
-		val Iterable<ClassBlock> blocks = resource.allContents.filter(ClassBlock).toList
+        val Iterable<ClassBlock> blocks = resource.allContents.filter(ClassBlock).toList
 		
-		if ( ! blocks.empty) {
-			val String dslFileName = resource.getURI().lastSegment.toString();
+        if ( ! blocks.empty) {
+            val String dslFileName = resource.getURI().lastSegment.toString();
 			
-			fsa.generateFile(dslFileName + '.json', generateSteps(blocks));
-		}		
-	}	
+            fsa.generateFile(dslFileName + '.json', generateSteps(blocks));
+        }		
+    }	
 	
-	def generateSteps(Iterable<ClassBlock> blocks) '''
-		{
-			"steps": [
-				«FOR block:blocks SEPARATOR ","»
-					«block.step»
-				«ENDFOR»
-			]
-		}
-	'''
+    def generateSteps(Iterable<ClassBlock> blocks) '''
+        {
+            "steps": [
+                «FOR block:blocks SEPARATOR ","»
+                    «block.step»
+                «ENDFOR»
+            ]
+        }
+    '''
 	
-	def step(ClassBlock it) '''
-		{
-			"type": "Class",
-			"classId": "«name»",
-			"children": [
-				«FOR assertion:assertions SEPARATOR ","»
-					«assertion.child»
-				«ENDFOR»
-			]
-			«hatch»
-		}
-	'''	
+    def step(ClassBlock it) '''
+        {
+            "type": "Class",
+            "classId": "«name»",
+            "children": [
+                «FOR assertion:assertions SEPARATOR ","»
+                    «assertion.child»
+                «ENDFOR»
+            ]
+            «hatch»
+        }
+    '''	
 	
-	def dispatch CharSequence child(PropertyAssertion it)  '''
-		{
-			"type": "Property",
-			"propertyId": "«name»",
-			"children": [
-				«FOR assertion:assertions SEPARATOR ","»
-					«assertion.child»
-				«ENDFOR»
-			]
-			«hatch»
-		}
-	'''
+    def dispatch CharSequence child(PropertyAssertion it)  '''
+        {
+            "type": "Property",
+            "propertyId": "«name»",
+            "children": [
+                «FOR assertion:assertions SEPARATOR ","»
+                    «assertion.child»
+                «ENDFOR»
+            ]
+            «hatch»
+        }
+    '''
 
-	def dispatch child(ClassLevelAssertion it) '''
-		# TODO: implementation missing for child(«class.name»)
-	'''
+    def dispatch child(ClassLevelAssertion it) '''
+        # TODO: implementation missing for child(«class.name»)
+    '''
 	
 }
