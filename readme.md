@@ -58,6 +58,7 @@ It will produce a `.api.json` for each test scenario document.
 
 The DSL and compiler are implemented in Java using [Xtext][xtext]. 
 
+* `npm install` to set up git hooks
 * Install a Java JDK (Java 8)
 * Install [Eclipse IDE for Java and DSL Developers][ide]. Version 2019.03. Newer may not work.
 * (In Eclipse) Add git repo:
