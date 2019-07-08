@@ -88,8 +88,9 @@ Easiest way to build a running compiler is to build with Maven from command line
 
 ```
 npm i -g jdeploy
-mvn install
+mvn package
 jdeploy install
+hypertest-compiler api-examples
 ```
 
 [jd]: https://github.com/shannah/jdeploy
