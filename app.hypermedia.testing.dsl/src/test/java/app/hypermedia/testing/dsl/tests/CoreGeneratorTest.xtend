@@ -19,43 +19,43 @@ import org.json.JSONObject
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
 class CoreGeneratorTest {
-	@Inject IGenerator2 generator
-	@Inject	ParseHelper<Model> parseHelper
-	
-	@BeforeAll
+    @Inject IGenerator2 generator
+    @Inject    ParseHelper<Model> parseHelper
+    
+    @BeforeAll
     static def beforeAll() {
         start()
     }
-    
+
     @AfterAll
     static def afterAll() {
         validateSnapshots();
     }
-	
-	@Test
-	def emptyWithClass_generatesStep() {
-		// given
-		val model = parseHelper.parse('''
-			With Class "Foo" {
-				
-			}
-		''')
-		
-		// when
-		val fsa = new InMemoryFileSystemAccess()
+
+    @Test
+    def emptyWithClass_generatesStep() {
+        // given
+        val model = parseHelper.parse('''
+            With Class "Foo" {
+                
+            }
+        ''')
+        
+        // when
+        val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
         println(fsa.textFiles)
-        
+
         // then
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
-	}
-	
-	private static class GeneratorContext implements IGeneratorContext {
-		
-		override getCancelIndicator() {
-			return CancelIndicator.NullImpl 
-		}
-		
-	}
+    }
+    
+    private static class GeneratorContext implements IGeneratorContext {
+        
+        override getCancelIndicator() {
+            return CancelIndicator.NullImpl 
+        }
+        
+    }
 }
