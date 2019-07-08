@@ -8,3 +8,4 @@ xtext-gen/
 *.api.json
 node_modules/
 jdeploy-bundle/
+dist/
