@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hypertest
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: hypertest
+        image: registry.zazuko.com/docker/hypertest
+        imagePullPolicy: Always
+
+        resources:
+          requests:
+            cpu: 100m
+            memory: 150Mi
+          limits:
+            cpu: 200m
+            memory: 300Mi
+
+        ports:
+        - name: http
+          containerPort: 8080

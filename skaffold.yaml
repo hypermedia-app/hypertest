@@ -1,0 +1,10 @@
+apiVersion: skaffold/v1beta11
+kind: Config
+build:
+  artifacts:
+  - image: registry.zazuko.com/docker/hypertest
+    jibMaven:
+      module: :app.hypermedia.testing.dsl.web
+deploy:
+  kustomize:
+    path: k8s
