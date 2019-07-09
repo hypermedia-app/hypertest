@@ -5,11 +5,12 @@ package app.hypermedia.testing.dsl.generator
 
 import app.hypermedia.testing.dsl.core.ClassBlock
 import app.hypermedia.testing.dsl.core.ClassLevelAssertion
-import app.hypermedia.testing.dsl.core.PropertyAssertion
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
+import app.hypermedia.testing.dsl.core.PropertyBlock
+import app.hypermedia.testing.dsl.core.PropertyStatement
 
 /**
  * Generates code from your model files on save.
@@ -44,7 +45,7 @@ class CoreGenerator extends AbstractGenerator {
             "type": "Class",
             "classId": "«name»",
             "children": [
-                «FOR assertion:assertions SEPARATOR ","»
+                «FOR assertion:children SEPARATOR ","»
                     «assertion.child»
                 «ENDFOR»
             ]
@@ -52,16 +53,23 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def dispatch CharSequence child(PropertyAssertion it)  '''
+    def dispatch CharSequence child(PropertyBlock it)  '''
         {
             "type": "Property",
             "propertyId": "«name»",
             "children": [
-                «FOR assertion:assertions SEPARATOR ","»
+                «FOR assertion:children SEPARATOR ","»
                     «assertion.child»
                 «ENDFOR»
             ]
             «hatch»
+        }
+    '''
+
+    def dispatch CharSequence child(PropertyStatement it)  '''
+        {
+            "type": "Property",
+            "propertyId": "«name»"
         }
     '''
 
