@@ -1,7 +1,7 @@
-With Class "http://schema.org/Person" {	
-	Expect Property "http://schema.org/name"
-	
-	Expect Property "knows" {
+With Class "http://schema.org/Person" {
+    Expect Property "http://schema.org/name"
+
+    Expect Property "knows" {
         Expect Property "Name"
     }
 }

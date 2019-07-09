@@ -16,5 +16,5 @@ class CoreIdeSetup extends CoreStandaloneSetup {
     override createInjector() {
         Guice.createInjector(Modules2.mixin(new CoreRuntimeModule, new CoreIdeModule))
     }
-	
+
 }

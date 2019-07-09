@@ -4,10 +4,10 @@ generate core "http://www.zazuko.com/apitesting/dsl/ApiTestingDsl"
 
 Model:
     (elements+=Element)*;
-	
+
 Element:
 	ClassBlock;
-	
+
 ClassLevelAssertion:
 	PropertyAssertion;
 

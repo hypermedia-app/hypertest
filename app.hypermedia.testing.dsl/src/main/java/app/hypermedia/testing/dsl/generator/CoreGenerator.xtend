@@ -13,22 +13,22 @@ import org.eclipse.xtext.generator.IGeneratorContext
 
 /**
  * Generates code from your model files on save.
- * 
+ *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class CoreGenerator extends AbstractGenerator {
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
-		
+
         val Iterable<ClassBlock> blocks = resource.allContents.filter(ClassBlock).toList
-		
+
         if ( ! blocks.empty) {
             val String dslFileName = resource.getURI().lastSegment.toString();
-			
+
             fsa.generateFile(dslFileName + '.json', generateSteps(blocks));
-        }		
-    }	
-	
+        }
+    }
+
     def generateSteps(Iterable<ClassBlock> blocks) '''
         {
             "steps": [
@@ -38,7 +38,7 @@ class CoreGenerator extends AbstractGenerator {
             ]
         }
     '''
-	
+
     def step(ClassBlock it) '''
         {
             "type": "Class",
@@ -50,8 +50,8 @@ class CoreGenerator extends AbstractGenerator {
             ]
             «hatch»
         }
-    '''	
-	
+    '''
+
     def dispatch CharSequence child(PropertyAssertion it)  '''
         {
             "type": "Property",
@@ -68,5 +68,5 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch child(ClassLevelAssertion it) '''
         # TODO: implementation missing for child(«class.name»)
     '''
-	
+
 }
