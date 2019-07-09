@@ -1,0 +1,43 @@
+stages:
+- build
+- deploy
+
+variables:
+  IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+
+build:
+  image: maven:slim
+  stage: build
+
+  before_script:
+  - mkdir ~/.docker/
+  - |
+    cat - > ~/.docker/config.json <<EOF
+    {
+      "auths": {
+        "$CI_REGISTRY": {
+          "auth": "$(echo -n "$CI_REGISTRY_USER:$CI_REGISTRY_PASSWORD" | base64)"
+        }
+      }
+    }
+    EOF
+
+  script:
+  - mvn package jib:build -Djib.to.image=$IMAGE
+
+deploy:
+  image: alpine:latest
+  stage: deploy
+
+  environment:
+    name: production
+
+  before_script:
+  - wget -qO /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl
+  - wget -qO /usr/local/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v2.0.3/kustomize_2.0.3_linux_amd64
+  - chmod +x /usr/local/bin/kubectl /usr/local/bin/kustomize
+
+  script:
+  - cd k8s
+  - kustomize edit set image hypertest=$IMAGE
+  - kubectl apply -k .
