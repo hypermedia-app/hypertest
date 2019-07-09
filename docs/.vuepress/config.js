@@ -17,6 +17,7 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/dsl/steps/class',
+                        '/dsl/steps/property',
                         '/dsl/steps/expect'
                     ]
                 }
