@@ -12,6 +12,12 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <parent>
+        <groupId>app.hypermedia.testing.dsl</groupId>
+        <artifactId>app.hypermedia.testing.dsl.parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
     <dependencies>
         <!-- xText dependencies -->
         <dependency>

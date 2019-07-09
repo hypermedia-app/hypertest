@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: hypertest
-        image: registry.zazuko.com/docker/hypertest
+        image: hypertest
         imagePullPolicy: Always
 
         resources:
