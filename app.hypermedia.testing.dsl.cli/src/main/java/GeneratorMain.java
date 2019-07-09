@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -17,8 +16,8 @@ import org.eclipse.xtext.validation.IResourceValidator;
 import org.eclipse.xtext.validation.Issue;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 
 import app.hypermedia.testing.dsl.CoreStandaloneSetup;
 
@@ -66,7 +65,7 @@ public class GeneratorMain {
     private boolean validate(Resource resource) {
         List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
         if (!issues.isEmpty()) {
-            issues.forEach(issue -> System.out.println(issue.getMessage()));
+            issues.forEach(issue -> System.out.printf("Line %3s: %s %n", issue.getLineNumber(), issue.getMessage()));
             return false;
         }
 
