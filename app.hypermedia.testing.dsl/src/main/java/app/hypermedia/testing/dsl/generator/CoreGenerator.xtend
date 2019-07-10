@@ -47,21 +47,21 @@ class CoreGenerator extends AbstractGenerator {
             "type": "Class",
             "classId": "«name»",
             "children": [
-                «FOR assertion:children SEPARATOR ","»
-                    «assertion.child»
+                «FOR step:children SEPARATOR ","»
+                    «step.step»
                 «ENDFOR»
             ]
             «hatch»
         }
     '''
 
-    def dispatch CharSequence child(PropertyBlock it)  '''
+    def dispatch CharSequence step(PropertyBlock it)  '''
         {
             "type": "Property",
             "propertyId": "«name»",
             "children": [
-                «FOR assertion:children SEPARATOR ","»
-                    «assertion.child»
+                «FOR step:children SEPARATOR ","»
+                    «step.step»
                 «ENDFOR»
             ],
             "strict": «if (modifier == 'With') {
@@ -73,7 +73,7 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def dispatch CharSequence child(PropertyStatement it)  '''
+    def dispatch CharSequence step(PropertyStatement it)  '''
         {
             "type": "Property",
             "propertyId": "«name»",
@@ -84,10 +84,6 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def dispatch child(TopLevelStep it) '''
-        # TODO: implementation missing for child(«class.name»)
-    '''
-    
     def dispatch step(EObject step) {
         throw new NotImplementedException(String.format("Unrecognized step %s", step.class))
     }

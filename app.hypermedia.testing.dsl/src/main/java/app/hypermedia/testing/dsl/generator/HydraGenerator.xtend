@@ -19,13 +19,13 @@ class HydraGenerator extends CoreGenerator {
             "operationId": "«name»",
             "children": [
                 «FOR invocation:invocations SEPARATOR ","»
-                    «invocation.invocation»
+                    «invocation.step»
                 «ENDFOR»
             ]
         }
     '''
     
-    def invocation(InvocationBlock it) '''
+    def dispatch step(InvocationBlock it) '''
         {
             "type": "Invocation"
         }
