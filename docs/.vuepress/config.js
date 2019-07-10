@@ -14,10 +14,16 @@ module.exports = {
                 {
                     title: 'Core grammar',
                     path: '/dsl/core/',
-                    collapsable: false,
                     children: [
                         '/dsl/core/class',
                         '/dsl/core/property',
+                    ]
+                },
+                {
+                    title: 'Hydra grammar',
+                    path: '/dsl/hydra/',
+                    children: [
+                        '/dsl/hydra/operation',
                     ]
                 }
             ]
