@@ -45,7 +45,7 @@ Workflow {
         language = StandardLanguage {
             referencedResource=  "platform:/resource/app.hypermedia.testing.dsl/src/main/java/app/hypermedia/testing/dsl/Core.xtext"
             name = "app.hypermedia.testing.dsl.Hydra"
-            fileExtensions = "hydra.api"
+            fileExtensions = "hydra"
 
             serializer = {
                 generateStub = false
