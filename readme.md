@@ -13,7 +13,7 @@ Hypertest DSL is a tool which lets API authors build end-to-end testing suites a
 
 In other words, the tests are solely executing based on links and forms, all of which should be provided by the server in resoruce representations.
 
-The DSL itself is agnosrtic of the media type. A test runner could be implemented to run against any RESTful API such as [SIREN][SIREN], [Hydra][Hydra], [NARWHL][Narwhal], [HAL-FORMS][hal], etc.
+The DSL itself aims to be agnostic of the media type. A test runner could be implemented to run against any RESTful API such as [SIREN][SIREN], [Hydra][Hydra], [NARWHL][Narwhal], [HAL-FORMS][hal], etc.
 
 [SIREN]: https://github.com/kevinswiber/siren
 [Hydra]: http://www.hydra-cg.com/spec/latest/core/
