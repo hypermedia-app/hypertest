@@ -1,14 +1,14 @@
 grammar app.hypermedia.testing.dsl.Core with org.eclipse.xtext.common.Terminals
 
-generate core "http://www.zazuko.com/apitesting/dsl/ApiTestingDsl"
+generate core "http://testing.hypermedia.app/dsl/core"
 
 Model:
-    (steps+=Element)*;
+    (steps+=TopLevelStep)*;
 
-Element:
+TopLevelStep:
 	ClassBlock;
 
-ClassLevelAssertion:
+RepresentationStep:
     PropertyBlock |
     PropertyStatement;
     
@@ -17,13 +17,13 @@ terminal EXPECT_MODIFIER: 'Expect';
 
 ClassBlock:
 	WITH_MODIFIER 'Class' name=STRING '{'
-		(children+=ClassLevelAssertion)*
+		(children+=RepresentationStep)*
 		hatch=HATCH?
 	'}';
 
 PropertyBlock:
     modifier=(WITH_MODIFIER | EXPECT_MODIFIER) 'Property' name=STRING '{'
-        (children+=ClassLevelAssertion)*
+        (children+=RepresentationStep)*
         hatch=HATCH?
     '}'
 ;

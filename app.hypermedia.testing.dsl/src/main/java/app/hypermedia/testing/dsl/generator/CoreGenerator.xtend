@@ -4,7 +4,7 @@
 package app.hypermedia.testing.dsl.generator
 
 import app.hypermedia.testing.dsl.core.ClassBlock
-import app.hypermedia.testing.dsl.core.ClassLevelAssertion
+import app.hypermedia.testing.dsl.core.TopLevelStep
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -82,7 +82,7 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def dispatch child(ClassLevelAssertion it) '''
+    def dispatch child(TopLevelStep it) '''
         # TODO: implementation missing for child(«class.name»)
     '''
 

@@ -1,0 +1,18 @@
+grammar app.hypermedia.testing.dsl.Hydra with app.hypermedia.testing.dsl.Core
+    
+import "http://testing.hypermedia.app/dsl/core"
+generate hydra "http://testing.hypermedia.app/dsl/hydra"
+ 
+@Override 
+Model:
+    (steps+=TopLevelStep)*;
+ 
+@Override 
+TopLevelStep:
+    super |
+    OperationBlock;
+
+OperationBlock:
+    WITH_MODIFIER 'Operation' name=STRING '{'
+    '}'
+;
