@@ -22,7 +22,7 @@ npm i -g @hydrofoil/hypertest
 
 :::tip
 Node.js is used to distribute the CLI. Java doesn't have to be installed beforehand,
-the node runner should install it if ncessary 
+the node runner should install it if necessary 
 :::
 
 ### Usage
