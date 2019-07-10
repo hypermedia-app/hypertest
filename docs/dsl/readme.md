@@ -29,12 +29,16 @@ define the allowed modifiers and parameters. The children may also optional in s
 ### Example
 
 ```
-# Type: Class
-# Parameters: "Person"
+// Type: Class
+// Parameters: "Person"
 With Class "Person" {
-    # Optional settings and child blocks go here
+    // Optional settings and child blocks go here
     
-    # For example, `Expect Property` statement does not require a body 
+    // For example, `Expect Property` statement does not require a body 
     Expect Property "name"
 }
+
+/*
+    Multiline comments are also supported
+*/
 ```

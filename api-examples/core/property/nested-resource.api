@@ -1,0 +1,10 @@
+With Class "Book" {
+
+    // Book may have an embedded author resource
+    // Use Expect Property if author is manadatory
+    With Property "author" {
+
+        // If it does't check that it has a name
+        Expect Property "name"
+    }
+}

@@ -11,7 +11,4 @@ A class is only valid at top-level.
 
 ## Example
 
-```
-With Class "name" {
-}
-```
+<<< @/api-examples/core/class/empty-class.api

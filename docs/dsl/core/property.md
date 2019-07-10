@@ -15,18 +15,14 @@ representations.
 A test may require that a given property is present. If not, then a test failure should be
 reported.
 
-```
-Expect Property "name"
-```
+<<< @/api-examples/core/property/strict-check.api
 
 ### Asserting literal property value
 
 An optional parameter can be provided, which instructs the client to compare it with 
 the actual value of the property.
 
-```
-Expect Property "name" "Tomasz"
-```
+<<< @/api-examples/core/property/assert-value.api
 
 :::warning
 At the time of writing only string is allowed. The test runner should always compare
@@ -40,15 +36,4 @@ A property step can also be a block.
 If a property is not necessary for the success of the test scenario, it may be treated as 
 optional, by using `With` modifier instead of `Expect` modifier.
 
-```
-With Class "Book" {
-    
-    # Book may have an embedded author resource
-    # Use Expect Property if author is manadatory
-    With Property "author" {
-    
-        # If it does't check that it has a name
-        Expect Property "name"
-    }
-}
-```
+<<< @/api-examples/core/property/nested-resource.api

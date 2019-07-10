@@ -12,14 +12,6 @@ code in its response.
 
 ### Check the result of a request
 
-The example below combines `Expect Status` statement with [`Hydra` subgrammar](../hydra)
+The example below combines `Expect Status` statement with [`Hydra` subgrammar](../hydra).
 
-```
-With Class "http://example.com/vocab#Task" {
-    With Operation "http://example.com/vocab#CancelTask" {
-        Invoke {
-            Expect Status 204
-        }
-    }
-}
-```
+<<< @/api-examples/hydra/operation/top-level.hydra

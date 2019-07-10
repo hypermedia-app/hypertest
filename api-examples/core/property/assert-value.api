@@ -1,0 +1,3 @@
+With Class "Person" {
+    Expect Property "name" "Tomasz"
+}
