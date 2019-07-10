@@ -9,6 +9,7 @@ It can be used on its own using the `.api` extension.
 
 * [Class](./class)
 * [Property](./property)
+* [Status](./status)
 
 ## Raw Xtext grammar
 

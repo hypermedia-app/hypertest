@@ -17,6 +17,7 @@ module.exports = {
                     children: [
                         '/dsl/core/class',
                         '/dsl/core/property',
+                        '/dsl/core/status',
                     ]
                 },
                 {
