@@ -11,7 +11,8 @@ controls of individual resource representations.
 
 ## Basics
 
-Hypertest DSL documents are plain text files with `.api` extension.
+Hypertest DSL documents are plain text files. Multiple file extensions can be used
+depending on the targeting media type.
 
 The DSL is case-sensitive, including its keywords.
 

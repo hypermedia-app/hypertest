@@ -12,13 +12,12 @@ module.exports = {
                 '/dsl/',
                 '/dsl/algorithm',
                 {
-                    path: '/dsl/steps/',
-                    title: 'Scenario steps',
+                    title: 'Core grammar',
+                    path: '/dsl/core/',
                     collapsable: false,
                     children: [
-                        '/dsl/steps/class',
-                        '/dsl/steps/property',
-                        '/dsl/steps/expect'
+                        '/dsl/core/class',
+                        '/dsl/core/property',
                     ]
                 }
             ]
