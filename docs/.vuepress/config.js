@@ -6,6 +6,7 @@ module.exports = {
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Hypertest DSL', link: '/dsl/' },
+            { text: 'Tools', link: '/tools/' },
         ],
         sidebar: {
             '/dsl': [
