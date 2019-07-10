@@ -14,6 +14,7 @@ import app.hypermedia.testing.dsl.core.PropertyStatement
 import org.apache.commons.lang3.NotImplementedException
 import org.eclipse.emf.ecore.EObject
 import app.hypermedia.testing.dsl.Modifier
+import app.hypermedia.testing.dsl.core.StatusStatement
 
 /**
  * Generates code from your model files on save.
@@ -56,7 +57,7 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def dispatch CharSequence step(PropertyBlock it)  '''
+    def dispatch step(PropertyBlock it)  '''
         {
             "type": "Property",
             "propertyId": "«name»",
@@ -74,7 +75,7 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def dispatch CharSequence step(PropertyStatement it)  '''
+    def dispatch step(PropertyStatement it)  '''
         {
             "type": "Property",
             "propertyId": "«name»",
@@ -82,6 +83,14 @@ class CoreGenerator extends AbstractGenerator {
                 "value": "«value»",
             «ENDIF»
             "strict": true
+        }
+    '''
+
+    def dispatch step(StatusStatement it)  '''
+        {
+            "type": "Expectation",
+            "expectation": "Status",
+            "code": «status»
         }
     '''
 

@@ -76,4 +76,25 @@ class OperationTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
+
+    @Test
+    def topLevelOperationInvocationWithStatusExpectation_generatesSteps() {
+        // given
+        val model = parseHelper.parse('''
+            With Operation "CreateUser" {
+                Invoke {
+                    Expect Status 201
+                }
+            }
+        ''')
+        
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
 }

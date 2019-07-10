@@ -33,6 +33,6 @@ OperationBlock:
 
 InvocationBlock:
     {InvocationBlock} 'Invoke' '{'
-        (children+=RepresentationStep)*
+        (children+=ResponseStep)*
     '}'
 ;

@@ -7,6 +7,11 @@ Model:
 
 TopLevelStep:
 	ClassBlock;
+	
+ResponseStep:
+    StatusStatement |
+    RepresentationStep
+;
 
 RepresentationStep:
     PropertyBlock |
@@ -30,6 +35,10 @@ PropertyBlock:
 
 PropertyStatement:
     EXPECT_MODIFIER 'Property' name=STRING (value=STRING)?
+;
+
+StatusStatement:
+    EXPECT_MODIFIER 'Status' status=INT
 ;
 
 terminal HATCH: '++' -> '++';

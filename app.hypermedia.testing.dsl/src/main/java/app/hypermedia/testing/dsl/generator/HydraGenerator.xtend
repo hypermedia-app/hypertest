@@ -48,7 +48,12 @@ class HydraGenerator extends CoreGenerator {
     
     def dispatch step(InvocationBlock it) '''
         {
-            "type": "Invocation"
+            "type": "Invocation",
+            "children": [
+                «FOR child:children SEPARATOR ","»
+                    «child.step»
+                «ENDFOR»
+            ]
         }
     '''
 }
