@@ -40,7 +40,7 @@ A property step can also be a block.
 If a property is not necessary for the success of the test scenario, it may be treated as 
 optional, by using `With` modifier instead of `Expect` modifier.
 
-```java
+```
 With Class "Book" {
     
     # Book may have an embedded author resource
