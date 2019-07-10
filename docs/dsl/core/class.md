@@ -1,4 +1,4 @@
-# Class
+# Class Step
 
 While a `Class` is not a canonical element of hypermedia, some of the more feature-rich
 media types, such as Kevin Swiber's [SIREN](https://github.com/kevinswiber/siren) and

@@ -1,4 +1,4 @@
-# Property
+# Property Step
 
 A property step lets the test author inspect properties or attributes of resource
 representations.
