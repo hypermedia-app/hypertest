@@ -17,9 +17,9 @@ import app.hypermedia.testing.dsl.tests.CoreInjectorProvider
 
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
-class CoreGeneratorClassTest {
+class CoreGeneratorPropertyTest {
     @Inject IGenerator2 generator
-    @Inject    ParseHelper<Model> parseHelper
+    @Inject ParseHelper<Model> parseHelper
     
     @BeforeAll
     static def beforeAll() {
@@ -32,11 +32,53 @@ class CoreGeneratorClassTest {
     }
 
     @Test
-    def emptyWithClass_generatesStep() {
+    def withProperty_generatesNonStrictPropertyStep() {
         // given
         val model = parseHelper.parse('''
-            With Class "Foo" {
-                
+            With Class "Person" {
+                With Property "author" {
+
+                }
+            }
+        ''')
+        
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
+    
+    @Test
+    def expectProperty_generatesStrictPropertyStep() {
+        // given
+        val model = parseHelper.parse('''
+            With Class "Person" {
+                Expect Property "author" {
+
+                }
+            }
+        ''')
+        
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
+    
+    @Test
+    def expectPropertyValue_generatesValue() {
+        // given
+        val model = parseHelper.parse('''
+            With Class "Person" {
+                Expect Property "name" "Tomasz"
             }
         ''')
         

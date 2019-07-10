@@ -11,25 +11,26 @@ Element:
 ClassLevelAssertion:
     PropertyBlock |
     PropertyStatement;
+    
+terminal WITH_MODIFIER: 'With';
+terminal EXPECT_MODIFIER: 'Expect';
+terminal MODIFIER: WITH_MODIFIER | EXPECT_MODIFIER;
 
 ClassBlock:
-	'With' 'Class' name=STRING '{'
+	WITH_MODIFIER 'Class' name=STRING '{'
 		(children+=ClassLevelAssertion)*
 		hatch=HATCH?
 	'}';
 
 PropertyBlock:
-    ('Expect' | 'With') 'Property' name=STRING
-    (
-        '{'
-            (children+=ClassLevelAssertion)*
-            hatch=HATCH?
-        '}'
-    )
+    modifier=(WITH_MODIFIER | EXPECT_MODIFIER) 'Property' name=STRING '{'
+        (children+=ClassLevelAssertion)*
+        hatch=HATCH?
+    '}'
 ;
 
 PropertyStatement:
-    'Expect' 'Property' name=STRING (value=STRING)?
+    EXPECT_MODIFIER 'Property' name=STRING (value=STRING)?
 ;
 
 terminal HATCH: '++' -> '++';

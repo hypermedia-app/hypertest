@@ -61,7 +61,12 @@ class CoreGenerator extends AbstractGenerator {
                 «FOR assertion:children SEPARATOR ","»
                     «assertion.child»
                 «ENDFOR»
-            ]
+            ],
+            "strict": «if (modifier == 'With') {
+            	false
+            } else {
+            	true
+            }»
             «hatch»
         }
     '''
@@ -69,7 +74,11 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch CharSequence child(PropertyStatement it)  '''
         {
             "type": "Property",
-            "propertyId": "«name»"
+            "propertyId": "«name»",
+            «IF value !== null»
+                "value": "«value»",
+            «ENDIF»
+            "strict": true
         }
     '''
 
