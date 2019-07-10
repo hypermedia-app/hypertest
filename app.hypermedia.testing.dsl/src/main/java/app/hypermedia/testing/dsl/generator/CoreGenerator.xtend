@@ -13,6 +13,7 @@ import app.hypermedia.testing.dsl.core.PropertyBlock
 import app.hypermedia.testing.dsl.core.PropertyStatement
 import org.apache.commons.lang3.NotImplementedException
 import org.eclipse.emf.ecore.EObject
+import app.hypermedia.testing.dsl.Modifier
 
 /**
  * Generates code from your model files on save.
@@ -64,7 +65,7 @@ class CoreGenerator extends AbstractGenerator {
                     «step.step»
                 «ENDFOR»
             ],
-            "strict": «if (modifier == 'With') {
+            "strict": «if (modifier == Modifier.WITH) {
             	false
             } else {
             	true

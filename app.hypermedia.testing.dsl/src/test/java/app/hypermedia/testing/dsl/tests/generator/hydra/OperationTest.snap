@@ -35,6 +35,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithOperatio
                 "empty": true
               },
               "operationId": "CreateUser",
+              "strict": false,
               "type": "Operation"
             },
             "empty": false
@@ -79,6 +80,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.topLevelOperation
                 "empty": false
               },
               "operationId": "CreateUser",
+              "strict": false,
               "type": "Operation"
             },
             "empty": false

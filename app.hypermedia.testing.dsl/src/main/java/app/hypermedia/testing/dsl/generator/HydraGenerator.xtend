@@ -5,6 +5,8 @@ package app.hypermedia.testing.dsl.generator
 
 import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.hydra.InvocationBlock
+import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
+import app.hypermedia.testing.dsl.Modifier
 
 /**
  * Generates code from your model files on save.
@@ -21,7 +23,26 @@ class HydraGenerator extends CoreGenerator {
                 «FOR invocation:invocations SEPARATOR ","»
                     «invocation.step»
                 «ENDFOR»
-            ]
+            ],
+            "strict": «if (modifier == Modifier.WITH) {
+                false
+            } else {
+                true
+            }»
+            
+        }
+    '''
+
+    def dispatch step(RelaxedOperationBlock it) '''
+        {
+            "type": "Operation",
+            "operationId": "«name»",
+            "children": [
+                «FOR invocation:invocations SEPARATOR ","»
+                    «invocation.step»
+                «ENDFOR»
+            ],
+            "strict": false
         }
     '''
     

@@ -10,10 +10,23 @@ Model:
 @Override 
 TopLevelStep:
     super |
-    OperationBlock;
+    RelaxedOperationBlock;
+    
+@Override 
+RepresentationStep:
+	super |
+	OperationBlock
+;
 
-OperationBlock:
+RelaxedOperationBlock:
     WITH_MODIFIER 'Operation' name=STRING '{'
+        (invocations+=InvocationBlock)*
+    '}'
+;
+
+// TODO: Can we use only one step for this and restrict Expect Operation from being used on top level?? 
+OperationBlock:
+    modifier=(WITH_MODIFIER | EXPECT_MODIFIER) 'Operation' name=STRING '{'
         (invocations+=InvocationBlock)*
     '}'
 ;
