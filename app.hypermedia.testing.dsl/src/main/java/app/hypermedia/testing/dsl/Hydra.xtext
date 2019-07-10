@@ -14,5 +14,12 @@ TopLevelStep:
 
 OperationBlock:
     WITH_MODIFIER 'Operation' name=STRING '{'
+        (invocations+=InvocationBlock)*
+    '}'
+;
+
+InvocationBlock:
+    {InvocationBlock} 'Invoke' '{'
+        (children+=RepresentationStep)*
     '}'
 ;

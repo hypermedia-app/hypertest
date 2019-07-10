@@ -13,8 +13,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 import static org.junit.Assert.assertEquals
 import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
+import static org.assertj.core.api.Assertions.*
+import app.hypermedia.testing.dsl.hydra.InvocationBlock
 import app.hypermedia.testing.dsl.tests.TestHelpers
-
 
 @ExtendWith(InjectionExtension)
 @InjectWith(HydraInjectorProvider)
@@ -33,8 +34,33 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-
+        
         val classBlock = result.steps.get(0) as OperationBlock
         assertEquals(classBlock.name, "CreateUser")
+    }
+
+    @Test
+    def void withOperationOnTopLevelWithInvocation_ParsesSuccessfully() {
+        // when
+        val result = parseHelper.parse('''
+            With Operation "CreateUser" {
+                Invoke {
+                }
+                
+                Invoke {
+                }
+
+                Invoke {
+                }
+            }
+        ''')
+
+        // then
+        TestHelpers.assertModelParsedSuccessfully(result)
+        
+        val operationBlock = result.steps.get(0) as OperationBlock
+        assertThat(operationBlock.invocations).hasSize(3)
+        val invokeBlock = operationBlock.invocations.get(0)
+        assertThat(invokeBlock).isInstanceOf(InvocationBlock)
     }
 }

@@ -3,7 +3,7 @@ package app.hypermedia.testing.dsl.tests
 import app.hypermedia.testing.dsl.core.Model
 import org.junit.jupiter.api.Assertions
 
-class TestHelpers {
+public class TestHelpers {
     static def assertModelParsedSuccessfully(Model result) {
         Assertions.assertNotNull(result)
         val errors = result.eResource.errors
