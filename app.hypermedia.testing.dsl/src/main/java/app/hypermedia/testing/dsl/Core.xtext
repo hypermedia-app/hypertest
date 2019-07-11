@@ -16,29 +16,26 @@ ResponseStep:
 RepresentationStep:
     PropertyBlock |
     PropertyStatement;
-    
-terminal WITH_MODIFIER: 'With';
-terminal EXPECT_MODIFIER: 'Expect';
 
 ClassBlock:
-	WITH_MODIFIER 'Class' name=STRING '{'
+	'With' 'Class' name=STRING '{'
 		(children+=RepresentationStep)*
 		hatch=HATCH?
 	'}';
 
 PropertyBlock:
-    modifier=(WITH_MODIFIER | EXPECT_MODIFIER) 'Property' name=STRING '{'
+    modifier=('With' | 'Expect') 'Property' name=STRING '{'
         (children+=RepresentationStep)*
         hatch=HATCH?
     '}'
 ;
 
 PropertyStatement:
-    EXPECT_MODIFIER 'Property' name=STRING (value=STRING)?
+    'Expect' 'Property' name=STRING (value=STRING)?
 ;
 
 StatusStatement:
-    EXPECT_MODIFIER 'Status' status=INT
+    'Expect' 'Status' status=INT
 ;
 
 terminal HATCH: '++' -> '++';
