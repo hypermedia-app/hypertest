@@ -7,6 +7,7 @@ module.exports = {
             { text: 'Home', link: '/' },
             { text: 'Hypertest DSL', link: '/dsl/' },
             { text: 'Tools', link: '/tools/' },
+            { text: 'Web Editor', link: 'http://hypertest.kube.zazuko.com' },
         ],
         sidebar: {
             '/dsl': [
