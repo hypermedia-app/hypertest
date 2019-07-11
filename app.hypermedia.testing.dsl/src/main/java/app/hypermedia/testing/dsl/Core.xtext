@@ -3,28 +3,33 @@ grammar app.hypermedia.testing.dsl.Core with org.eclipse.xtext.common.Terminals
 generate core "http://www.zazuko.com/apitesting/dsl/ApiTestingDsl"
 
 Model:
-    (elements+=Element)*;
+    (steps+=Element)*;
 
 Element:
 	ClassBlock;
 
 ClassLevelAssertion:
-	PropertyAssertion;
+    PropertyBlock |
+    PropertyStatement;
+    
+terminal WITH_MODIFIER: 'With';
+terminal EXPECT_MODIFIER: 'Expect';
 
 ClassBlock:
-	'With' 'Class' name=STRING '{'
-		(assertions+=ClassLevelAssertion)*
+	WITH_MODIFIER 'Class' name=STRING '{'
+		(children+=ClassLevelAssertion)*
 		hatch=HATCH?
 	'}';
 
-PropertyAssertion:
-	'Expect' 'Property' name=STRING
-	(
-		'{'
-			(assertions+=ClassLevelAssertion)*
-			hatch=HATCH?
-		'}'
-	)?
+PropertyBlock:
+    modifier=(WITH_MODIFIER | EXPECT_MODIFIER) 'Property' name=STRING '{'
+        (children+=ClassLevelAssertion)*
+        hatch=HATCH?
+    '}'
+;
+
+PropertyStatement:
+    EXPECT_MODIFIER 'Property' name=STRING (value=STRING)?
 ;
 
 terminal HATCH: '++' -> '++';

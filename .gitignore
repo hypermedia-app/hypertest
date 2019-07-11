@@ -9,3 +9,4 @@ xtext-gen/
 node_modules/
 jdeploy-bundle/
 dist/
+generated/
