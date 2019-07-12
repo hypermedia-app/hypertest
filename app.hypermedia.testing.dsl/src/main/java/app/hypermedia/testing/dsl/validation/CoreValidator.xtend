@@ -3,6 +3,9 @@
  */
 package app.hypermedia.testing.dsl.validation
 
+import app.hypermedia.testing.dsl.core.StatusStatement
+import app.hypermedia.testing.dsl.core.CorePackage
+import org.eclipse.xtext.validation.Check
 
 /**
  * This class contains custom validation rules.
@@ -11,15 +14,12 @@ package app.hypermedia.testing.dsl.validation
  */
 class CoreValidator extends AbstractCoreValidator {
 
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital',
-//					CorePackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+    @Check
+    def checkStatusIsWithinRange(StatusStatement statusStatement) {
+        if (statusStatement.status < 100 || statusStatement.status > 599) {
+            error('Status can be an integer between 100 and 599',
+                  CorePackage.Literals.STATUS_STATEMENT__STATUS)
+        }
+    }
 
 }

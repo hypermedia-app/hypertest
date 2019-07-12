@@ -3,7 +3,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -19,19 +19,23 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 
-import app.hypermedia.testing.dsl.CoreStandaloneSetup;
+import app.hypermedia.testing.dsl.HydraStandaloneSetup;
 
 public class GeneratorMain {
 
-    private static Injector injector = new CoreStandaloneSetup().createInjectorAndDoEMFRegistration();
+    private static Injector injector = new HydraStandaloneSetup().createInjectorAndDoEMFRegistration();
 
-    @Inject Provider<ResourceSet> resourceSetProvider;
+    @Inject
+    Provider<ResourceSet> resourceSetProvider;
 
-    @Inject IResourceValidator validator;
+    @Inject
+    IResourceValidator validator;
 
-    @Inject GeneratorDelegate generator;
+    @Inject
+    GeneratorDelegate generator;
 
-    @Inject JavaIoFileSystemAccess fileAccess;
+    @Inject
+    JavaIoFileSystemAccess fileAccess;
 
     public static void main(String[] args) {
         GeneratorMain main = injector.getInstance(GeneratorMain.class);
@@ -41,7 +45,7 @@ public class GeneratorMain {
 
     protected void generateDirectory(String directoryName) {
         File dir = new File(directoryName);
-        Collection<File> files = FileUtils.listFiles(dir, new WildcardFileFilter("*.api"), null);
+        Collection<File> files = FileUtils.listFiles(dir, new RegexFileFilter(".+\\.(api|hydra)$"), null);
 
         for (File file : files) {
             this.generateOne(file);

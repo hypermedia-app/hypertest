@@ -11,7 +11,8 @@ controls of individual resource representations.
 
 ## Basics
 
-Hypertest DSL documents are plain text files with `.api` extension.
+Hypertest DSL documents are plain text files. Multiple file extensions can be used
+depending on the targeting media type.
 
 The DSL is case-sensitive, including its keywords.
 
@@ -28,12 +29,16 @@ define the allowed modifiers and parameters. The children may also optional in s
 ### Example
 
 ```
-# Type: Class
-# Parameters: "Person"
+// Type: Class
+// Parameters: "Person"
 With Class "Person" {
-    # Optional settings and child blocks go here
+    // Optional settings and child blocks go here
     
-    # For example, `Expect Property` statement does not require a body 
+    // For example, `Expect Property` statement does not require a body 
     Expect Property "name"
 }
+
+/*
+    Multiline comments are also supported
+*/
 ```

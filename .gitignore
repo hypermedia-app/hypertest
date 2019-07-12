@@ -6,6 +6,7 @@ xtend-gen/
 target/
 xtext-gen/
 *.api.json
+*.hydra.json
 node_modules/
 jdeploy-bundle/
 dist/

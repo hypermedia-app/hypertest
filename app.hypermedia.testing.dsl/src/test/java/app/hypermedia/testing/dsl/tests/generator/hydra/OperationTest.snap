@@ -1,0 +1,152 @@
+app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithClass_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "operationId": "CreateUser",
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithOperationTopLevel_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "operationId": "CreateUser",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.topLevelOperationInvocationWithStatusExpectation_generatesSteps=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "code": 201,
+                              "expectation": "Status",
+                              "type": "Expectation"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "operationId": "CreateUser",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.topLevelOperationMultipleInvocations_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [ ],
+                        "empty": true
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  },
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [ ],
+                        "empty": true
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  },
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [ ],
+                        "empty": true
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "operationId": "CreateUser",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]

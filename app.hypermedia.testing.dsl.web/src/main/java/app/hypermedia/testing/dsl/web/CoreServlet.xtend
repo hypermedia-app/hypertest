@@ -10,13 +10,14 @@ import org.eclipse.xtext.web.servlet.XtextServlet
 /**
  * Deploy this class into a servlet container to enable DSL-specific services.
  */
-@WebServlet(name = 'XtextServices', urlPatterns = '/xtext-service/*')
+@WebServlet(name='XtextServices', urlPatterns='/xtext-service/*')
 class CoreServlet extends XtextServlet {
 
     DisposableRegistry disposableRegistry
 
     override init() {
         super.init()
+        new HydraWebSetup().createInjectorAndDoEMFRegistration
         val injector = new CoreWebSetup().createInjectorAndDoEMFRegistration()
         disposableRegistry = injector.getInstance(DisposableRegistry)
     }

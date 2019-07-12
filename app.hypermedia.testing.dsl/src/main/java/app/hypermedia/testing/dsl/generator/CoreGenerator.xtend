@@ -4,13 +4,17 @@
 package app.hypermedia.testing.dsl.generator
 
 import app.hypermedia.testing.dsl.core.ClassBlock
-import app.hypermedia.testing.dsl.core.ClassLevelAssertion
+import app.hypermedia.testing.dsl.core.TopLevelStep
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import app.hypermedia.testing.dsl.core.PropertyBlock
 import app.hypermedia.testing.dsl.core.PropertyStatement
+import org.apache.commons.lang3.NotImplementedException
+import org.eclipse.emf.ecore.EObject
+import app.hypermedia.testing.dsl.Modifier
+import app.hypermedia.testing.dsl.core.StatusStatement
 
 /**
  * Generates code from your model files on save.
@@ -21,7 +25,7 @@ class CoreGenerator extends AbstractGenerator {
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 
-        val Iterable<ClassBlock> blocks = resource.allContents.filter(ClassBlock).toList
+        val Iterable<EObject> blocks = resource.allContents.filter(TopLevelStep).toList
 
         if ( ! blocks.empty) {
             val String dslFileName = resource.getURI().lastSegment.toString();
@@ -30,7 +34,7 @@ class CoreGenerator extends AbstractGenerator {
         }
     }
 
-    def generateSteps(Iterable<ClassBlock> blocks) '''
+    def generateSteps(Iterable<EObject> blocks) '''
         {
             "steps": [
                 «FOR block:blocks SEPARATOR ","»
@@ -40,29 +44,29 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def step(ClassBlock it) '''
+    def dispatch step(ClassBlock it) '''
         {
             "type": "Class",
             "classId": "«name»",
             "children": [
-                «FOR assertion:children SEPARATOR ","»
-                    «assertion.child»
+                «FOR step:children SEPARATOR ","»
+                    «step.step»
                 «ENDFOR»
             ]
             «hatch»
         }
     '''
 
-    def dispatch CharSequence child(PropertyBlock it)  '''
+    def dispatch step(PropertyBlock it)  '''
         {
             "type": "Property",
             "propertyId": "«name»",
             "children": [
-                «FOR assertion:children SEPARATOR ","»
-                    «assertion.child»
+                «FOR step:children SEPARATOR ","»
+                    «step.step»
                 «ENDFOR»
             ],
-            "strict": «if (modifier == 'With') {
+            "strict": «if (modifier == Modifier.WITH) {
             	false
             } else {
             	true
@@ -71,7 +75,7 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def dispatch CharSequence child(PropertyStatement it)  '''
+    def dispatch step(PropertyStatement it)  '''
         {
             "type": "Property",
             "propertyId": "«name»",
@@ -82,8 +86,15 @@ class CoreGenerator extends AbstractGenerator {
         }
     '''
 
-    def dispatch child(ClassLevelAssertion it) '''
-        # TODO: implementation missing for child(«class.name»)
+    def dispatch step(StatusStatement it)  '''
+        {
+            "type": "Expectation",
+            "expectation": "Status",
+            "code": «status»
+        }
     '''
 
+    def dispatch step(EObject step) {
+        throw new NotImplementedException(String.format("Unrecognized step %s", step.class))
+    }
 }

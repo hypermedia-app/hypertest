@@ -1,0 +1,38 @@
+grammar app.hypermedia.testing.dsl.Hydra with app.hypermedia.testing.dsl.Core
+    
+import "http://testing.hypermedia.app/dsl/core"
+generate hydra "http://testing.hypermedia.app/dsl/hydra"
+ 
+@Override 
+Model:
+    (steps+=TopLevelStep)*;
+ 
+@Override 
+TopLevelStep:
+    super |
+    RelaxedOperationBlock;
+    
+@Override 
+RepresentationStep:
+	super |
+	OperationBlock
+;
+
+RelaxedOperationBlock:
+    'With' 'Operation' name=STRING '{'
+        (invocations+=InvocationBlock)*
+    '}'
+;
+
+// TODO: Can we use only one step for this and restrict Expect Operation from being used on top level?? 
+OperationBlock:
+    modifier=('With' | 'Expect') 'Operation' name=STRING '{'
+        (invocations+=InvocationBlock)*
+    '}'
+;
+
+InvocationBlock:
+    {InvocationBlock} 'Invoke' '{'
+        (children+=ResponseStep)*
+    '}'
+;

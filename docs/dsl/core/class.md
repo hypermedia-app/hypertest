@@ -1,4 +1,4 @@
-# Class
+# Class Step
 
 While a `Class` is not a canonical element of hypermedia, some of the more feature-rich
 media types, such as Kevin Swiber's [SIREN](https://github.com/kevinswiber/siren) and
@@ -11,7 +11,4 @@ A class is only valid at top-level.
 
 ## Example
 
-```
-With Class "name" {
-}
-```
+<<< @/api-examples/core/class/empty-class.api

@@ -14,13 +14,19 @@ module.exports = {
                 '/dsl/',
                 '/dsl/algorithm',
                 {
-                    path: '/dsl/steps/',
-                    title: 'Scenario steps',
-                    collapsable: false,
+                    title: 'Core grammar',
+                    path: '/dsl/core/',
                     children: [
-                        '/dsl/steps/class',
-                        '/dsl/steps/property',
-                        '/dsl/steps/expect'
+                        '/dsl/core/class',
+                        '/dsl/core/property',
+                        '/dsl/core/status',
+                    ]
+                },
+                {
+                    title: 'Hydra grammar',
+                    path: '/dsl/hydra/',
+                    children: [
+                        '/dsl/hydra/operation',
                     ]
                 }
             ]
