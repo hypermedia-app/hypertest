@@ -1,0 +1,182 @@
+app.hypermedia.testing.dsl.tests.generator.core.LinkTest.canGenerateForClassLink=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "propertyId": "name",
+                              "strict": true,
+                              "type": "Property"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "rel": "author",
+                      "strict": false,
+                      "type": "Link"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "Article",
+              "type": "Class"
+            },
+            "empty": false
+          },
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "propertyId": "name",
+                      "strict": true,
+                      "type": "Property"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "author",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.LinkTest.canGenerateForLinkStatement=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "rel": "author",
+                      "strict": true,
+                      "type": "Link"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "Article",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.LinkTest.canGenerateForStrictClassLink=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "propertyId": "name",
+                              "strict": true,
+                              "type": "Property"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "rel": "author",
+                      "strict": true,
+                      "type": "Link"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "Article",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.LinkTest.canGenerateForTopLevelLink=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "propertyId": "name",
+                      "strict": true,
+                      "type": "Property"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "author",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]

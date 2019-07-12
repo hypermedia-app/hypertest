@@ -15,6 +15,9 @@ import org.apache.commons.lang3.NotImplementedException
 import org.eclipse.emf.ecore.EObject
 import app.hypermedia.testing.dsl.Modifier
 import app.hypermedia.testing.dsl.core.StatusStatement
+import app.hypermedia.testing.dsl.core.RelaxedLinkBlock
+import app.hypermedia.testing.dsl.core.StrictLinkBlock
+import app.hypermedia.testing.dsl.core.LinkStatement
 
 /**
  * Generates code from your model files on save.
@@ -91,6 +94,40 @@ class CoreGenerator extends AbstractGenerator {
             "type": "Expectation",
             "expectation": "Status",
             "code": «status»
+        }
+    '''
+    
+    def dispatch step(RelaxedLinkBlock it)'''
+        {
+            "type": "Link",
+            "strict": false,
+            "rel": "«relation»",
+            "children": [
+                «FOR step:children SEPARATOR ","»
+                    «step.step»
+                «ENDFOR»
+            ]
+        }
+    '''
+    
+    def dispatch step(StrictLinkBlock it)'''
+        {
+            "type": "Link",
+            "strict": true,
+            "rel": "«relation»",
+            "children": [
+                «FOR step:children SEPARATOR ","»
+                    «step.step»
+                «ENDFOR»
+            ]
+        }
+    '''
+    
+    def dispatch step(LinkStatement it)'''
+        {
+            "type": "Link",
+            "strict": true,
+            "rel": "«relation»"
         }
     '''
 
