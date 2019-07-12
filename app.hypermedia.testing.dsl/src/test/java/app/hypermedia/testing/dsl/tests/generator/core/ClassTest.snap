@@ -46,3 +46,28 @@ app.hypermedia.testing.dsl.tests.generator.CoreGeneratorClassTest.emptyWithClass
     "empty": false
   }
 ]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.CoreGeneratorClassTest.emptyWithClass_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "classId": "Foo",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
