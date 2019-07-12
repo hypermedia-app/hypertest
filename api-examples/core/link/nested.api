@@ -1,0 +1,5 @@
+With Class "Article" {
+    With Link "author" {
+        Expect Property "name"
+    }
+}
