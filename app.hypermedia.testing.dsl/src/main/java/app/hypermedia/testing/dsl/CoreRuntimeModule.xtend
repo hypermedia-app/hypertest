@@ -3,9 +3,14 @@
  */
 package app.hypermedia.testing.dsl
 
+import org.eclipse.xtext.conversion.IValueConverterService
+import app.hypermedia.testing.dsl.conversion.CoreValueConverterService
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 class CoreRuntimeModule extends AbstractCoreRuntimeModule {
+    override Class<? extends IValueConverterService> bindIValueConverterService() {
+        return CoreValueConverterService
+    }
 }

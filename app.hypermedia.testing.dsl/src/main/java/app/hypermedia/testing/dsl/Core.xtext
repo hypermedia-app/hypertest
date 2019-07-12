@@ -8,17 +8,18 @@ Model:
 TopLevelStep:
 	ClassBlock |
 	RelaxedLinkBlock;
-	
+
 ResponseStep:
     StatusStatement |
+    HeaderStatement |
     RepresentationStep
 ;
 
 RepresentationStep:
     PropertyBlock |
-    PropertyStatement | 
+    PropertyStatement |
     LinkStep;
-    
+
 LinkStep:
     LinkStatement |
     RelaxedLinkBlock |
@@ -61,5 +62,18 @@ StrictLinkBlock:
 LinkStatement:
     'Expect' 'Link' relation=STRING
 ;
+
+HeaderStatement:
+    'Expect' 'Header' fieldName=FIELD_NAME (exactValue=STRING | regex=MatchingRegex | variable=VARIABLE)?
+;
+
+MatchingRegex:
+    'Matching' value=STRING
+;
+
+terminal VARIABLE: '[' ( ALPHA )* ']';
+terminal FIELD_NAME: ALPHA ('-' | ALPHA)*;
+
+terminal ALPHA: ('a'..'z' | 'A'..'Z');
 
 terminal HATCH: '++' -> '++';
