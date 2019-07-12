@@ -6,7 +6,8 @@ Model:
     (steps+=TopLevelStep)*;
 
 TopLevelStep:
-	ClassBlock;
+	ClassBlock |
+	RelaxedLinkBlock;
 	
 ResponseStep:
     StatusStatement |
@@ -15,7 +16,14 @@ ResponseStep:
 
 RepresentationStep:
     PropertyBlock |
-    PropertyStatement;
+    PropertyStatement | 
+    LinkStep;
+    
+LinkStep:
+    LinkStatement |
+    RelaxedLinkBlock |
+    StrictLinkBlock
+;
 
 ClassBlock:
 	'With' 'Class' name=STRING '{'
@@ -36,6 +44,22 @@ PropertyStatement:
 
 StatusStatement:
     'Expect' 'Status' status=INT
+;
+
+RelaxedLinkBlock:
+    'With' 'Link' relation=STRING '{'
+        (children+=ResponseStep)*
+    '}'
+;
+
+StrictLinkBlock:
+    'Expect' 'Link' relation=STRING '{'
+        (children+=ResponseStep)*
+    '}'
+;
+
+LinkStatement:
+    'Expect' 'Link' relation=STRING
 ;
 
 terminal HATCH: '++' -> '++';
