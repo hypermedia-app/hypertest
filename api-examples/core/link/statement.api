@@ -1,0 +1,8 @@
+With Class "Article" {
+    // Follow the link and run top-level steps
+    Expect Link "author"
+}
+
+With Class "Person" {
+    // checks to run against the "author" link
+}

@@ -1,0 +1,7 @@
+With Class "Article" {
+
+    // Report a failure when link is missing
+    Expect Link "author" {
+        Expect Property "name"
+    }
+}
