@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.AfterAll
 import org.json.JSONObject
 import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
-import app.hypermedia.testing.dsl.tests.generator.GeneratorContext
+import org.eclipse.xtext.generator.GeneratorContext
 
 @ExtendWith(InjectionExtension)
 @InjectWith(HydraInjectorProvider)

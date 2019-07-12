@@ -1,4 +1,4 @@
-package app.hypermedia.testing.dsl.tests.generator
+package app.hypermedia.testing.dsl.tests.generator.core
 
 import org.eclipse.xtext.generator.InMemoryFileSystemAccess
 import org.junit.jupiter.api.^extension.ExtendWith
@@ -14,10 +14,11 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.AfterAll
 import org.json.JSONObject
 import app.hypermedia.testing.dsl.tests.CoreInjectorProvider
+import org.eclipse.xtext.generator.GeneratorContext
 
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
-class CoreGeneratorPropertyTest {
+class PropertyTest {
     @Inject IGenerator2 generator
     @Inject ParseHelper<Model> parseHelper
     
