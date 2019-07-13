@@ -1,4 +1,4 @@
-app.hypermedia.testing.dsl.tests.generator.CoreGeneratorPropertyTest.expectPropertyValue_generatesValue=[
+app.hypermedia.testing.dsl.tests.generator.core.PropertyTest.expectPropertyValue_generatesValue=[
   {
     "map": {
       "steps": {
@@ -33,7 +33,7 @@ app.hypermedia.testing.dsl.tests.generator.CoreGeneratorPropertyTest.expectPrope
 ]
 
 
-app.hypermedia.testing.dsl.tests.generator.CoreGeneratorPropertyTest.expectProperty_generatesStrictPropertyStep=[
+app.hypermedia.testing.dsl.tests.generator.core.PropertyTest.expectProperty_generatesStrictPropertyStep=[
   {
     "map": {
       "steps": {
@@ -71,118 +71,7 @@ app.hypermedia.testing.dsl.tests.generator.CoreGeneratorPropertyTest.expectPrope
 ]
 
 
-app.hypermedia.testing.dsl.tests.generator.CoreGeneratorPropertyTest.withProperty_generatesNonStrictPropertyStep=[
-  {
-    "map": {
-      "steps": {
-        "myArrayList": [
-          {
-            "map": {
-              "children": {
-                "myArrayList": [
-                  {
-                    "map": {
-                      "children": {
-                        "myArrayList": [ ],
-                        "empty": true
-                      },
-                      "propertyId": "author",
-                      "strict": false,
-                      "type": "Property"
-                    },
-                    "empty": false
-                  }
-                ],
-                "empty": false
-              },
-              "classId": "Person",
-              "type": "Class"
-            },
-            "empty": false
-          }
-        ],
-        "empty": false
-      }
-    },
-    "empty": false
-  }
-]
-
-
-app.hypermedia.testing.dsl.tests.generator.core.CoreGeneratorPropertyTest.expectPropertyValue_generatesValue=[
-  {
-    "map": {
-      "steps": {
-        "myArrayList": [
-          {
-            "map": {
-              "children": {
-                "myArrayList": [
-                  {
-                    "map": {
-                      "propertyId": "name",
-                      "strict": true,
-                      "type": "Property",
-                      "value": "Tomasz"
-                    },
-                    "empty": false
-                  }
-                ],
-                "empty": false
-              },
-              "classId": "Person",
-              "type": "Class"
-            },
-            "empty": false
-          }
-        ],
-        "empty": false
-      }
-    },
-    "empty": false
-  }
-]
-
-
-app.hypermedia.testing.dsl.tests.generator.core.CoreGeneratorPropertyTest.expectProperty_generatesStrictPropertyStep=[
-  {
-    "map": {
-      "steps": {
-        "myArrayList": [
-          {
-            "map": {
-              "children": {
-                "myArrayList": [
-                  {
-                    "map": {
-                      "children": {
-                        "myArrayList": [ ],
-                        "empty": true
-                      },
-                      "propertyId": "author",
-                      "strict": true,
-                      "type": "Property"
-                    },
-                    "empty": false
-                  }
-                ],
-                "empty": false
-              },
-              "classId": "Person",
-              "type": "Class"
-            },
-            "empty": false
-          }
-        ],
-        "empty": false
-      }
-    },
-    "empty": false
-  }
-]
-
-
-app.hypermedia.testing.dsl.tests.generator.core.CoreGeneratorPropertyTest.withProperty_generatesNonStrictPropertyStep=[
+app.hypermedia.testing.dsl.tests.generator.core.PropertyTest.withProperty_generatesNonStrictPropertyStep=[
   {
     "map": {
       "steps": {
