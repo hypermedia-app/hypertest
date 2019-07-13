@@ -11,11 +11,11 @@ Header step is a way to inspect [HTTP headers][hh] in a generic way.
 
 ## Usage
 
-### Check link exists on the response
+### Check that header exists on the response
 
 <<< @/api-examples/core/header/exists.api
 
-### Text header value
+### Test header value
 
 To check that a header contains a specific value it is possible to do an exact
 comparison or regular expression matching.
@@ -23,8 +23,8 @@ comparison or regular expression matching.
 <<< @/api-examples/core/header/assert-value.api
 
 :::tip
-The regular expression string is not parsed as the exact implementation would
-depend on the test runner.
+The regular expression itself is not parsed as the exact implementation would
+depend on the test runner and its platform.
 :::
 
 ### Capture header value

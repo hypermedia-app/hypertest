@@ -1,5 +1,5 @@
 With Link "author" {
-    // exact check
+    // exact match
     Expect Header Content-Type "application/problem+json"
 
     // regular expression match
