@@ -17,25 +17,30 @@ RepresentationStep:
     PropertyBlock |
     PropertyStatement;
 
+Modifier: WithModifier | ExpectModifier;
+
+ExpectModifier: 'Expect';
+WithModifier: 'With';
+
 ClassBlock:
-	'With' 'Class' name=STRING '{'
+	WithModifier 'Class' name=STRING '{'
 		(children+=RepresentationStep)*
 		hatch=HATCH?
 	'}';
 
 PropertyBlock:
-    modifier=('With' | 'Expect') 'Property' name=STRING '{'
+    modifier=Modifier 'Property' name=STRING '{'
         (children+=RepresentationStep)*
         hatch=HATCH?
     '}'
 ;
 
 PropertyStatement:
-    'Expect' 'Property' name=STRING (value=STRING)?
+    ExpectModifier 'Property' name=STRING (value=STRING)?
 ;
 
 StatusStatement:
-    'Expect' 'Status' status=INT
+    ExpectModifier 'Status' status=INT
 ;
 
 terminal HATCH: '++' -> '++';
