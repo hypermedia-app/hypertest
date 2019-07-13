@@ -4,10 +4,11 @@ Link steps let test scenarios traverse between resource representations in order
 analyse those linked resources.
 
 :::tip
-The link steps only apply to links found in bodies (such as [HAL's][hal] `_links` or
-HTML's [anchor element (`<a>`)][html-a].
+It is up to the runner implementation to decide whether the link step should
+only apply to links found in bodies (such as [HAL's][hal] `_links` or
+HTML's [anchor element (`<a>`)][html-a] or also link headers.
 
-For HTTP link headers see [`Expect Header` statement](./header).
+Alternatively HTTP link headers can also be handled with [`Expect Header` statement](./header).
 :::
 
 [html-a]: https://developer.mozilla.org/docs/Web/HTML/Element/a
