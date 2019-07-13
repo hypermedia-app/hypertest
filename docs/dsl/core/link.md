@@ -37,7 +37,7 @@ in [`Class block`](./class.md) or [`Property block`](./property.md).
 
 ### Strict check
 
-The example above can be modified to require that the presence of a link.
+The example above can be modified to require that the presence of the `author` link.
 
 <<< @/api-examples/core/link/nested-mandatory.api
 
@@ -49,6 +49,6 @@ without performing any specific child checks.
 <<< @/api-examples/core/link/statement.api
 
 :::tip
-The will should be dereferenced regardless and any applicable top-level steps
+The link should be dereferenced regardless and any applicable top-level steps
 will be performed.
 :::
