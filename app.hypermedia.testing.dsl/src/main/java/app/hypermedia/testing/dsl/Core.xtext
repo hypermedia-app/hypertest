@@ -28,13 +28,11 @@ LinkStep:
 ClassBlock:
 	'With' 'Class' name=STRING '{'
 		(children+=RepresentationStep)*
-		hatch=HATCH?
 	'}';
 
 PropertyBlock:
     modifier=('With' | 'Expect') 'Property' name=STRING '{'
         (children+=RepresentationStep)*
-        hatch=HATCH?
     '}'
 ;
 
@@ -61,5 +59,3 @@ StrictLinkBlock:
 LinkStatement:
     'Expect' 'Link' relation=STRING
 ;
-
-terminal HATCH: '++' -> '++';
