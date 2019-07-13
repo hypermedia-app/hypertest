@@ -4,5 +4,6 @@ With Class "Article" {
 }
 
 With Class "Person" {
-    // checks to run against the "author" link
+    // checks to run against the hypothetical representation
+    // behind the "author" link
 }
