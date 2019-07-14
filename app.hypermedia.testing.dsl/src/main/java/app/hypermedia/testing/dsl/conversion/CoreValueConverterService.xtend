@@ -2,8 +2,6 @@ package app.hypermedia.testing.dsl.conversion
 
 import org.eclipse.xtext.conversion.ValueConverter
 import org.eclipse.xtext.conversion.IValueConverter
-import org.eclipse.xtext.conversion.ValueConverterException
-import org.eclipse.xtext.nodemodel.INode
 import org.eclipse.xtext.common.services.DefaultTerminalConverters
 
 class CoreValueConverterService extends DefaultTerminalConverters  {
