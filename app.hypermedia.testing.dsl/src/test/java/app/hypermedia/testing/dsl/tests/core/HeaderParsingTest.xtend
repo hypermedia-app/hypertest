@@ -16,6 +16,8 @@ import app.hypermedia.testing.dsl.tests.TestHelpers
 import app.hypermedia.testing.dsl.core.HeaderStatement
 import app.hypermedia.testing.dsl.core.RelaxedLinkBlock
 import static org.assertj.core.api.Assertions.*
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
@@ -107,4 +109,27 @@ class HeaderParsingTest {
         val headerStatement = linkBlock.children.get(0) as HeaderStatement
         assertThat(headerStatement.variable).isEqualTo("uri")
     }
+
+    @ParameterizedTest
+    @MethodSource("invalidVariableReferences")
+    def void expectHeader_invalidVariableReference_parsingFails(String variable) {
+        // when
+        val result = parseHelper.parse('''
+            With Link "Foo" {
+                Expect Header Location «variable»
+            }
+        ''')
+
+        // then
+        TestHelpers.assertModelParsingFailed(result)
+    }
+    
+    static def invalidVariableReferences() {
+         return #[
+            "[unclosed",
+            "variableOnly",
+            "[]",
+            "unopened]"
+        ]
+    } 
 }
