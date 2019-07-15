@@ -1,0 +1,8 @@
+With Operation "http://example.com/vocab#CreateIssueOperation" {
+    Invoke {
+        Expect Status 201
+        Expect Header Location [newIssue]
+
+        Follow [newIssue]
+    }
+}
