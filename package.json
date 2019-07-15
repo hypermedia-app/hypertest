@@ -29,7 +29,8 @@
   "scripts": {
     "release": "standard-version",
     "docs:start": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "jdeploy": "mvn package; jdeploy publish"
   },
   "publishConfig": {
     "access": "public"

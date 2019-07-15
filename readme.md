@@ -102,7 +102,6 @@ hypertest-compiler api-examples
 
 ```
 npm i -g jdeploy
-mvn install
 npm run release
-jdeploy publish
+git push --follow-tags origin master && npm run jdeploy
 ```
