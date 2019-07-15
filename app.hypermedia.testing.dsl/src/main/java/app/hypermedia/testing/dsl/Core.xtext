@@ -68,7 +68,7 @@ HeaderStatement:
 ;
 
 MatchingRegex:
-    'Matching' value=STRING
+    'Matching' pattern=STRING
 ;
 
 terminal VARIABLE: '[' ( ALPHA )* ']';

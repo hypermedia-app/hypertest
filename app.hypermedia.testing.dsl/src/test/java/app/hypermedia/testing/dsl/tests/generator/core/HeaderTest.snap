@@ -1,0 +1,137 @@
+app.hypermedia.testing.dsl.tests.generator.core.HeaderTest.emptyHeaderNameOnly_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "header": "ETag",
+                      "type": "ResponseHeader"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "author",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.HeaderTest.headerExactValueAssertion_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "header": "Content-Type",
+                      "type": "ResponseHeader",
+                      "value": "application/problem+json"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "author",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.HeaderTest.headerRegexValueAssertion_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "header": "Content-Type",
+                      "pattern": "^application/",
+                      "type": "ResponseHeader"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "author",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.HeaderTest.headerWithVariableCapture_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "captureAs": "uri",
+                      "header": "Location",
+                      "type": "ResponseHeader"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "author",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]

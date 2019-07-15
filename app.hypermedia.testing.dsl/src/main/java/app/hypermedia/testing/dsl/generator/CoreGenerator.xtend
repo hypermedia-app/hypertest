@@ -18,6 +18,7 @@ import app.hypermedia.testing.dsl.core.StatusStatement
 import app.hypermedia.testing.dsl.core.RelaxedLinkBlock
 import app.hypermedia.testing.dsl.core.StrictLinkBlock
 import app.hypermedia.testing.dsl.core.LinkStatement
+import app.hypermedia.testing.dsl.core.HeaderStatement
 
 /**
  * Generates code from your model files on save.
@@ -128,6 +129,22 @@ class CoreGenerator extends AbstractGenerator {
             "type": "Link",
             "strict": true,
             "rel": "«relation»"
+        }
+    '''
+    
+    def dispatch step(HeaderStatement it) '''
+        {
+            "type": "ResponseHeader",
+            "header": "«fieldName»"
+            «IF regex !== null»
+               ,"pattern": "«regex.pattern»"
+            «ENDIF»
+            «IF exactValue !== null»
+               ,"value": "«exactValue»"
+            «ENDIF»
+            «IF variable !== null»
+               ,"captureAs": "«variable»"
+            «ENDIF»
         }
     '''
 

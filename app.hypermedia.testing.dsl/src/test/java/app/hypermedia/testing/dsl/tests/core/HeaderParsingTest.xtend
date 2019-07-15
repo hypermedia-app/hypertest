@@ -90,7 +90,7 @@ class HeaderParsingTest {
 
         val linkBlock = result.steps.get(0) as RelaxedLinkBlock
         val headerStatement = linkBlock.children.get(0) as HeaderStatement
-        assertThat(headerStatement.regex.value).isEqualTo("^http://expected.url/")
+        assertThat(headerStatement.regex.pattern).isEqualTo("^http://expected.url/")
     }
 
     @Test
