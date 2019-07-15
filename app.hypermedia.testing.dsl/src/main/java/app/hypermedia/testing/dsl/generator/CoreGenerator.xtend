@@ -91,8 +91,7 @@ class CoreGenerator extends AbstractGenerator {
 
     def dispatch step(StatusStatement it)  '''
         {
-            "type": "Expectation",
-            "expectation": "Status",
+            "type": "ResponseStatus",
             "code": «status»
         }
     '''
