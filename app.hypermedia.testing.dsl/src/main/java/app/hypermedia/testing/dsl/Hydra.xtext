@@ -19,14 +19,14 @@ RepresentationStep:
 ;
 
 RelaxedOperationBlock:
-    'With' 'Operation' name=STRING '{'
+    WithModifier 'Operation' name=STRING '{'
         (invocations+=InvocationBlock)*
     '}'
 ;
 
 // TODO: Can we use only one step for this and restrict Expect Operation from being used on top level?? 
 OperationBlock:
-    modifier=('With' | 'Expect') 'Operation' name=STRING '{'
+    modifier=Modifier 'Operation' name=STRING '{'
         (invocations+=InvocationBlock)*
     '}'
 ;

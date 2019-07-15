@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -45,9 +46,14 @@ public class GeneratorMain {
 
     protected void generateDirectory(String directoryName) {
         File dir = new File(directoryName);
-        Collection<File> files = FileUtils.listFiles(dir, new RegexFileFilter(".+\\.(api|hydra)$"), null);
+        Collection<File> files = FileUtils.listFiles(dir, new RegexFileFilter(".+\\.(api|hydra)$"), TrueFileFilter.INSTANCE);
 
         for (File file : files) {
+            if (file.isDirectory()) {
+                this.generateDirectory(file.getPath());
+                continue;
+            }
+            
             this.generateOne(file);
         }
     }

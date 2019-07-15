@@ -57,7 +57,6 @@ class CoreGenerator extends AbstractGenerator {
                     «step.step»
                 «ENDFOR»
             ]
-            «hatch»
         }
     '''
 
@@ -75,7 +74,6 @@ class CoreGenerator extends AbstractGenerator {
             } else {
             	true
             }»
-            «hatch»
         }
     '''
 
