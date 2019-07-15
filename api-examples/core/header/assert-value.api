@@ -1,0 +1,7 @@
+With Link "author" {
+    // exact match
+    Expect Header Content-Type "application/problem+json"
+
+    // regular expression match
+    Expect Header Location Matching "^http://expected.url/"
+}

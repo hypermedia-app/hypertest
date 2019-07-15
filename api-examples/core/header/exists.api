@@ -1,0 +1,3 @@
+With Link "author" {
+    Expect Header ETag
+}

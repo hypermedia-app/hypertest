@@ -8,17 +8,18 @@ Model:
 TopLevelStep:
 	ClassBlock |
 	RelaxedLinkBlock;
-	
+
 ResponseStep:
     StatusStatement |
+    HeaderStatement |
     RepresentationStep
 ;
 
 RepresentationStep:
     PropertyBlock |
-    PropertyStatement | 
+    PropertyStatement |
     LinkStep;
-    
+
 LinkStep:
     LinkStatement |
     RelaxedLinkBlock |
@@ -50,17 +51,32 @@ StatusStatement:
 ;
 
 RelaxedLinkBlock:
-    'With' 'Link' relation=STRING '{'
+    WithModifier 'Link' relation=STRING '{'
         (children+=ResponseStep)*
     '}'
 ;
 
 StrictLinkBlock:
-    'Expect' 'Link' relation=STRING '{'
+    ExpectModifier 'Link' relation=STRING '{'
         (children+=ResponseStep)*
     '}'
 ;
 
 LinkStatement:
-    'Expect' 'Link' relation=STRING
+    ExpectModifier 'Link' relation=STRING
 ;
+
+HeaderStatement:
+    ExpectModifier 'Header' fieldName=FIELD_NAME (exactValue=STRING | regex=MatchingRegex | variable=VARIABLE)?
+;
+
+MatchingRegex:
+    'Matching' pattern=STRING
+;
+
+terminal VARIABLE: '[' ( ALPHA )* ']';
+terminal FIELD_NAME: ALPHA ('-' | ALPHA)*;
+
+terminal ALPHA: ('a'..'z' | 'A'..'Z');
+
+terminal HATCH: '++' -> '++';

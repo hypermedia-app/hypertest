@@ -18,6 +18,7 @@ module.exports = {
                     path: '/dsl/core/',
                     children: [
                         '/dsl/core/class',
+                        '/dsl/core/header',
                         '/dsl/core/link',
                         '/dsl/core/property',
                         '/dsl/core/status',
