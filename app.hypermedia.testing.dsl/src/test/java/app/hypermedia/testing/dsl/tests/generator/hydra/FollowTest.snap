@@ -1,0 +1,58 @@
+app.hypermedia.testing.dsl.tests.generator.hydra.FollowTest.followVariable_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "code": 201,
+                              "type": "ResponseStatus"
+                            },
+                            "empty": false
+                          },
+                          {
+                            "map": {
+                              "captureAs": "newIssue",
+                              "header": "Location",
+                              "type": "ResponseHeader"
+                            },
+                            "empty": false
+                          },
+                          {
+                            "map": {
+                              "type": "Follow",
+                              "variable": "newIssue"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "operationId": "http://example.com/vocab#CreateIssueOperation",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]

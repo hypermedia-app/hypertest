@@ -19,6 +19,7 @@ import app.hypermedia.testing.dsl.core.RelaxedLinkBlock
 import app.hypermedia.testing.dsl.core.StrictLinkBlock
 import app.hypermedia.testing.dsl.core.LinkStatement
 import app.hypermedia.testing.dsl.core.HeaderStatement
+import app.hypermedia.testing.dsl.core.FollowStatement
 
 /**
  * Generates code from your model files on save.
@@ -142,6 +143,13 @@ class CoreGenerator extends AbstractGenerator {
             «IF variable !== null»
                ,"captureAs": "«variable»"
             «ENDIF»
+        }
+    '''
+    
+    def dispatch step(FollowStatement it)'''
+        {
+            "type": "Follow",
+            "variable": "«variable»"
         }
     '''
 

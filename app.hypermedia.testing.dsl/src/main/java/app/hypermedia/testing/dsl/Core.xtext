@@ -12,13 +12,15 @@ TopLevelStep:
 ResponseStep:
     StatusStatement |
     HeaderStatement |
-    RepresentationStep
+    RepresentationStep |
+    FollowStatement
 ;
 
 RepresentationStep:
     PropertyBlock |
     PropertyStatement |
-    LinkStep;
+    LinkStep
+;
 
 LinkStep:
     LinkStatement |
@@ -72,6 +74,10 @@ HeaderStatement:
 
 MatchingRegex:
     'Matching' pattern=STRING
+;
+
+FollowStatement:
+    'Follow' variable=VARIABLE
 ;
 
 terminal VARIABLE: '[' ( ALPHA )* ']';

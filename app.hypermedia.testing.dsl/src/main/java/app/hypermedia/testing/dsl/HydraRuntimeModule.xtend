@@ -3,9 +3,14 @@
  */
 package app.hypermedia.testing.dsl
 
+import app.hypermedia.testing.dsl.conversion.HydraValueConverterService
+import org.eclipse.xtext.conversion.IValueConverterService
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 class HydraRuntimeModule extends AbstractHydraRuntimeModule {
+        override Class<? extends IValueConverterService> bindIValueConverterService() {
+        return HydraValueConverterService
+    }
 }
