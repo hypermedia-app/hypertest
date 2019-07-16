@@ -7,6 +7,7 @@ import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.hydra.InvocationBlock
 import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
 import app.hypermedia.testing.dsl.Modifier
+import java.util.HashMap
 
 /**
  * Generates code from your model files on save.
@@ -14,46 +15,26 @@ import app.hypermedia.testing.dsl.Modifier
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class HydraGenerator extends CoreGenerator {
-
-    def dispatch step(OperationBlock it) '''
-        {
-            "type": "Operation",
-            "operationId": "«name»",
-            "children": [
-                «FOR invocation:invocations SEPARATOR ","»
-                    «invocation.step»
-                «ENDFOR»
-            ],
-            "strict": «if (modifier == Modifier.WITH) {
-                false
-            } else {
-                true
-            }»
-            
-        }
-    '''
-
-    def dispatch step(RelaxedOperationBlock it) '''
-        {
-            "type": "Operation",
-            "operationId": "«name»",
-            "children": [
-                «FOR invocation:invocations SEPARATOR ","»
-                    «invocation.step»
-                «ENDFOR»
-            ],
-            "strict": false
-        }
-    '''
     
-    def dispatch step(InvocationBlock it) '''
-        {
-            "type": "Invocation",
-            "children": [
-                «FOR child:children SEPARATOR ","»
-                    «child.step»
-                «ENDFOR»
-            ]
-        }
-    '''
+    def dispatch step(OperationBlock it) {
+        val map = new HashMap<String, Object>
+        map.put('operationId', name)
+        map.put('strict', modifier != Modifier.WITH)
+        
+        return buildBlock('Operation', invocations, map)
+    }
+    
+    def dispatch step(RelaxedOperationBlock it) {
+        val map = new HashMap<String, Object>
+        map.put('operationId', name)
+        map.put('strict', false)
+        
+        return buildBlock('Operation', invocations, map)
+    }
+    
+    def dispatch step(InvocationBlock it) {
+        val map = new HashMap<String, Object>
+        
+        return buildBlock('Invocation', children, map)
+    }
 }
