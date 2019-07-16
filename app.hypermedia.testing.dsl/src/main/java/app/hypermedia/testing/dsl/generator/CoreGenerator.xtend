@@ -58,7 +58,7 @@ class CoreGenerator extends AbstractGenerator {
     }
     
     def buildBlock(String type, Iterable<? extends EObject> children, Map<String, Object> map) {   
-        map.put('children', children.map([c | c.step as JSONObject]).toList())
+        map.put('children', children.map([c | c.step]).toList())
             
         return buildStatement(type, map)
     }
