@@ -1,7 +1,3 @@
-job:
-  only:
-    - master
-
 stages:
 - build
 - deploy
@@ -10,6 +6,9 @@ variables:
   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
 
 build:
+  only:
+    - master
+
   image: maven:slim
   stage: build
 
@@ -30,6 +29,9 @@ build:
   - mvn package jib:build -Djib.to.image=$IMAGE
 
 deploy:
+  only:
+    - master
+
   image: alpine:latest
   stage: deploy
 
