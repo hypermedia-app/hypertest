@@ -1,3 +1,7 @@
+job:
+  only:
+    - master
+
 stages:
 - build
 - deploy
