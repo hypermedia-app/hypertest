@@ -84,5 +84,3 @@ terminal VARIABLE: '[' ( ALPHA )* ']';
 terminal FIELD_NAME: ALPHA ('-' | ALPHA)*;
 
 terminal ALPHA: ('a'..'z' | 'A'..'Z');
-
-terminal HATCH: '++' -> '++';
