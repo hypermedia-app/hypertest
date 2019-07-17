@@ -47,3 +47,4 @@ deploy:
   - cd k8s
   - kustomize edit set image hypertest=$IMAGE
   - kubectl apply -k .
+  - kubectl rollout restart deployment hypertest
