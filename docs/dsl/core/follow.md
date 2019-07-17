@@ -11,4 +11,4 @@ The `Location` header is typically set on a `201 Created` response. The example 
 shows how such a response from an [`Operation`] can be handled by following the new 
 resource's URI set on the response:
 
-<<< @/api-examples/hydra/follow/location-header.api
+<<< @/api-examples/hydra/follow/location-header.hydra
