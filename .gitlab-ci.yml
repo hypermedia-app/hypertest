@@ -39,7 +39,7 @@ deploy:
     name: production
 
   before_script:
-  - wget -qO /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl
+  - wget -qO /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl
   - wget -qO /usr/local/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v2.0.3/kustomize_2.0.3_linux_amd64
   - chmod +x /usr/local/bin/kubectl /usr/local/bin/kustomize
 
