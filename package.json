@@ -30,7 +30,7 @@
     "release": "standard-version",
     "docs:start": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "jdeploy": "mvn package; jdeploy publish"
+    "jdeploy": "mvn clean package; jdeploy publish"
   },
   "publishConfig": {
     "access": "public"
