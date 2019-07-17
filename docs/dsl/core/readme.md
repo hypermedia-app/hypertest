@@ -8,6 +8,7 @@ It can be used on its own using the `.api` extension.
 ## Supported steps
 
 * [Class](./class)
+* [Follow](./follow)
 * [Header](./header)
 * [Link](./link)
 * [Property](./property)
