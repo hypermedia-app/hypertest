@@ -32,7 +32,7 @@ class ClassParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        assertThat(classBlock.name).isEqualTo("Foo")
+        assertThat(classBlock.name.value).isEqualTo("Foo")
     }
 
     @Test

@@ -25,6 +25,7 @@ import java.util.Map
 import java.util.HashMap
 import app.hypermedia.testing.dsl.core.ResponseStep
 import app.hypermedia.testing.dsl.core.FollowStatement
+import app.hypermedia.testing.dsl.core.Identifier
 
 /**
  * Generates code from your model files on save.
@@ -73,14 +74,14 @@ class CoreGenerator extends AbstractGenerator {
 
     def dispatch step(ClassBlock cb)  {
         val map = new HashMap<String, Object>
-        map.put('classId', cb.name)
+        map.put('classId', cb.name.identifier)
 
         return buildBlock('Class', cb.children, map)
     }
 
     def dispatch step(PropertyBlock it) {
         val map = new HashMap<String, Object>
-        map.put('propertyId', name)
+        map.put('propertyId', name.identifier)
         map.put('strict', modifier != Modifier.WITH)
 
         return buildBlock('Property', children, map)
@@ -88,7 +89,7 @@ class CoreGenerator extends AbstractGenerator {
 
     def dispatch step(PropertyStatement it) {
         val map = new HashMap<String, Object>
-        map.put('propertyId', name)
+        map.put('propertyId', name.identifier)
         map.put('strict', true)
 
         if(value !== null) {
@@ -107,7 +108,7 @@ class CoreGenerator extends AbstractGenerator {
 
     def dispatch step(RelaxedLinkBlock it) {
         val map = new HashMap<String, Object>
-        map.put('rel', relation)
+        map.put('rel', relation.identifier)
         map.put('strict', false)
 
         return buildBlock('Link', children, map)
@@ -115,7 +116,7 @@ class CoreGenerator extends AbstractGenerator {
 
     def dispatch step(StrictLinkBlock it) {
         val map = new HashMap<String, Object>
-        map.put('rel', relation)
+        map.put('rel', relation.identifier)
         map.put('strict', true)
 
         return buildBlock('Link', children, map)
@@ -123,7 +124,7 @@ class CoreGenerator extends AbstractGenerator {
 
     def dispatch step(LinkStatement it) {
         val map = new HashMap<String, Object>
-        map.put('rel', relation)
+        map.put('rel', relation.identifier)
         map.put('strict', true)
 
         return buildStatement('Link', map)
@@ -157,5 +158,9 @@ class CoreGenerator extends AbstractGenerator {
 
     def dispatch step(EObject step) {
         throw new NotImplementedException(String.format("Unrecognized step %s", step.class))
+    }
+    
+    def dispatch identifier(Identifier it) {
+        return value
     }
 }

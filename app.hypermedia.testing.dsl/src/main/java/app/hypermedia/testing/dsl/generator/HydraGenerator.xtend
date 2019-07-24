@@ -8,6 +8,7 @@ import app.hypermedia.testing.dsl.hydra.InvocationBlock
 import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
 import app.hypermedia.testing.dsl.Modifier
 import java.util.HashMap
+import app.hypermedia.testing.dsl.hydra.UriName
 
 /**
  * Generates code from your model files on save.
@@ -18,7 +19,7 @@ class HydraGenerator extends CoreGenerator {
     
     def dispatch step(OperationBlock it) {
         val map = new HashMap<String, Object>
-        map.put('operationId', name)
+        map.put('operationId', name.identifier)
         map.put('strict', modifier != Modifier.WITH)
         
         return buildBlock('Operation', invocations, map)
@@ -26,7 +27,7 @@ class HydraGenerator extends CoreGenerator {
     
     def dispatch step(RelaxedOperationBlock it) {
         val map = new HashMap<String, Object>
-        map.put('operationId', name)
+        map.put('operationId', name.identifier)
         map.put('strict', false)
         
         return buildBlock('Operation', invocations, map)
@@ -36,5 +37,9 @@ class HydraGenerator extends CoreGenerator {
         val map = new HashMap<String, Object>
         
         return buildBlock('Invocation', children, map)
+    }
+
+    def dispatch identifier(UriName it) {
+        return value
     }
 }

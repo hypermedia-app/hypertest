@@ -28,24 +28,25 @@ LinkStep:
     StrictLinkBlock
 ;
 
+Identifier: value=STRING;
 Modifier: WithModifier | ExpectModifier;
 
 ExpectModifier: 'Expect';
 WithModifier: 'With';
 
 ClassBlock:
-	WithModifier 'Class' name=STRING '{'
+	WithModifier 'Class' name=Identifier '{'
 		(children+=RepresentationStep)*
 	'}';
 
 PropertyBlock:
-    modifier=Modifier 'Property' name=STRING '{'
+    modifier=Modifier 'Property' name=Identifier '{'
         (children+=RepresentationStep)*
     '}'
 ;
 
 PropertyStatement:
-    ExpectModifier 'Property' name=STRING (value=STRING)?
+    ExpectModifier 'Property' name=Identifier (value=STRING)?
 ;
 
 StatusStatement:
@@ -53,19 +54,19 @@ StatusStatement:
 ;
 
 RelaxedLinkBlock:
-    WithModifier 'Link' relation=STRING '{'
+    WithModifier 'Link' relation=Identifier '{'
         (children+=ResponseStep)*
     '}'
 ;
 
 StrictLinkBlock:
-    ExpectModifier 'Link' relation=STRING '{'
+    ExpectModifier 'Link' relation=Identifier '{'
         (children+=ResponseStep)*
     '}'
 ;
 
 LinkStatement:
-    ExpectModifier 'Link' relation=STRING
+    ExpectModifier 'Link' relation=Identifier
 ;
 
 HeaderStatement:

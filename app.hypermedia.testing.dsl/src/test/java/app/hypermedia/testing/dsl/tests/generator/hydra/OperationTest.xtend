@@ -36,7 +36,7 @@ class OperationTest {
     def emptyWithOperationTopLevel_generatesStep() {
         // given
         val model = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser>" {
                 
             }
         ''')
@@ -55,7 +55,7 @@ class OperationTest {
     def topLevelOperationMultipleInvocations_generatesStep() {
         // given
         val model = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
                 Invoke {
                 }
                 
@@ -81,7 +81,7 @@ class OperationTest {
     def topLevelOperationInvocationWithStatusExpectation_generatesSteps() {
         // given
         val model = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
                 Invoke {
                     Expect Status 201
                 }

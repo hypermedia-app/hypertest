@@ -36,7 +36,7 @@ class FollowTest {
     def followVariable_generatesStep() {
         // given
         val model = '''
-            With Operation "http://example.com/vocab#CreateIssueOperation" {
+            With Operation <http://example.com/vocab#CreateIssueOperation> {
                 Invoke {
                     Expect Status 201
                     Expect Header Location [newIssue]

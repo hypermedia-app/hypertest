@@ -18,15 +18,22 @@ RepresentationStep:
 	OperationBlock
 ;
 
+@Override 
+Identifier: 
+    UriName
+;
+
+UriName: value=URI;
+
 RelaxedOperationBlock:
-    WithModifier 'Operation' name=STRING '{'
+    WithModifier 'Operation' name=Identifier '{'
         (invocations+=InvocationBlock)*
     '}'
 ;
 
 // TODO: Can we use only one step for this and restrict Expect Operation from being used on top level?? 
 OperationBlock:
-    modifier=Modifier 'Operation' name=STRING '{'
+    modifier=Modifier 'Operation' name=Identifier '{'
         (invocations+=InvocationBlock)*
     '}'
 ;
@@ -35,4 +42,8 @@ InvocationBlock:
     {InvocationBlock} 'Invoke' '{'
         (children+=ResponseStep)*
     '}'
+;
+
+terminal URI:
+    '<' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'>') )* '>'
 ;

@@ -29,7 +29,7 @@ class OperationParsingTest {
     def void withOperationOnTopLevel_ParsesName() {
         // when
         val result = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
 
             }
         ''')
@@ -38,14 +38,14 @@ class OperationParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
         
         val classBlock = result.steps.get(0) as RelaxedOperationBlock
-        assertThat(classBlock.name).isEqualTo("CreateUser")
+        assertThat(classBlock.name.value).isEqualTo("http://example.com/CreateUser")
     }
 
     @Test
     def void withOperationOnTopLevelWithInvocation_ParsesSuccessfully() {
         // when
         val result = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
                 Invoke {
                 }
                 
@@ -70,8 +70,8 @@ class OperationParsingTest {
     def void expectOperation_ParsesSuccessfullyWhenNested() {
         // when
         val result = parseHelper.parse('''
-            With Class "Foo" {
-                Expect Operation "CreateUser" {
+            With Class <http://example.com/Foo> {
+                Expect Operation <http://example.com/CreateUser> {
                 }
             }
         ''')
@@ -89,7 +89,7 @@ class OperationParsingTest {
     def void expectOperation_ParsingFailsOnTopLevel() {
         // when
         val result = parseHelper.parse('''
-            Expect Operation "CreateUser" {
+            Expect Operation <http://example.com/CreateUser> {
             }
         ''')
 
@@ -101,8 +101,8 @@ class OperationParsingTest {
     def void withOperation_ParsesSuccessfullyWhenNested() {
         // when
         val result = parseHelper.parse('''
-            With Class "Foo" {
-                With Operation "CreateUser" {
+            With Class <http://example.com/Foo> {
+                With Operation <http://example.com/CreateUser> {
                 }
             }
         ''')

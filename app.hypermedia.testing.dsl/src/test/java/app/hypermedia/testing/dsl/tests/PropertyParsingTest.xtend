@@ -36,7 +36,7 @@ class PropertyParsingTest {
 
         val classBlock = result.steps.get(0) as ClassBlock
         val propertyBlock = classBlock.children.get(0) as PropertyBlock
-        assertThat(propertyBlock.name).isEqualTo("name")
+        assertThat(propertyBlock.name.value).isEqualTo("name")
     }
 
     @Test
@@ -53,7 +53,7 @@ class PropertyParsingTest {
 
         val classBlock = result.steps.get(0) as ClassBlock
         val propertyStmt = classBlock.children.get(0) as PropertyStatement
-        assertThat(propertyStmt.name).isEqualTo("name")
+        assertThat(propertyStmt.name.value).isEqualTo("name")
     }
 
     @Test

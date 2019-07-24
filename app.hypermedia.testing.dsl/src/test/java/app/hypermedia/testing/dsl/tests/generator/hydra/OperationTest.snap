@@ -9,7 +9,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithClass_ge
                 "myArrayList": [ ],
                 "empty": true
               },
-              "operationId": "CreateUser",
+              "operationId": "http://example.com/CreateUser",
               "type": "Operation"
             },
             "empty": false
@@ -34,7 +34,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithOperatio
                 "myArrayList": [ ],
                 "empty": true
               },
-              "operationId": "CreateUser",
+              "operationId": "http://example.com/CreateUser",
               "strict": false,
               "type": "Operation"
             },
@@ -79,7 +79,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.topLevelOperation
                 ],
                 "empty": false
               },
-              "operationId": "CreateUser",
+              "operationId": "http://example.com/CreateUser",
               "strict": false,
               "type": "Operation"
             },
@@ -136,7 +136,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.topLevelOperation
                 ],
                 "empty": false
               },
-              "operationId": "CreateUser",
+              "operationId": "http://example.com/CreateUser",
               "strict": false,
               "type": "Operation"
             },

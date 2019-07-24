@@ -31,7 +31,7 @@ class StatusParsingTest {
     def void expectStatus_parsesSuccessfullyUnderInvoke(int status) {
         // when
         val result = '''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
                 Invoke {
                     Expect Status «status»
                 }
@@ -52,7 +52,7 @@ class StatusParsingTest {
     def void expectStatus_failsToParseBogusStatus(int status) {
         // when
         val result = '''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
                 Invoke {
                     Expect Status «status»
                 }
