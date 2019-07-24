@@ -30,6 +30,7 @@ module.exports = {
                     path: '/dsl/hydra/',
                     children: [
                         '/dsl/hydra/operation',
+                        '/dsl/hydra/prefix',
                     ]
                 }
             ]
