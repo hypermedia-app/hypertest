@@ -1,7 +1,7 @@
-With Class "http://example.com/vocab#Task" {
+With Class <http://example.com/vocab#Task> {
 
     // Will report error if operation is not found
-    Expect Operation "http://example.com/vocab#CancelTask" {
+    Expect Operation <http://example.com/vocab#CancelTask> {
         Invoke {
             Expect Status 204
         }
