@@ -57,6 +57,15 @@ class HydraValidator extends AbstractHydraValidator {
         }
     }
     
+    @Check
+    def checkNamespace(NamespaceDeclaration it) {
+        if (!namespace.endsWith('#') && !namespace.endsWith('/') && !namespace.endsWith(':')) {
+            warning("Namespaces usually end with hash (#), slash (/) or colon (:) characters",
+                    HydraPackage.Literals.NAMESPACE_DECLARATION__NAMESPACE
+            )
+        }
+    }
+    
     private def tryParseUri(String uri) {
         try {
             val parsed = new URI(uri)

@@ -65,6 +65,6 @@ class PrefixParsingTest {
         '''.parse
 
         // then
-        result.assertNoIssues()
+        result.assertNoErrors()
     }
 }
