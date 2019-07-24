@@ -12,6 +12,7 @@ import java.net.URISyntaxException
 import app.hypermedia.testing.dsl.core.ClassBlock
 import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
+import app.hypermedia.testing.dsl.hydra.PrefixedName
 
 /**
  * This class contains custom validation rules. 

@@ -1,3 +1,83 @@
+app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.classAndOperationWithPrefixes_generatesFullyQualifiedUris=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "code": 201,
+                              "type": "ResponseStatus"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "operationId": "http://example.com/CreateUser",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          },
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "children": {
+                                "myArrayList": [ ],
+                                "empty": true
+                              },
+                              "type": "Invocation"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "operationId": "http://example.com/Delete",
+                      "strict": false,
+                      "type": "Operation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "http://example.com/User",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
 app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithClass_generatesStep=[
   {
     "map": {

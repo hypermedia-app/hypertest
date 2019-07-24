@@ -10,6 +10,11 @@ import app.hypermedia.testing.dsl.Modifier
 import java.util.HashMap
 import app.hypermedia.testing.dsl.hydra.UriName
 import app.hypermedia.testing.dsl.hydra.PrefixedName
+import org.eclipse.xtext.generator.IFileSystemAccess2
+import org.eclipse.xtext.generator.IGeneratorContext
+import org.eclipse.emf.ecore.resource.Resource
+import app.hypermedia.testing.dsl.hydra.NamespaceDeclaration
+import java.util.Map
 
 /**
  * Generates code from your model files on save.
@@ -17,6 +22,17 @@ import app.hypermedia.testing.dsl.hydra.PrefixedName
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class HydraGenerator extends CoreGenerator {
+    final Map<String, String> _namespaces
+    
+    new () {
+        _namespaces = new HashMap
+    }
+    
+    override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+        resource.allContents.filter(NamespaceDeclaration).forEach[it | _namespaces.put(prefix.value, namespace)]
+        
+        super.doGenerate(resource, fsa, context)
+    }
     
     def dispatch step(OperationBlock it) {
         val map = new HashMap<String, Object>
@@ -45,6 +61,15 @@ class HydraGenerator extends CoreGenerator {
     }
 
     def dispatch identifier(PrefixedName it) {
-        return value.split(':').get(1)
+        val pair = value.split(':')
+        val prefix = pair.get(0)
+        val term = pair.get(1)
+        val namespace = _namespaces.get(prefix)
+        
+        if (namespace === null) {
+            throw new IllegalStateException('''Unmapped prefix "«prefix»"''')
+        }
+        
+        return '''«namespace»«term»'''
     }
 }

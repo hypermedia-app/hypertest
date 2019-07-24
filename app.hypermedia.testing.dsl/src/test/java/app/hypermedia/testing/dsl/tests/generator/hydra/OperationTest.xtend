@@ -97,4 +97,34 @@ class OperationTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
+
+    @Test
+    def classAndOperationWithPrefixes_generatesFullyQualifiedUris() {
+        // given
+        val model = parseHelper.parse('''
+            PREFIX "test": <http://example.com/>
+
+            With Operation test:CreateUser {
+                Invoke {
+                    Expect Status 201
+                }
+            }
+            
+            With Class test:User {
+                With Operation test:Delete {
+                    Invoke {
+                    }
+                }
+            }
+        ''')
+        
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
 }
