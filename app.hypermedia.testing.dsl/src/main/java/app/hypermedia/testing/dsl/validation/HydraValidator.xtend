@@ -3,6 +3,15 @@
  */
 package app.hypermedia.testing.dsl.validation
 
+import app.hypermedia.testing.dsl.hydra.HydraPackage
+import org.eclipse.xtext.validation.Check
+import java.net.URI
+import app.hypermedia.testing.dsl.hydra.NamespaceDeclaration
+import app.hypermedia.testing.dsl.core.CorePackage
+import java.net.URISyntaxException
+import app.hypermedia.testing.dsl.core.ClassBlock
+import app.hypermedia.testing.dsl.hydra.OperationBlock
+import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
 
 /**
  * This class contains custom validation rules. 
@@ -10,16 +19,49 @@ package app.hypermedia.testing.dsl.validation
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class HydraValidator extends AbstractHydraValidator {
-	
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital', 
-//					HydraPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
-	
+    static final String INVALID_URI = 'Value is not a valid URI'
+    
+    @Check
+    def checkValidUri(NamespaceDeclaration ns) {
+        if (tryParseUri(ns.namespace) === false) {
+            error(INVALID_URI,
+                  HydraPackage.Literals.NAMESPACE_DECLARATION__NAMESPACE)
+        }
+    }
+    
+    @Check
+    def checkValidUri(ClassBlock clas) {
+        if (tryParseUri(clas.name.value) === false) {
+            error(INVALID_URI,
+                  CorePackage.Literals.CLASS_BLOCK__NAME
+            )
+        }
+    }
+    
+    @Check
+    def checkValidUri(OperationBlock clas) {
+        if (tryParseUri(clas.name.value) === false) {
+            error(INVALID_URI,
+                  HydraPackage.Literals.OPERATION_BLOCK__NAME
+            )
+        }
+    }
+    
+    @Check
+    def checkValidUri(RelaxedOperationBlock clas) {
+        if (tryParseUri(clas.name.value) === false) {
+            error(INVALID_URI,
+                  HydraPackage.Literals.RELAXED_OPERATION_BLOCK__NAME
+            )
+        }
+    }
+    
+    private def tryParseUri(String uri) {
+        try {
+            val parsed = new URI(uri)
+            return parsed.scheme !== null
+        } catch(URISyntaxException e) {
+            return false
+        }
+    }
 }

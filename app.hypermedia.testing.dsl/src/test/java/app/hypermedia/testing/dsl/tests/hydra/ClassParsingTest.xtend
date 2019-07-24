@@ -3,54 +3,35 @@
  */
 package app.hypermedia.testing.dsl.tests.hydra
 
+import app.hypermedia.testing.dsl.core.CorePackage
 import app.hypermedia.testing.dsl.hydra.HydraScenario
+import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.^extension.ExtendWith
-import static org.assertj.core.api.Assertions.*
-import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
-import app.hypermedia.testing.dsl.tests.TestHelpers
-import app.hypermedia.testing.dsl.hydra.NamespaceDeclaration
-import org.junit.jupiter.api.Test
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
+import org.junit.jupiter.api.^extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import app.hypermedia.testing.dsl.hydra.HydraPackage
 
 @ExtendWith(InjectionExtension)
 @InjectWith(HydraInjectorProvider)
-class PrefixParsingTest {
+class ClassParsingTest {
     @Inject extension ParseHelper<HydraScenario>
     @Inject extension ValidationTestHelper
 
-    @Test
-    def void prefix_parsesSuccesfully() {
-        // when
-        val result = '''
-            PREFIX "foaf": <http://xmlns.com/foaf/0.1/>
-        '''.parse
-
-        // then
-        TestHelpers.assertModelParsedSuccessfully(result)
-
-        val namespaceDeclaration = result.namespaces.get(0) as NamespaceDeclaration
-        assertThat(namespaceDeclaration.prefix.value).isEqualTo('foaf')
-        assertThat(namespaceDeclaration.namespace).isEqualTo('http://xmlns.com/foaf/0.1/')
-    }
-
     @ParameterizedTest
     @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#invalidUris")
-    def void prefixWithInvalidUri_failsValidation(String value) {
+    def void classWithInvalidUri_failsValidation(String id) {
         // when
         val result = '''
-            PREFIX "foaf": <«value»>
+            With Class <«id»> { }
         '''.parse
 
         // then
         result.assertError(
-            HydraPackage.Literals.NAMESPACE_DECLARATION,
+            CorePackage.Literals.CLASS_BLOCK,
             null,
             "Value is not a valid URI"
         )
@@ -58,10 +39,10 @@ class PrefixParsingTest {
 
     @ParameterizedTest
     @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#validUris")
-    def void prefixWithValidUri_passesValidation(String value) {
+    def void classWithValidUri_passesValidation(String id) {
         // when
         val result = '''
-            PREFIX "foaf": <«value»>
+            With Class <«id»> { }
         '''.parse
 
         // then

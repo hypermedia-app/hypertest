@@ -18,12 +18,17 @@ import app.hypermedia.testing.dsl.tests.TestHelpers
 import app.hypermedia.testing.dsl.core.ClassBlock
 import app.hypermedia.testing.dsl.Modifier
 import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
+import app.hypermedia.testing.dsl.hydra.HydraPackage
 
 @ExtendWith(InjectionExtension)
 @InjectWith(HydraInjectorProvider)
 class OperationParsingTest {
-    @Inject
+    @Inject extension
     ParseHelper<HydraScenario> parseHelper
+    @Inject extension ValidationTestHelper
 
     @Test
     def void withOperationOnTopLevel_ParsesName() {
@@ -132,5 +137,61 @@ class OperationParsingTest {
         val operationBlock = classBlock.children.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)
         assertThat(operationBlock.modifier).isEqualTo(Modifier.WITH)
+    }
+
+    @ParameterizedTest
+    @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#invalidUris")
+    def void topOperationWithInvalidUri_failsValidation(String id) {
+        // when
+        val result = '''
+            With Operation <«id»> { }
+        '''.parse
+
+        // then
+        result.assertError(
+            HydraPackage.Literals.RELAXED_OPERATION_BLOCK,
+            null,
+            "Value is not a valid URI"
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#validUris")
+    def void topOperationWithValidUri_passesValidation(String id) {
+        // when
+        val result = '''
+            With Class <«id»> { }
+        '''.parse
+
+        // then
+        result.assertNoIssues()
+    }
+
+    @ParameterizedTest
+    @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#invalidUris")
+    def void operationWithInvalidUri_failsValidation(String id) {
+        // when
+        val result = '''
+            With Class some:class { With Operation <«id»> {} }
+        '''.parse
+
+        // then
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Value is not a valid URI"
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#validUris")
+    def void oeprationWithValidUri_passesValidation(String id) {
+        // when
+        val result = '''
+            With Class some:class { With Operation <«id»> {} }
+        '''.parse
+
+        // then
+        result.assertNoIssues()
     }
 }
