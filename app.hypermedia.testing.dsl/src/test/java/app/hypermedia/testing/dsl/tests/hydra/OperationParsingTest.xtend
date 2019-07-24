@@ -11,7 +11,6 @@ import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-import static org.junit.Assert.assertEquals
 import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
 import static org.assertj.core.api.Assertions.*
 import app.hypermedia.testing.dsl.hydra.InvocationBlock
@@ -39,7 +38,7 @@ class OperationParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
         
         val classBlock = result.steps.get(0) as RelaxedOperationBlock
-        assertEquals(classBlock.name, "CreateUser")
+        assertThat(classBlock.name).isEqualTo("CreateUser")
     }
 
     @Test

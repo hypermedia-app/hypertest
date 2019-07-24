@@ -11,7 +11,7 @@ import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-import static org.junit.Assert.assertEquals
+import static org.assertj.core.api.Assertions.*
 
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
@@ -32,7 +32,7 @@ class ClassParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        assertEquals(classBlock.name, "Foo")
+        assertThat(classBlock.name).isEqualTo("Foo")
     }
 
     @Test

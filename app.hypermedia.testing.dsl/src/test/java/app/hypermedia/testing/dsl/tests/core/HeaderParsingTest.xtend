@@ -10,7 +10,6 @@ import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-import static org.junit.Assert.assertEquals
 import app.hypermedia.testing.dsl.tests.CoreInjectorProvider
 import app.hypermedia.testing.dsl.tests.TestHelpers
 import app.hypermedia.testing.dsl.core.HeaderStatement
@@ -39,7 +38,7 @@ class HeaderParsingTest {
 
         val linkBlock = result.steps.get(0) as RelaxedLinkBlock
         val headerStatement = linkBlock.children.get(0) as HeaderStatement
-        assertEquals(headerStatement.fieldName, "Location")
+        assertThat(headerStatement.fieldName).isEqualTo("Location")
     }
 
     @Test

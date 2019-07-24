@@ -8,9 +8,8 @@ import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-import static org.junit.Assert.assertEquals
+import static org.assertj.core.api.Assertions.*
 import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
 import app.hypermedia.testing.dsl.tests.TestHelpers
 import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
@@ -45,7 +44,7 @@ class StatusParsingTest {
         val operationBlock = result.steps.get(0) as RelaxedOperationBlock
         val invocationBlock = operationBlock.invocations.get(0) as InvocationBlock
         val statusBlock = invocationBlock.children.get(0) as StatusStatement
-        assertEquals(statusBlock.status, status)
+        assertThat(statusBlock.status).isEqualTo(status)
     }
 
     @ParameterizedTest
