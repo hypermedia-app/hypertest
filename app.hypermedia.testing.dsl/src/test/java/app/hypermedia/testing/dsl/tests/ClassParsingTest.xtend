@@ -4,7 +4,7 @@
 package app.hypermedia.testing.dsl.tests
 
 import app.hypermedia.testing.dsl.core.ClassBlock
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.core.CoreScenario
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.*
 @InjectWith(CoreInjectorProvider)
 class ClassParsingTest {
     @Inject
-    ParseHelper<Model> parseHelper
+    ParseHelper<CoreScenario> parseHelper
 
     @Test
     def void withClass_ParsesName() {

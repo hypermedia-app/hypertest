@@ -6,7 +6,7 @@ import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.InjectWith
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.util.ParseHelper
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.hydra.HydraScenario
 import org.junit.jupiter.api.Test
 import static io.github.jsonSnapshot.SnapshotMatcher.*
 import org.eclipse.xtext.generator.IGenerator2
@@ -20,7 +20,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 @InjectWith(HydraInjectorProvider)
 class OperationTest {
     @Inject IGenerator2 generator
-    @Inject ParseHelper<Model> parseHelper
+    @Inject ParseHelper<HydraScenario> parseHelper
     
     @BeforeAll
     static def beforeAll() {

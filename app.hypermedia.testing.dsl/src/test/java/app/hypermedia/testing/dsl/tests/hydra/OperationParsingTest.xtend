@@ -4,7 +4,7 @@
 package app.hypermedia.testing.dsl.tests.hydra
 
 import app.hypermedia.testing.dsl.hydra.OperationBlock
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.hydra.HydraScenario
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
@@ -23,7 +23,7 @@ import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
 @InjectWith(HydraInjectorProvider)
 class OperationParsingTest {
     @Inject
-    ParseHelper<Model> parseHelper
+    ParseHelper<HydraScenario> parseHelper
 
     @Test
     def void withOperationOnTopLevel_ParsesName() {
@@ -39,6 +39,24 @@ class OperationParsingTest {
         
         val classBlock = result.steps.get(0) as RelaxedOperationBlock
         assertThat(classBlock.name.value).isEqualTo("http://example.com/CreateUser")
+    }
+
+    @Test
+    def void withOperationOnTopLevel_PrefixedName_ParsesName() {
+        // when
+        val result = parseHelper.parse('''
+            PREFIX "schema": <http://schema.org/>
+
+            With Operation schema:Person {
+
+            }
+        ''')
+
+        // then
+        TestHelpers.assertModelParsedSuccessfully(result)
+
+        val classBlock = result.steps.get(0) as RelaxedOperationBlock
+        assertThat(classBlock.name.value).isEqualTo("schema:Person")
     }
 
     @Test

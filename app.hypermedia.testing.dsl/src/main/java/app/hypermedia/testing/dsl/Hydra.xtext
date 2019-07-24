@@ -2,9 +2,9 @@ grammar app.hypermedia.testing.dsl.Hydra with app.hypermedia.testing.dsl.Core
     
 import "http://testing.hypermedia.app/dsl/core"
 generate hydra "http://testing.hypermedia.app/dsl/hydra"
- 
-@Override 
-Model:
+
+HydraScenario:
+    (namespaces+=NamespaceDeclaration)*
     (steps+=TopLevelStep)*;
  
 @Override 
@@ -20,10 +20,17 @@ RepresentationStep:
 
 @Override 
 Identifier: 
-    UriName
+    UriName | 
+    PrefixedName
 ;
 
+NamespaceDeclaration:
+    'PREFIX' prefix=PrefixDeclaration ':' namespace=URI
+;
+
+PrefixDeclaration: value=STRING;
 UriName: value=URI;
+PrefixedName: value=QNAME;
 
 RelaxedOperationBlock:
     WithModifier 'Operation' name=Identifier '{'
@@ -47,3 +54,4 @@ InvocationBlock:
 terminal URI:
     '<' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'>') )* '>'
 ;
+terminal QNAME: ID ':' ID;

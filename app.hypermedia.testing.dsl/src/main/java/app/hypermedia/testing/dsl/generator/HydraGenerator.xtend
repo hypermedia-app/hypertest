@@ -9,6 +9,7 @@ import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
 import app.hypermedia.testing.dsl.Modifier
 import java.util.HashMap
 import app.hypermedia.testing.dsl.hydra.UriName
+import app.hypermedia.testing.dsl.hydra.PrefixedName
 
 /**
  * Generates code from your model files on save.
@@ -41,5 +42,9 @@ class HydraGenerator extends CoreGenerator {
 
     def dispatch identifier(UriName it) {
         return value
+    }
+
+    def dispatch identifier(PrefixedName it) {
+        return value.split(':').get(1)
     }
 }

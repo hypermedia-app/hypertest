@@ -6,7 +6,7 @@ import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.InjectWith
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.util.ParseHelper
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.core.CoreScenario
 import org.junit.jupiter.api.Test
 import static io.github.jsonSnapshot.SnapshotMatcher.*
 import org.eclipse.xtext.generator.IGenerator2
@@ -20,7 +20,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 @InjectWith(CoreInjectorProvider)
 class LinkTest {
     @Inject IGenerator2 generator
-    @Inject extension ParseHelper<Model>
+    @Inject extension ParseHelper<CoreScenario>
     
     @BeforeAll
     static def beforeAll() {

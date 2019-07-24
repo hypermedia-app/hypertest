@@ -3,7 +3,7 @@
  */
 package app.hypermedia.testing.dsl.tests.core
 
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.core.CoreScenario
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
@@ -22,7 +22,7 @@ import org.junit.jupiter.params.provider.MethodSource
 @InjectWith(CoreInjectorProvider)
 class HeaderParsingTest {
     @Inject
-    ParseHelper<Model> parseHelper
+    ParseHelper<CoreScenario> parseHelper
 
     @Test
     def void expectHeader_ParsesName() {

@@ -3,7 +3,7 @@
  */
 package app.hypermedia.testing.dsl.tests.hydra
 
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.hydra.HydraScenario
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
@@ -23,7 +23,7 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 @ExtendWith(InjectionExtension)
 @InjectWith(HydraInjectorProvider)
 class StatusParsingTest {
-    @Inject extension ParseHelper<Model>
+    @Inject extension ParseHelper<HydraScenario>
     @Inject extension ValidationTestHelper
 
     @ParameterizedTest

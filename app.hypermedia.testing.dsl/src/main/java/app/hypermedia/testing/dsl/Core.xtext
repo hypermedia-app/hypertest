@@ -2,7 +2,7 @@ grammar app.hypermedia.testing.dsl.Core with org.eclipse.xtext.common.Terminals
 
 generate core "http://testing.hypermedia.app/dsl/core"
 
-Model:
+CoreScenario:
     (steps+=TopLevelStep)*;
 
 TopLevelStep:
@@ -84,4 +84,4 @@ FollowStatement:
 terminal VARIABLE: '[' ( ALPHA )* ']';
 terminal FIELD_NAME: ALPHA ('-' | ALPHA)*;
 
-terminal ALPHA: ('a'..'z' | 'A'..'Z');
+terminal fragment ALPHA: ('a'..'z' | 'A'..'Z');

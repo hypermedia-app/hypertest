@@ -3,7 +3,7 @@
  */
 package app.hypermedia.testing.dsl.tests.core
 
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.core.CoreScenario
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
@@ -21,7 +21,7 @@ import app.hypermedia.testing.dsl.tests.TestHelpers
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
 class LinkParsingTest {
-    @Inject extension ParseHelper<Model>
+    @Inject extension ParseHelper<CoreScenario>
 
     @Test
     def void topLevelLink_ParsesSuccessfully() {
