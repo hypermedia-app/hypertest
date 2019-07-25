@@ -1,0 +1,174 @@
+app.hypermedia.testing.dsl.tests.generator.hydra.InvokeTest.classOperation_invokeTwiceWithRequests_generatesSteps=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "body": {
+                                "map": {
+                                  "path": "/some/path/data.csv"
+                                },
+                                "empty": false
+                              },
+                              "children": {
+                                "myArrayList": [
+                                  {
+                                    "map": {
+                                      "code": 201,
+                                      "type": "ResponseStatus"
+                                    },
+                                    "empty": false
+                                  }
+                                ],
+                                "empty": false
+                              },
+                              "headers": {
+                                "map": {
+                                  "Content-Type": "text/csv"
+                                },
+                                "empty": false
+                              },
+                              "type": "Invocation"
+                            },
+                            "empty": false
+                          },
+                          {
+                            "map": {
+                              "body": "{\n                \"hello\": \"world\",\n                \"foo\": \"bar\"\n            }",
+                              "children": {
+                                "myArrayList": [
+                                  {
+                                    "map": {
+                                      "code": 409,
+                                      "type": "ResponseStatus"
+                                    },
+                                    "empty": false
+                                  }
+                                ],
+                                "empty": false
+                              },
+                              "headers": {
+                                "map": {
+                                  "Content-Type": "application/json"
+                                },
+                                "empty": false
+                              },
+                              "type": "Invocation"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "operationId": "http://example.com/CreateUser",
+                      "strict": false,
+                      "type": "Operation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "http://example.com/People",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.hydra.InvokeTest.topLevelOperation_invokeTwiceWithRequests_generatesSteps=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "body": {
+                        "map": {
+                          "path": "/some/path/data.csv"
+                        },
+                        "empty": false
+                      },
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "code": 201,
+                              "type": "ResponseStatus"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "headers": {
+                        "map": {
+                          "Content-Type": "text/csv"
+                        },
+                        "empty": false
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  },
+                  {
+                    "map": {
+                      "body": "{\n            \"hello\": \"world\",\n            \"foo\": \"bar\"\n        }",
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "code": 409,
+                              "type": "ResponseStatus"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "headers": {
+                        "map": {
+                          "Content-Type": "application/json"
+                        },
+                        "empty": false
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "operationId": "http://example.com/CreateUser",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
