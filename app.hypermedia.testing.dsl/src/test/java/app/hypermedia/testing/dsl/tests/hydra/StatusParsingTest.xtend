@@ -43,7 +43,7 @@ class StatusParsingTest {
 
         val operationBlock = result.steps.get(0) as OperationBlock
         val invocationBlock = operationBlock.invocations.get(0) as InvocationBlock
-        val statusBlock = invocationBlock.children.get(0) as StatusStatement
+        val statusBlock = invocationBlock.response.children.get(0) as StatusStatement
         assertThat(statusBlock.status).isEqualTo(status)
     }
 

@@ -7,6 +7,7 @@ import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.hydra.InvocationBlock
 import app.hypermedia.testing.dsl.Modifier
 import java.util.HashMap
+import org.json.JSONObject
 import app.hypermedia.testing.dsl.hydra.UriName
 import app.hypermedia.testing.dsl.hydra.PrefixedName
 import org.eclipse.xtext.generator.IFileSystemAccess2
@@ -51,7 +52,28 @@ final Map<String, String> _namespaces
     def dispatch step(InvocationBlock it) {
         val map = new HashMap<String, Object>
 
-        return buildBlock('Invocation', children, map)
+        if(request !== null) {
+            if(request.headers.length > 0) {
+                val headers = new JSONObject
+                request.headers.forEach[header |
+                    headers.put(header.fieldName, header.value)
+                ]
+
+                map.put('headers', headers)
+            }
+
+            if(request.body !== null) {
+                if (request.body.reference !== null) {
+                    val body = new JSONObject()
+                    body.put('path', request.body.reference.path)
+                    map.put('body', body)
+                } else {
+                    map.put('body', request.body.contents)
+                }
+            }
+        }
+
+        return buildBlock('Invocation', response.children, map)
     }
 
     def dispatch identifier(UriName it) {

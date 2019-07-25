@@ -39,13 +39,11 @@ OperationBlock:
 ;
 
 InvocationBlock:
-    {InvocationBlock} 'Invoke' '{'
-        (children+=ResponseStep)*
-    '}'
+    'Invoke' (request=RequestBlock '=>')? response=ResponseBlock
 ;
 
 terminal URI:
-    '<' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'>') )* '>'
+    '<' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'>'|'<') )* '>'
 ;
 terminal PREFIX: ID ':';
 terminal QNAME: PREFIX (INT | ID | '/' | '%')+;

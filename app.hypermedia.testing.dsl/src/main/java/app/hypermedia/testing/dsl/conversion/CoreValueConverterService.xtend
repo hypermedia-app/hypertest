@@ -10,6 +10,11 @@ class CoreValueConverterService extends DefaultTerminalConverters  {
         return new VariableReferenceConverter()
     }
 
+    @ValueConverter(rule = "MULTILINE_BLOCK")
+    def IValueConverter<String> getMultilineBlockConverter() {
+        return new MultilineBlockConverter()
+    }
+
     @ValueConverter(rule = "PREFIX")
     def IValueConverter<String> getPrefixConverter() {
         return new PrefixConverter()

@@ -70,7 +70,7 @@ LinkStatement:
 ;
 
 HeaderStatement:
-    ExpectModifier 'Header' fieldName=(ID | HYPHENATED_NAME) (exactValue=STRING | regex=MatchingRegex | variable=VARIABLE)?
+    ExpectModifier 'Header' fieldName=FieldName (exactValue=STRING | regex=MatchingRegex | variable=VARIABLE)?
 ;
 
 MatchingRegex:
@@ -81,5 +81,37 @@ FollowStatement:
     'Follow' variable=VARIABLE
 ;
 
+RequestBlock:
+    {RequestBlock} '{'
+        (headers+=RequestHeader)*
+        (body=RequestBody)?
+    '}'
+;
+
+ResponseBlock:
+    {ResponseBlock} '{'
+        (children+=ResponseStep)*
+    '}'
+;
+
+RequestBody:
+    contents=MULTILINE_BLOCK |
+    reference=RequestFileBody
+;
+
+RequestFileBody:
+    '<<<' path=STRING
+;
+
+RequestHeader:
+    fieldName=FieldName value=STRING
+;
+
+FieldName: (ID | HYPHENATED_NAME);
+
 terminal VARIABLE: '[' ID ']';
 terminal HYPHENATED_NAME: ('a'..'z' | 'A'..'Z') ('-' | 'a'..'z' | 'A'..'Z')*;
+
+terminal MULTILINE_BLOCK:
+    '```' -> '```'
+;
