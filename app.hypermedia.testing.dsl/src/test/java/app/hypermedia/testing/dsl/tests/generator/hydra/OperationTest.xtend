@@ -102,7 +102,7 @@ class OperationTest {
     def classAndOperationWithPrefixes_generatesFullyQualifiedUris() {
         // given
         val model = parseHelper.parse('''
-            PREFIX "test": <http://example.com/>
+            PREFIX test: <http://example.com/>
 
             With Operation test:CreateUser {
                 Invoke {

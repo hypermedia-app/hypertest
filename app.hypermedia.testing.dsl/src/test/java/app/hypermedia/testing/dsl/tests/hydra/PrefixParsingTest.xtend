@@ -29,7 +29,7 @@ class PrefixParsingTest {
     def void prefix_parsesSuccesfully() {
         // when
         val result = '''
-            PREFIX "foaf": <http://xmlns.com/foaf/0.1/>
+            PREFIX foaf: <http://xmlns.com/foaf/0.1/>
         '''.parse
 
         // then
@@ -45,7 +45,7 @@ class PrefixParsingTest {
     def void prefixWithInvalidUri_failsValidation(String value) {
         // when
         val result = '''
-            PREFIX "foaf": <«value»>
+            PREFIX foaf: <«value»>
         '''.parse
 
         // then
@@ -61,7 +61,7 @@ class PrefixParsingTest {
     def void prefixWithValidUri_passesValidation(String value) {
         // when
         val result = '''
-            PREFIX "foaf": <«value»>
+            PREFIX foaf: <«value»>
         '''.parse
 
         // then

@@ -70,7 +70,7 @@ LinkStatement:
 ;
 
 HeaderStatement:
-    ExpectModifier 'Header' fieldName=FIELD_NAME (exactValue=STRING | regex=MatchingRegex | variable=VARIABLE)?
+    ExpectModifier 'Header' fieldName=(ID | HYPHENATED_NAME) (exactValue=STRING | regex=MatchingRegex | variable=VARIABLE)?
 ;
 
 MatchingRegex:
@@ -81,7 +81,5 @@ FollowStatement:
     'Follow' variable=VARIABLE
 ;
 
-terminal VARIABLE: '[' ( ALPHA )* ']';
-terminal FIELD_NAME: ALPHA ('-' | ALPHA)*;
-
-terminal fragment ALPHA: ('a'..'z' | 'A'..'Z');
+terminal VARIABLE: '[' ID ']';
+terminal HYPHENATED_NAME: ('a'..'z' | 'A'..'Z') ('-' | 'a'..'z' | 'A'..'Z')*;

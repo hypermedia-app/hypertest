@@ -25,10 +25,10 @@ Identifier:
 ;
 
 NamespaceDeclaration:
-    'PREFIX' prefix=PrefixDeclaration ':' namespace=URI
+    'PREFIX' prefix=PrefixDeclaration namespace=URI
 ;
 
-PrefixDeclaration: value=STRING;
+PrefixDeclaration: value=PREFIX;
 UriName: value=URI;
 PrefixedName: value=QNAME;
 
@@ -54,4 +54,5 @@ InvocationBlock:
 terminal URI:
     '<' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'>') )* '>'
 ;
-terminal QNAME: ID ':' ID;
+terminal PREFIX: ID ':';
+terminal QNAME: PREFIX ID;

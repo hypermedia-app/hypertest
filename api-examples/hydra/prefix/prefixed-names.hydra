@@ -1,4 +1,4 @@
-PREFIX "api": <http://example.com/vocab#>
+PREFIX api: <http://example.com/vocab#>
 
 With Operation api:CreateTask {
     Invoke {

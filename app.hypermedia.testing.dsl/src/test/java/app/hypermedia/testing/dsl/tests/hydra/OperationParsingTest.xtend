@@ -50,7 +50,7 @@ class OperationParsingTest {
     def void withOperationOnTopLevel_PrefixedName_ParsesName() {
         // when
         val result = parseHelper.parse('''
-            PREFIX "schema": <http://schema.org/>
+            PREFIX schema: <http://schema.org/>
 
             With Operation schema:Person {
 
@@ -172,6 +172,7 @@ class OperationParsingTest {
     def void operationWithInvalidUri_failsValidation(String id) {
         // when
         val result = '''
+            PREFIX some: <urn:test:>
             With Class some:class { With Operation <«id»> {} }
         '''.parse
 
@@ -188,6 +189,8 @@ class OperationParsingTest {
     def void oeprationWithValidUri_passesValidation(String id) {
         // when
         val result = '''
+            PREFIX some: <urn:test:>
+        
             With Class some:class { With Operation <«id»> {} }
         '''.parse
 
