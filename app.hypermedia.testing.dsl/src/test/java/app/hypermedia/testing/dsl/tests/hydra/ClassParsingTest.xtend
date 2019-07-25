@@ -14,6 +14,10 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.jupiter.api.^extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
+import org.junit.jupiter.api.Test
+import static org.assertj.core.api.Assertions.*
+import app.hypermedia.testing.dsl.tests.TestHelpers
+import app.hypermedia.testing.dsl.core.ClassBlock
 
 @ExtendWith(InjectionExtension)
 @InjectWith(HydraInjectorProvider)
@@ -47,5 +51,23 @@ class ClassParsingTest {
 
         // then
         result.assertNoIssues()
+    }
+
+    @Test
+    def void prefixedName_termCanContainNonLetterCharacters() {
+        // when
+        val result = '''
+            PREFIX ex: <http://example.com/>
+            
+            With Class ex:123/foo%20bar {
+                
+            }
+        '''.parse
+
+        // then
+        TestHelpers.assertModelParsedSuccessfully(result)
+
+        val classBlock = result.steps.get(0) as ClassBlock
+        assertThat(classBlock.name.value).isEqualTo('ex:123/foo%20bar')
     }
 }
