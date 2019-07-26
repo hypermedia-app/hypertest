@@ -21,7 +21,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 class FollowTest {
     @Inject IGenerator2 generator
     @Inject extension ParseHelper<Model>
-    
+
     @BeforeAll
     static def beforeAll() {
         start()
@@ -40,12 +40,12 @@ class FollowTest {
                 Invoke {
                     Expect Status 201
                     Expect Header Location [newIssue]
-            
+
                     Follow [newIssue]
                 }
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())

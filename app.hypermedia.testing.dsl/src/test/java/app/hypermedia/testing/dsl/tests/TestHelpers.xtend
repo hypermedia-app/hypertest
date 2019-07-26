@@ -9,7 +9,7 @@ public class TestHelpers {
         val errors = result.eResource.errors
         Assertions.assertTrue(errors.isEmpty, '''Unexpected errors: «errors.join(", ")»''')
     }
-    
+
     static def assertModelParsingFailed(Model result) {
         Assertions.assertNotNull(result)
         val errors = result.eResource.errors

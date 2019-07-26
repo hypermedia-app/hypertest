@@ -74,7 +74,7 @@ class PropertyParsingTest {
         val propertyStmt = classBlock.children.get(0) as PropertyStatement
         assertEquals(propertyStmt.value, "TOMASZ")
     }
-    
+
     @Test
     def void withProperty_parsedSuccessfullyWithChildren() {
         // when
@@ -94,7 +94,7 @@ class PropertyParsingTest {
         assertEquals(propertyBlock.children.length, 1)
         assertThat(propertyBlock.children.get(0)).isInstanceOf(PropertyStatement)
     }
-    
+
     @Test
     def void withProperty_parsingFailsWhenItHasNoChildren() {
         // when

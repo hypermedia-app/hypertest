@@ -151,7 +151,7 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch step(FollowStatement it) {
         val map = new HashMap<String, Object>
         map.put('variable', variable)
-        
+
         return buildStatement('Follow', map)
     }
 
