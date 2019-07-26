@@ -106,7 +106,7 @@ class OperationTest {
                 Expect Operation "Create"
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
