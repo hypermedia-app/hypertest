@@ -1,0 +1,9 @@
+With Class "http://example.com/vocab#Task" {
+    Expect Operation "http://example.com/vocab#CancelTask"
+}
+
+With Operation "http://example.com/vocab#CancelTask" {
+    Invoke {
+        // ...
+    }
+}

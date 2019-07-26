@@ -35,3 +35,8 @@ Just like with the [`Property`](../core/property) step, a missing operation can 
 reported as a test failure by swapping `With` modifier for `Expect`.
 
 <<< @/api-examples/hydra/operation/mandatory-operation.hydra
+
+Child invocations can also be skipped to only check that the operation is
+supported. If a top-level `With Operation` is found it will still be executed. 
+
+<<< @/api-examples/hydra/operation/no-invocations.hydra
