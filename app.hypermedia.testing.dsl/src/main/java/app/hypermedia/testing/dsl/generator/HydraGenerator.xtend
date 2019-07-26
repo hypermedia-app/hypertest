@@ -10,22 +10,22 @@ import java.util.HashMap
 
 /**
  * Generates code from your model files on save.
- * 
+ *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class HydraGenerator extends CoreGenerator {
-    
+
     def dispatch step(OperationBlock it) {
         val map = new HashMap<String, Object>
         map.put('operationId', name)
         map.put('strict', modifier != Modifier.WITH)
-        
+
         return buildBlock('Operation', invocations, map)
     }
-    
+
     def dispatch step(InvocationBlock it) {
         val map = new HashMap<String, Object>
-        
+
         return buildBlock('Invocation', children, map)
     }
 }

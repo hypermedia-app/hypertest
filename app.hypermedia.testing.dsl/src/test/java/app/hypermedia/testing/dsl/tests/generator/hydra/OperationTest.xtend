@@ -21,7 +21,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 class OperationTest {
     @Inject IGenerator2 generator
     @Inject ParseHelper<Model> parseHelper
-    
+
     @BeforeAll
     static def beforeAll() {
         start()
@@ -37,10 +37,10 @@ class OperationTest {
         // given
         val model = parseHelper.parse('''
             With Operation "CreateUser" {
-                
+
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -58,15 +58,15 @@ class OperationTest {
             With Operation "CreateUser" {
                 Invoke {
                 }
-                
+
                 Invoke {
                 }
-                
+
                 Invoke {
                 }
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -87,7 +87,7 @@ class OperationTest {
                 }
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())

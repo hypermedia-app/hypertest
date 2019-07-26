@@ -10,7 +10,7 @@ import app.hypermedia.testing.dsl.Modifier
 import app.hypermedia.testing.dsl.hydra.HydraPackage
 
 /**
- * This class contains custom validation rules. 
+ * This class contains custom validation rules.
  *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
@@ -29,11 +29,11 @@ class HydraValidator extends AbstractHydraValidator {
 	def checkOperationChildren(OperationBlock it) {
 	    val topLevel = eContainer.eContainer === null
 	    val hasInvocations = invocations !== null && invocations.length > 0
-	    
+
 	    if (hasInvocations || modifier != Modifier.WITH) {
 	        return
 	    }
-	    
+
 	    if (topLevel) {
             error("Invocations missing",
                   HydraPackage.Literals.OPERATION_BLOCK__INVOCATIONS)

@@ -39,7 +39,7 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val classBlock = result.steps.get(0) as OperationBlock
         assertEquals(classBlock.name, "CreateUser")
     }
@@ -51,7 +51,7 @@ class OperationParsingTest {
             With Operation "CreateUser" {
                 Invoke {
                 }
-                
+
                 Invoke {
                 }
 
@@ -62,7 +62,7 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val operationBlock = result.steps.get(0) as OperationBlock
         assertThat(operationBlock.invocations).hasSize(3)
         val invokeBlock = operationBlock.invocations.get(0)
@@ -81,7 +81,7 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val classBlock = result.steps.get(0) as ClassBlock
         val operationBlock = classBlock.children.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)
@@ -177,7 +177,7 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val classBlock = result.steps.get(0) as ClassBlock
         val operationBlock = classBlock.children.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)

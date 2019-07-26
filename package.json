@@ -19,7 +19,8 @@
     "@commitlint/config-conventional": "^7.0.0",
     "standard-version": "^6.0.1",
     "husky": "^1.0.0",
-    "vuepress": "^1.0.2"
+    "vuepress": "^1.0.2",
+    "lint-staged": "^8.0.0"
   },
   "license": "MIT",
   "name": "@hydrofoil/hypertest",
@@ -39,5 +40,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "*.xtend": [
+      "mvn editorconfg:format",
+      "git add"
+    ]
   }
 }

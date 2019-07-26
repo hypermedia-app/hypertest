@@ -40,7 +40,7 @@ class StatusParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val operationBlock = result.steps.get(0) as OperationBlock
         val invocationBlock = operationBlock.invocations.get(0) as InvocationBlock
         val statusBlock = invocationBlock.children.get(0) as StatusStatement
@@ -66,7 +66,7 @@ class StatusParsingTest {
             "Status can be an integer between 100 and 599"
         )
     }
-    
+
     static def invalidStatuses() {
         return #[
             1000,
@@ -75,11 +75,11 @@ class StatusParsingTest {
             0,
             99
         ]
-    } 
-    
+    }
+
     static def validStatuses() {
         return #[
             100, 201, 404, 599
         ]
-    } 
+    }
 }
