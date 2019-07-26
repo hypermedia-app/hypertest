@@ -58,9 +58,9 @@ class ClassParsingTest {
         // when
         val result = '''
             PREFIX ex: <http://example.com/>
-            
+
             With Class ex:123/foo%20bar {
-                
+
             }
         '''.parse
 

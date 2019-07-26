@@ -160,12 +160,12 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch step(EObject step) {
         throw new NotImplementedException(String.format("Unrecognized step %s", step.class))
     }
-    
+
     def dispatch identifier(Identifier it) {
         return value
     }
-    
+
     protected def getSteps(EList<EObject> s) {
         return s.filter(CoreScenario).flatMap[cs | cs.steps]
-    } 
+    }
 }

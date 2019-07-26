@@ -8,7 +8,7 @@ class TestCases {
             "mailto:dsl@example.com"
         ]
     }
-    
+
     static def invalidUris() {
         return #[
             "not-a-URI",

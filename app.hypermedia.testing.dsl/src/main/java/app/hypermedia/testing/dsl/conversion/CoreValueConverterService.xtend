@@ -9,7 +9,7 @@ class CoreValueConverterService extends DefaultTerminalConverters  {
     def IValueConverter<String> getVariableConverter() {
         return new VariableReferenceConverter()
     }
-    
+
     @ValueConverter(rule = "PREFIX")
     def IValueConverter<String> getPrefixConverter() {
         return new PrefixConverter()

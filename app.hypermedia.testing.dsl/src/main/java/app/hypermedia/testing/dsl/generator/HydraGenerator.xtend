@@ -35,7 +35,7 @@ final Map<String, String> _namespaces
 
         super.doGenerate(resource, fsa, context)
     }
-    
+
     protected override getSteps(EList<EObject> s) {
         return s.filter(HydraScenario).flatMap[cs | cs.steps]
     }

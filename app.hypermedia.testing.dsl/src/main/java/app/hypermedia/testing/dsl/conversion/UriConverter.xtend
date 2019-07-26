@@ -6,19 +6,19 @@ import org.eclipse.xtext.nodemodel.INode
 
 class UriConverter implements IValueConverter<String> {
     final String INVALID_VALUE_ERROR = "URI must be string enclosed with angle brackets"
-    
-    override toString(String value) 
+
+    override toString(String value)
         '''<«value»>'''
-    
+
     override toValue(String string, INode node) throws ValueConverterException {
         if (string === null) {
             return null
         }
-        
+
         if(string.length < 3 || !string.startsWith("<") || !string.endsWith(">")) {
             throw new ValueConverterException(INVALID_VALUE_ERROR, node, null)
         }
-        
+
         return string.substring(1, string.length - 1)
     }
 }
