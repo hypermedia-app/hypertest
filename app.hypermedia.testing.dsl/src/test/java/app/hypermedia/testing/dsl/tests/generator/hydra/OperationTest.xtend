@@ -97,4 +97,23 @@ class OperationTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
+
+    @Test
+    def expectOperationNoChildren_generatesStepsNoChildren() {
+        // given
+        val model = parseHelper.parse('''
+            With Class "User" {
+                Expect Operation "Create"
+            }
+        ''')
+        
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
 }

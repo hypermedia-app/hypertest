@@ -10,7 +10,7 @@ Model:
 @Override 
 TopLevelStep:
     super |
-    RelaxedOperationBlock;
+    OperationBlock;
     
 @Override 
 RepresentationStep:
@@ -18,17 +18,10 @@ RepresentationStep:
 	OperationBlock
 ;
 
-RelaxedOperationBlock:
-    WithModifier 'Operation' name=STRING '{'
-        (invocations+=InvocationBlock)*
-    '}'
-;
-
-// TODO: Can we use only one step for this and restrict Expect Operation from being used on top level?? 
 OperationBlock:
-    modifier=Modifier 'Operation' name=STRING '{'
+    modifier=Modifier 'Operation' name=STRING ('{'
         (invocations+=InvocationBlock)*
-    '}'
+    '}')?
 ;
 
 InvocationBlock:

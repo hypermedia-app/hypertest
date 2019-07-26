@@ -49,6 +49,56 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithOperatio
 ]
 
 
+app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.expectOperationNoChildren_generatesStepsNoChildren=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [ ],
+                        "empty": true
+                      },
+                      "operationId": "Create",
+                      "strict": true,
+                      "type": "Operation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "User",
+              "type": "Class"
+            },
+            "empty": false
+          },
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "operationId": "Create",
+              "strict": true,
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
 app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.topLevelOperationInvocationWithStatusExpectation_generatesSteps=[
   {
     "map": {

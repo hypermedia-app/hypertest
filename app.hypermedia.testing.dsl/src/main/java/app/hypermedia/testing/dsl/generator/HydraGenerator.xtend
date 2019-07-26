@@ -5,7 +5,6 @@ package app.hypermedia.testing.dsl.generator
 
 import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.hydra.InvocationBlock
-import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
 import app.hypermedia.testing.dsl.Modifier
 import java.util.HashMap
 
@@ -20,14 +19,6 @@ class HydraGenerator extends CoreGenerator {
         val map = new HashMap<String, Object>
         map.put('operationId', name)
         map.put('strict', modifier != Modifier.WITH)
-        
-        return buildBlock('Operation', invocations, map)
-    }
-    
-    def dispatch step(RelaxedOperationBlock it) {
-        val map = new HashMap<String, Object>
-        map.put('operationId', name)
-        map.put('strict', false)
         
         return buildBlock('Operation', invocations, map)
     }
