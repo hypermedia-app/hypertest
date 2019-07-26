@@ -15,8 +15,8 @@ import org.eclipse.xtext.util.Modules2
  */
 class HydraWebSetup extends HydraStandaloneSetup {
 
-	override Injector createInjector() {
-		return Guice.createInjector(Modules2.mixin(new HydraRuntimeModule, new HydraIdeModule, new HydraWebModule))
-	}
+    override Injector createInjector() {
+        return Guice.createInjector(Modules2.mixin(new HydraRuntimeModule, new HydraIdeModule, new HydraWebModule))
+    }
 
 }

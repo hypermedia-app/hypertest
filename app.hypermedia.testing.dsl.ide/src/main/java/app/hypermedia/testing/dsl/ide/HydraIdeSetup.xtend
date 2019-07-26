@@ -13,8 +13,8 @@ import org.eclipse.xtext.util.Modules2
  */
 class HydraIdeSetup extends HydraStandaloneSetup {
 
-	override createInjector() {
-		Guice.createInjector(Modules2.mixin(new HydraRuntimeModule, new HydraIdeModule))
-	}
+    override createInjector() {
+        Guice.createInjector(Modules2.mixin(new HydraRuntimeModule, new HydraIdeModule))
+    }
 
 }

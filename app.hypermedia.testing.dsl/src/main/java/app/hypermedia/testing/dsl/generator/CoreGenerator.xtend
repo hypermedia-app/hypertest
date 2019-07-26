@@ -51,7 +51,7 @@ class CoreGenerator extends AbstractGenerator {
 
         for (block : blocks) {
             val stepJson = block.step
-        	steps.put(new JSONObject(stepJson.toString()))
+            steps.put(new JSONObject(stepJson.toString()))
         }
 
         scenario.put('steps', steps)
