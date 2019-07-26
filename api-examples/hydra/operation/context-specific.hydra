@@ -1,5 +1,5 @@
-With Class "http://example.com/vocab#Task" {
-    With Operation "http://example.com/vocab#CancelTask" {
+With Class <http://example.com/vocab#Task> {
+    With Operation <http://example.com/vocab#CancelTask> {
         Invoke {
             Expect Status 204
         }

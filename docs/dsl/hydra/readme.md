@@ -9,6 +9,10 @@ Hydra scenarios are text files with `.hydra` extension.
 
 * [Operation](./operation)
 
+## Helper statements
+
+* [Prefix](./prefix)
+
 ## Raw Xtext grammar
 
 <<< @/app.hypermedia.testing.dsl/src/main/java/app/hypermedia/testing/dsl/Hydra.xtext

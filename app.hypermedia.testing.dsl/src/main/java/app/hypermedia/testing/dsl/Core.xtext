@@ -2,7 +2,7 @@ grammar app.hypermedia.testing.dsl.Core with org.eclipse.xtext.common.Terminals
 
 generate core "http://testing.hypermedia.app/dsl/core"
 
-Model:
+CoreScenario:
     (steps+=TopLevelStep)*;
 
 TopLevelStep:
@@ -28,24 +28,25 @@ LinkStep:
     StrictLinkBlock
 ;
 
+Identifier: value=STRING;
 Modifier: WithModifier | ExpectModifier;
 
 ExpectModifier: 'Expect';
 WithModifier: 'With';
 
 ClassBlock:
-	WithModifier 'Class' name=STRING '{'
-		(children+=RepresentationStep)*
+	WithModifier 'Class' name=Identifier '{'
+		(classChildren+=RepresentationStep)*
 	'}';
 
 PropertyBlock:
-    modifier=Modifier 'Property' name=STRING '{'
+    modifier=Modifier 'Property' name=Identifier '{'
         (children+=RepresentationStep)*
     '}'
 ;
 
 PropertyStatement:
-    ExpectModifier 'Property' name=STRING (value=STRING)?
+    ExpectModifier 'Property' name=Identifier (value=STRING)?
 ;
 
 StatusStatement:
@@ -53,23 +54,23 @@ StatusStatement:
 ;
 
 RelaxedLinkBlock:
-    WithModifier 'Link' relation=STRING '{'
+    WithModifier 'Link' relation=Identifier '{'
         (children+=ResponseStep)*
     '}'
 ;
 
 StrictLinkBlock:
-    ExpectModifier 'Link' relation=STRING '{'
+    ExpectModifier 'Link' relation=Identifier '{'
         (children+=ResponseStep)*
     '}'
 ;
 
 LinkStatement:
-    ExpectModifier 'Link' relation=STRING
+    ExpectModifier 'Link' relation=Identifier
 ;
 
 HeaderStatement:
-    ExpectModifier 'Header' fieldName=FIELD_NAME (exactValue=STRING | regex=MatchingRegex | variable=VARIABLE)?
+    ExpectModifier 'Header' fieldName=(ID | HYPHENATED_NAME) (exactValue=STRING | regex=MatchingRegex | variable=VARIABLE)?
 ;
 
 MatchingRegex:
@@ -80,7 +81,5 @@ FollowStatement:
     'Follow' variable=VARIABLE
 ;
 
-terminal VARIABLE: '[' ( ALPHA )* ']';
-terminal FIELD_NAME: ALPHA ('-' | ALPHA)*;
-
-terminal ALPHA: ('a'..'z' | 'A'..'Z');
+terminal VARIABLE: '[' ID ']';
+terminal HYPHENATED_NAME: ('a'..'z' | 'A'..'Z') ('-' | 'a'..'z' | 'A'..'Z')*;

@@ -1,0 +1,15 @@
+PREFIX api: <http://example.com/vocab#>
+
+With Operation api:CreateTask {
+    Invoke {
+        Expect Status 201
+    }
+}
+
+With Class api:Task {
+    With Operation api:CancelTask {
+        Invoke {
+            Expect Status 204
+        }
+    }
+}

@@ -1,25 +1,39 @@
 grammar app.hypermedia.testing.dsl.Hydra with app.hypermedia.testing.dsl.Core
-    
+
 import "http://testing.hypermedia.app/dsl/core"
 generate hydra "http://testing.hypermedia.app/dsl/hydra"
- 
-@Override 
-Model:
+
+HydraScenario:
+    (namespaces+=NamespaceDeclaration)*
     (steps+=TopLevelStep)*;
- 
-@Override 
+
+@Override
 TopLevelStep:
     super |
     OperationBlock;
-    
-@Override 
+
+@Override
 RepresentationStep:
 	super |
 	OperationBlock
 ;
 
+@Override
+Identifier:
+    UriName |
+    PrefixedName
+;
+
+NamespaceDeclaration:
+    'PREFIX' prefix=PrefixDeclaration namespace=URI
+;
+
+PrefixDeclaration: value=PREFIX;
+UriName: value=URI;
+PrefixedName: value=QNAME;
+
 OperationBlock:
-    modifier=Modifier 'Operation' name=STRING ('{'
+    modifier=Modifier 'Operation' name=Identifier ('{'
         (invocations+=InvocationBlock)*
     '}')?
 ;
@@ -29,3 +43,9 @@ InvocationBlock:
         (children+=ResponseStep)*
     '}'
 ;
+
+terminal URI:
+    '<' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'>') )* '>'
+;
+terminal PREFIX: ID ':';
+terminal QNAME: PREFIX (INT | ID | '/' | '%')+;

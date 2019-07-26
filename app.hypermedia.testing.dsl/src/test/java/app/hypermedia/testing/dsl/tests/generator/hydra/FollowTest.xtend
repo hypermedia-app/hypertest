@@ -6,7 +6,7 @@ import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.InjectWith
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.util.ParseHelper
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.hydra.HydraScenario
 import org.junit.jupiter.api.Test
 import static io.github.jsonSnapshot.SnapshotMatcher.*
 import org.eclipse.xtext.generator.IGenerator2
@@ -20,8 +20,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 @InjectWith(HydraInjectorProvider)
 class FollowTest {
     @Inject IGenerator2 generator
-    @Inject extension ParseHelper<Model>
-
+    @Inject extension ParseHelper<HydraScenario>
     @BeforeAll
     static def beforeAll() {
         start()
@@ -36,7 +35,7 @@ class FollowTest {
     def followVariable_generatesStep() {
         // given
         val model = '''
-            With Operation "http://example.com/vocab#CreateIssueOperation" {
+            With Operation <http://example.com/vocab#CreateIssueOperation> {
                 Invoke {
                     Expect Status 201
                     Expect Header Location [newIssue]

@@ -4,15 +4,13 @@
 package app.hypermedia.testing.dsl.tests
 
 import app.hypermedia.testing.dsl.core.ClassBlock
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.core.CoreScenario
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-
-import static org.junit.Assert.assertEquals
 import app.hypermedia.testing.dsl.core.PropertyBlock
 import app.hypermedia.testing.dsl.core.PropertyStatement
 import static org.assertj.core.api.Assertions.*;
@@ -21,7 +19,7 @@ import static org.assertj.core.api.Assertions.*;
 @InjectWith(CoreInjectorProvider)
 class PropertyParsingTest {
     @Inject
-    ParseHelper<Model> parseHelper
+    ParseHelper<CoreScenario> parseHelper
 
     @Test
     def void withProperty_parsesName() {
@@ -37,8 +35,8 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyBlock = classBlock.children.get(0) as PropertyBlock
-        assertEquals(propertyBlock.name, "name")
+        val propertyBlock = classBlock.classChildren.get(0) as PropertyBlock
+        assertThat(propertyBlock.name.value).isEqualTo("name")
     }
 
     @Test
@@ -54,8 +52,8 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStmt = classBlock.children.get(0) as PropertyStatement
-        assertEquals(propertyStmt.name, "name")
+        val propertyStmt = classBlock.classChildren.get(0) as PropertyStatement
+        assertThat(propertyStmt.name.value).isEqualTo("name")
     }
 
     @Test
@@ -71,8 +69,8 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStmt = classBlock.children.get(0) as PropertyStatement
-        assertEquals(propertyStmt.value, "TOMASZ")
+        val propertyStmt = classBlock.classChildren.get(0) as PropertyStatement
+        assertThat(propertyStmt.value).isEqualTo("TOMASZ")
     }
 
     @Test
@@ -90,8 +88,8 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyBlock = classBlock.children.get(0) as PropertyBlock
-        assertEquals(propertyBlock.children.length, 1)
+        val propertyBlock = classBlock.classChildren.get(0) as PropertyBlock
+        assertThat(propertyBlock.children.length).isEqualTo(1)
         assertThat(propertyBlock.children.get(0)).isInstanceOf(PropertyStatement)
     }
 

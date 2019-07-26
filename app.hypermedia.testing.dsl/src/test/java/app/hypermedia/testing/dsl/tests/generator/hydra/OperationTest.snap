@@ -1,3 +1,83 @@
+app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.classAndOperationWithPrefixes_generatesFullyQualifiedUris=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "code": 201,
+                              "type": "ResponseStatus"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "operationId": "http://example.com/CreateUser",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          },
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "children": {
+                                "myArrayList": [ ],
+                                "empty": true
+                              },
+                              "type": "Invocation"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "operationId": "http://example.com/Delete",
+                      "strict": false,
+                      "type": "Operation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "http://example.com/User",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
 app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithClass_generatesStep=[
   {
     "map": {
@@ -9,7 +89,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithClass_ge
                 "myArrayList": [ ],
                 "empty": true
               },
-              "operationId": "CreateUser",
+              "operationId": "http://example.com/CreateUser",
               "type": "Operation"
             },
             "empty": false
@@ -34,7 +114,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.emptyWithOperatio
                 "myArrayList": [ ],
                 "empty": true
               },
-              "operationId": "CreateUser",
+              "operationId": "http://example.com/CreateUser",
               "strict": false,
               "type": "Operation"
             },
@@ -64,7 +144,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.expectOperationNo
                         "myArrayList": [ ],
                         "empty": true
                       },
-                      "operationId": "Create",
+                      "operationId": "http://example.com/Create",
                       "strict": true,
                       "type": "Operation"
                     },
@@ -73,20 +153,8 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.expectOperationNo
                 ],
                 "empty": false
               },
-              "classId": "User",
+              "classId": "http://example.com/User",
               "type": "Class"
-            },
-            "empty": false
-          },
-          {
-            "map": {
-              "children": {
-                "myArrayList": [ ],
-                "empty": true
-              },
-              "operationId": "Create",
-              "strict": true,
-              "type": "Operation"
             },
             "empty": false
           }
@@ -129,7 +197,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.topLevelOperation
                 ],
                 "empty": false
               },
-              "operationId": "CreateUser",
+              "operationId": "http://example.com/CreateUser",
               "strict": false,
               "type": "Operation"
             },
@@ -186,7 +254,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.OperationTest.topLevelOperation
                 ],
                 "empty": false
               },
-              "operationId": "CreateUser",
+              "operationId": "http://example.com/CreateUser",
               "strict": false,
               "type": "Operation"
             },

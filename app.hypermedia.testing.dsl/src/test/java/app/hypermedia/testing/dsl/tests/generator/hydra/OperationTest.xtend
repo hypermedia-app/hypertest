@@ -6,7 +6,7 @@ import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.InjectWith
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.util.ParseHelper
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.hydra.HydraScenario
 import org.junit.jupiter.api.Test
 import static io.github.jsonSnapshot.SnapshotMatcher.*
 import org.eclipse.xtext.generator.IGenerator2
@@ -20,8 +20,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 @InjectWith(HydraInjectorProvider)
 class OperationTest {
     @Inject IGenerator2 generator
-    @Inject ParseHelper<Model> parseHelper
-
+    @Inject ParseHelper<HydraScenario> parseHelper
     @BeforeAll
     static def beforeAll() {
         start()
@@ -36,8 +35,7 @@ class OperationTest {
     def emptyWithOperationTopLevel_generatesStep() {
         // given
         val model = parseHelper.parse('''
-            With Operation "CreateUser" {
-
+            With Operation <http://example.com/CreateUser>" {
             }
         ''')
 
@@ -55,7 +53,7 @@ class OperationTest {
     def topLevelOperationMultipleInvocations_generatesStep() {
         // given
         val model = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
                 Invoke {
                 }
 
@@ -81,9 +79,39 @@ class OperationTest {
     def topLevelOperationInvocationWithStatusExpectation_generatesSteps() {
         // given
         val model = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
                 Invoke {
                     Expect Status 201
+                }
+            }
+        ''')
+
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
+
+    @Test
+    def classAndOperationWithPrefixes_generatesFullyQualifiedUris() {
+        // given
+        val model = parseHelper.parse('''
+            PREFIX test: <http://example.com/>
+
+            With Operation test:CreateUser {
+                Invoke {
+                    Expect Status 201
+                }
+            }
+
+            With Class test:User {
+                With Operation test:Delete {
+                    Invoke {
+                    }
                 }
             }
         ''')
@@ -102,8 +130,8 @@ class OperationTest {
     def expectOperationNoChildren_generatesStepsNoChildren() {
         // given
         val model = parseHelper.parse('''
-            With Class "User" {
-                Expect Operation "Create"
+            With Class <http://example.com/User> {
+                Expect Operation <http://example.com/Create>
             }
         ''')
 

@@ -3,11 +3,15 @@
  */
 package app.hypermedia.testing.dsl.validation
 
-import org.eclipse.xtext.validation.Check
-import app.hypermedia.testing.dsl.hydra.OperationBlock
-
-import app.hypermedia.testing.dsl.Modifier
 import app.hypermedia.testing.dsl.hydra.HydraPackage
+import org.eclipse.xtext.validation.Check
+import java.net.URI
+import app.hypermedia.testing.dsl.hydra.NamespaceDeclaration
+import app.hypermedia.testing.dsl.core.CorePackage
+import java.net.URISyntaxException
+import app.hypermedia.testing.dsl.core.ClassBlock
+import app.hypermedia.testing.dsl.hydra.OperationBlock
+import app.hypermedia.testing.dsl.Modifier
 
 /**
  * This class contains custom validation rules.
@@ -15,6 +19,7 @@ import app.hypermedia.testing.dsl.hydra.HydraPackage
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class HydraValidator extends AbstractHydraValidator {
+    static final String INVALID_URI = 'Value is not a valid URI'
 
     @Check
     def checkTopLevelOperationModifier(OperationBlock it) {
@@ -41,6 +46,50 @@ class HydraValidator extends AbstractHydraValidator {
         else {
             warning("Invocations missing",
                     HydraPackage.Literals.OPERATION_BLOCK__INVOCATIONS)
+        }
+    }
+
+    @Check
+    def checkValidUri(NamespaceDeclaration ns) {
+        if (tryParseUri(ns.namespace) === false) {
+            error(INVALID_URI,
+                  HydraPackage.Literals.NAMESPACE_DECLARATION__NAMESPACE)
+        }
+    }
+
+    @Check
+    def checkValidUri(ClassBlock clas) {
+        if (tryParseUri(clas.name.value) === false) {
+            error(INVALID_URI,
+                  CorePackage.Literals.CLASS_BLOCK__NAME
+            )
+        }
+    }
+
+    @Check
+    def checkValidUri(OperationBlock clas) {
+        if (tryParseUri(clas.name.value) === false) {
+            error(INVALID_URI,
+                  HydraPackage.Literals.OPERATION_BLOCK__NAME
+            )
+        }
+    }
+
+    @Check
+    def checkNamespace(NamespaceDeclaration it) {
+        if (!namespace.endsWith('#') && !namespace.endsWith('/') && !namespace.endsWith(':')) {
+            warning("Namespaces usually end with hash (#), slash (/) or colon (:) characters",
+                    HydraPackage.Literals.NAMESPACE_DECLARATION__NAMESPACE
+            )
+        }
+    }
+
+    private def tryParseUri(String uri) {
+        try {
+            val parsed = new URI(uri)
+            return parsed.scheme !== null
+        } catch(URISyntaxException e) {
+            return false
         }
     }
 }

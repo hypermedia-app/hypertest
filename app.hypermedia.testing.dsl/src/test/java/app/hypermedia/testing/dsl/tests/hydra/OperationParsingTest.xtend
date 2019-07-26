@@ -4,20 +4,21 @@
 package app.hypermedia.testing.dsl.tests.hydra
 
 import app.hypermedia.testing.dsl.hydra.OperationBlock
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.hydra.HydraScenario
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-import static org.junit.Assert.assertEquals
 import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
 import static org.assertj.core.api.Assertions.*
 import app.hypermedia.testing.dsl.hydra.InvocationBlock
 import app.hypermedia.testing.dsl.tests.TestHelpers
 import app.hypermedia.testing.dsl.core.ClassBlock
 import app.hypermedia.testing.dsl.Modifier
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import app.hypermedia.testing.dsl.hydra.HydraPackage
 
@@ -25,14 +26,14 @@ import app.hypermedia.testing.dsl.hydra.HydraPackage
 @InjectWith(HydraInjectorProvider)
 class OperationParsingTest {
     @Inject extension
-    ParseHelper<Model> parseHelper
+    ParseHelper<HydraScenario> parseHelper
     @Inject extension ValidationTestHelper
 
     @Test
     def void withOperationOnTopLevel_ParsesName() {
         // when
         val result = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
 
             }
         ''')
@@ -41,14 +42,32 @@ class OperationParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as OperationBlock
-        assertEquals(classBlock.name, "CreateUser")
+        assertThat(classBlock.name.value).isEqualTo("http://example.com/CreateUser")
+    }
+
+    @Test
+    def void withOperationOnTopLevel_PrefixedName_ParsesName() {
+        // when
+        val result = parseHelper.parse('''
+            PREFIX schema: <http://schema.org/>
+
+            With Operation schema:Person {
+
+            }
+        ''')
+
+        // then
+        TestHelpers.assertModelParsedSuccessfully(result)
+
+        val classBlock = result.steps.get(0) as OperationBlock
+        assertThat(classBlock.name.value).isEqualTo("schema:Person")
     }
 
     @Test
     def void withOperationOnTopLevelWithInvocation_ParsesSuccessfully() {
         // when
         val result = parseHelper.parse('''
-            With Operation "CreateUser" {
+            With Operation <http://example.com/CreateUser> {
                 Invoke {
                 }
 
@@ -73,8 +92,8 @@ class OperationParsingTest {
     def void expectOperation_ParsesSuccessfullyWhenNested() {
         // when
         val result = parseHelper.parse('''
-            With Class "Foo" {
-                Expect Operation "CreateUser" {
+            With Class <http://example.com/Foo> {
+                Expect Operation <http://example.com/CreateUser> {
                 }
             }
         ''')
@@ -83,7 +102,7 @@ class OperationParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val operationBlock = classBlock.children.get(0) as OperationBlock
+        val operationBlock = classBlock.classChildren.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)
         assertThat(operationBlock.modifier).isEqualTo(Modifier.EXPECT)
     }
@@ -92,7 +111,7 @@ class OperationParsingTest {
     def void expectOperation_ParsingFailsOnTopLevel() {
         // when
         val result = '''
-            Expect Operation "CreateUser" {
+            Expect Operation <http://example.com/CreateUser> {
             }
         '''.parse
 
@@ -123,7 +142,7 @@ class OperationParsingTest {
     def void withOperation_withNoChildren_ParsingFailsOnTopLevel() {
         // when
         val result = '''
-            With Operation "CreateUser" {}
+            With Operation <http://example.com/CreateUser> {}
         '''.parse
 
         // then
@@ -138,8 +157,8 @@ class OperationParsingTest {
     def void expectOperation_withNoChildren_parsesSuccessfullyInsideClassBlock() {
         // when
         val result = '''
-            With Class "Foo" {
-                Expect Operation "CreateUser"
+            With Class <http://example.com/Foo> {
+                Expect Operation <http://example.com/CreateUser>
             }
         '''.parse
 
@@ -151,8 +170,8 @@ class OperationParsingTest {
     def void withOperation_emptyBlock_warnsWhenChildOfClass() {
         // when
         val result = '''
-            With Class "Foo" {
-                With Operation "CreateUser" {
+            With Class <http://example.com/Foo> {
+                With Operation <http://example.com/CreateUser> {
                 }
             }
         '''.parse
@@ -169,8 +188,8 @@ class OperationParsingTest {
     def void withOperation_ParsesSuccessfullyWhenNested() {
         // when
         val result = parseHelper.parse('''
-            With Class "Foo" {
-                With Operation "CreateUser" {
+            With Class <http://example.com/Foo> {
+                With Operation <http://example.com/CreateUser> {
                 }
             }
         ''')
@@ -179,8 +198,67 @@ class OperationParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val operationBlock = classBlock.children.get(0) as OperationBlock
+        val operationBlock = classBlock.classChildren.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)
         assertThat(operationBlock.modifier).isEqualTo(Modifier.WITH)
+    }
+
+    @ParameterizedTest
+    @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#invalidUris")
+    def void topOperationWithInvalidUri_failsValidation(String id) {
+        // when
+        val result = '''
+            With Operation <«id»> { }
+        '''.parse
+
+        // then
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Value is not a valid URI"
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#validUris")
+    def void topOperationWithValidUri_passesValidation(String id) {
+        // when
+        val result = '''
+            With Class <«id»> { }
+        '''.parse
+
+        // then
+        result.assertNoIssues()
+    }
+
+    @ParameterizedTest
+    @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#invalidUris")
+    def void operationWithInvalidUri_failsValidation(String id) {
+        // when
+        val result = '''
+            PREFIX some: <urn:test:>
+            With Class some:class { With Operation <«id»> {} }
+        '''.parse
+
+        // then
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Value is not a valid URI"
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#validUris")
+    def void operationWithValidUri_passesValidation(String id) {
+        // when
+        val result = '''
+            PREFIX some: <urn:test:>
+
+            With Class some:class { With Operation <«id»> {} }
+        '''.parse
+
+        // then
+        result.assertNoErrors()
     }
 }

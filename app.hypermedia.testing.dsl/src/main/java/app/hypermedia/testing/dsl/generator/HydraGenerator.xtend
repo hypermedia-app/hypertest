@@ -7,6 +7,16 @@ import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.hydra.InvocationBlock
 import app.hypermedia.testing.dsl.Modifier
 import java.util.HashMap
+import app.hypermedia.testing.dsl.hydra.UriName
+import app.hypermedia.testing.dsl.hydra.PrefixedName
+import org.eclipse.xtext.generator.IFileSystemAccess2
+import org.eclipse.xtext.generator.IGeneratorContext
+import org.eclipse.emf.ecore.resource.Resource
+import app.hypermedia.testing.dsl.hydra.NamespaceDeclaration
+import java.util.Map
+import app.hypermedia.testing.dsl.hydra.HydraScenario
+import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
 
 /**
  * Generates code from your model files on save.
@@ -14,10 +24,25 @@ import java.util.HashMap
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class HydraGenerator extends CoreGenerator {
+final Map<String, String> _namespaces
+
+    new () {
+        _namespaces = new HashMap
+    }
+
+    override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
+        resource.allContents.filter(NamespaceDeclaration).forEach[it | _namespaces.put(prefix.value, namespace)]
+
+        super.doGenerate(resource, fsa, context)
+    }
+
+    protected override getSteps(EList<EObject> s) {
+        return s.filter(HydraScenario).flatMap[cs | cs.steps]
+    }
 
     def dispatch step(OperationBlock it) {
         val map = new HashMap<String, Object>
-        map.put('operationId', name)
+        map.put('operationId', name.identifier)
         map.put('strict', modifier != Modifier.WITH)
 
         return buildBlock('Operation', invocations, map)
@@ -27,5 +52,22 @@ class HydraGenerator extends CoreGenerator {
         val map = new HashMap<String, Object>
 
         return buildBlock('Invocation', children, map)
+    }
+
+    def dispatch identifier(UriName it) {
+        return value
+    }
+
+    def dispatch identifier(PrefixedName it) {
+        val pair = value.split(':')
+        val prefix = pair.get(0)
+        val term = pair.get(1)
+        val namespace = _namespaces.get(prefix)
+
+        if (namespace === null) {
+            throw new IllegalStateException('''Unmapped prefix "«prefix»"''')
+        }
+
+        return '''«namespace»«term»'''
     }
 }

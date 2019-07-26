@@ -3,14 +3,13 @@
  */
 package app.hypermedia.testing.dsl.tests.core
 
-import app.hypermedia.testing.dsl.core.Model
+import app.hypermedia.testing.dsl.core.CoreScenario
 import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
-import static org.junit.Assert.assertEquals
 import app.hypermedia.testing.dsl.tests.CoreInjectorProvider
 import app.hypermedia.testing.dsl.core.RelaxedLinkBlock
 import app.hypermedia.testing.dsl.core.ClassBlock
@@ -22,7 +21,7 @@ import app.hypermedia.testing.dsl.tests.TestHelpers
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
 class LinkParsingTest {
-    @Inject extension ParseHelper<Model>
+    @Inject extension ParseHelper<CoreScenario>
 
     @Test
     def void topLevelLink_ParsesSuccessfully() {
@@ -38,7 +37,7 @@ class LinkParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val linkBlock = result.steps.get(0) as RelaxedLinkBlock
-        assertEquals(linkBlock.relation, "Foo")
+        assertThat(linkBlock.relation.value).isEqualTo("Foo")
         assertThat(linkBlock.children).hasSize(2)
     }
 
@@ -58,8 +57,8 @@ class LinkParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val linkBlock = classBlock.children.get(0) as RelaxedLinkBlock
-        assertEquals(linkBlock.relation, "Bar")
+        val linkBlock = classBlock.classChildren.get(0) as RelaxedLinkBlock
+        assertThat(linkBlock.relation.value).isEqualTo("Bar")
         assertThat(linkBlock.children).hasSize(2)
     }
 
@@ -79,8 +78,8 @@ class LinkParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val linkBlock = classBlock.children.get(0) as StrictLinkBlock
-        assertEquals(linkBlock.relation, "Bar")
+        val linkBlock = classBlock.classChildren.get(0) as StrictLinkBlock
+        assertThat(linkBlock.relation.value).isEqualTo("Bar")
         assertThat(linkBlock.children).hasSize(2)
     }
 
@@ -97,7 +96,7 @@ class LinkParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val linkBlock = classBlock.children.get(0) as LinkStatement
-        assertEquals(linkBlock.relation, "Bar")
+        val linkBlock = classBlock.classChildren.get(0) as LinkStatement
+        assertThat(linkBlock.relation.value).isEqualTo("Bar")
     }
 }
