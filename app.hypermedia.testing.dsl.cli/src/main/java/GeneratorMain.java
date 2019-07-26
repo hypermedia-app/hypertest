@@ -1,8 +1,11 @@
 import java.io.File;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.eclipse.emf.common.util.URI;
@@ -20,12 +23,48 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
 
+import app.hypermedia.testing.dsl.CoreStandaloneSetup;
 import app.hypermedia.testing.dsl.HydraStandaloneSetup;
 
 public class GeneratorMain {
+    
+    private static Map<String, GeneratorRunner> runners = new HashMap<String, GeneratorRunner>();
+    
+    public static void main(String[] args) {
+        Injector coreInjector = new CoreStandaloneSetup().createInjectorAndDoEMFRegistration();
+        Injector hydraInjector = new HydraStandaloneSetup().createInjectorAndDoEMFRegistration();
+        
+        runners.put("api", coreInjector.getInstance(GeneratorRunner.class));
+        runners.put("hydra", hydraInjector.getInstance(GeneratorRunner.class));
+        
+        generateDirectory(args[0]);
+        System.out.println("Done!");
+    }
 
-    private static Injector injector = new HydraStandaloneSetup().createInjectorAndDoEMFRegistration();
+    private static void generateDirectory(String directoryName) {
+        File dir = new File(directoryName);
+        Collection<File> files = FileUtils.listFiles(dir, new RegexFileFilter(".+\\.(api|hydra)$"), TrueFileFilter.INSTANCE);
 
+        for (File file : files) {
+            if (file.isDirectory()) {
+                generateDirectory(file.getPath());
+                continue;
+            }
+            
+            String ext = FilenameUtils.getExtension(file.getPath());
+            
+            GeneratorRunner runner = runners.get(ext);
+            
+            if (runner != null) {
+                runner.generate(file);
+            }
+        }
+    }
+}
+
+
+
+class GeneratorRunner {
     @Inject
     Provider<ResourceSet> resourceSetProvider;
 
@@ -37,28 +76,8 @@ public class GeneratorMain {
 
     @Inject
     JavaIoFileSystemAccess fileAccess;
-
-    public static void main(String[] args) {
-        GeneratorMain main = injector.getInstance(GeneratorMain.class);
-        main.generateDirectory(args[0]);
-        System.out.println("Done!");
-    }
-
-    protected void generateDirectory(String directoryName) {
-        File dir = new File(directoryName);
-        Collection<File> files = FileUtils.listFiles(dir, new RegexFileFilter(".+\\.(api|hydra)$"), TrueFileFilter.INSTANCE);
-
-        for (File file : files) {
-            if (file.isDirectory()) {
-                this.generateDirectory(file.getPath());
-                continue;
-            }
-            
-            this.generateOne(file);
-        }
-    }
-
-    protected void generateOne(File input) {
+    
+    public void generate(File input) {
         System.out.printf("Compiling %s %n", input.getPath());
 
         ResourceSet resourceSet = resourceSetProvider.get();
