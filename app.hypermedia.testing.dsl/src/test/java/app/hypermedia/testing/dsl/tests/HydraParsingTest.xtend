@@ -4,5 +4,5 @@
 package app.hypermedia.testing.dsl.tests
 
 class HydraParsingTest {
-	// mwe2-generated
+    // mwe2-generated
 }

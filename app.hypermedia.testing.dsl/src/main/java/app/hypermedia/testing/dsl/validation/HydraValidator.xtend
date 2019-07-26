@@ -3,6 +3,11 @@
  */
 package app.hypermedia.testing.dsl.validation
 
+import org.eclipse.xtext.validation.Check
+import app.hypermedia.testing.dsl.hydra.OperationBlock
+
+import app.hypermedia.testing.dsl.Modifier
+import app.hypermedia.testing.dsl.hydra.HydraPackage
 
 /**
  * This class contains custom validation rules.
@@ -11,15 +16,31 @@ package app.hypermedia.testing.dsl.validation
  */
 class HydraValidator extends AbstractHydraValidator {
 
-//	public static val INVALID_NAME = 'invalidName'
-//
-//	@Check
-//	def checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.name.charAt(0))) {
-//			warning('Name should start with a capital',
-//					HydraPackage.Literals.GREETING__NAME,
-//					INVALID_NAME)
-//		}
-//	}
+    @Check
+    def checkTopLevelOperationModifier(OperationBlock it) {
+        val topLevel = eContainer.eContainer === null
+        if (topLevel && modifier == Modifier.EXPECT) {
+            error("Root operation can only use the 'With' modifier",
+                  HydraPackage.Literals.OPERATION_BLOCK__MODIFIER)
+        }
+    }
 
+    @Check
+    def checkOperationChildren(OperationBlock it) {
+        val topLevel = eContainer.eContainer === null
+        val hasInvocations = invocations !== null && invocations.length > 0
+
+        if (hasInvocations || modifier != Modifier.WITH) {
+            return
+        }
+
+        if (topLevel) {
+            error("Invocations missing",
+                  HydraPackage.Literals.OPERATION_BLOCK__INVOCATIONS)
+        }
+        else {
+            warning("Invocations missing",
+                    HydraPackage.Literals.OPERATION_BLOCK__INVOCATIONS)
+        }
+    }
 }

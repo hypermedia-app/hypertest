@@ -9,7 +9,7 @@ package app.hypermedia.testing.dsl
  */
 class HydraStandaloneSetup extends HydraStandaloneSetupGenerated {
 
-	def static void doSetup() {
-		new HydraStandaloneSetup().createInjectorAndDoEMFRegistration()
-	}
+    def static void doSetup() {
+        new HydraStandaloneSetup().createInjectorAndDoEMFRegistration()
+    }
 }

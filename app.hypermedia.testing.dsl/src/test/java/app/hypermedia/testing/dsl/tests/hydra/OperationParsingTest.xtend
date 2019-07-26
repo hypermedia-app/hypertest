@@ -18,13 +18,15 @@ import app.hypermedia.testing.dsl.hydra.InvocationBlock
 import app.hypermedia.testing.dsl.tests.TestHelpers
 import app.hypermedia.testing.dsl.core.ClassBlock
 import app.hypermedia.testing.dsl.Modifier
-import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
+import app.hypermedia.testing.dsl.hydra.HydraPackage
 
 @ExtendWith(InjectionExtension)
 @InjectWith(HydraInjectorProvider)
 class OperationParsingTest {
-    @Inject
+    @Inject extension
     ParseHelper<Model> parseHelper
+    @Inject extension ValidationTestHelper
 
     @Test
     def void withOperationOnTopLevel_ParsesName() {
@@ -38,7 +40,7 @@ class OperationParsingTest {
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
 
-        val classBlock = result.steps.get(0) as RelaxedOperationBlock
+        val classBlock = result.steps.get(0) as OperationBlock
         assertEquals(classBlock.name, "CreateUser")
     }
 
@@ -61,7 +63,7 @@ class OperationParsingTest {
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
 
-        val operationBlock = result.steps.get(0) as RelaxedOperationBlock
+        val operationBlock = result.steps.get(0) as OperationBlock
         assertThat(operationBlock.invocations).hasSize(3)
         val invokeBlock = operationBlock.invocations.get(0)
         assertThat(invokeBlock).isInstanceOf(InvocationBlock)
@@ -89,13 +91,78 @@ class OperationParsingTest {
     @Test
     def void expectOperation_ParsingFailsOnTopLevel() {
         // when
-        val result = parseHelper.parse('''
+        val result = '''
             Expect Operation "CreateUser" {
             }
-        ''')
+        '''.parse
 
         // then
-       assertThat(result).isNull()
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Root operation can only use the 'With' modifier"
+        )
+    }
+
+    @Test
+    def void withOperation_withNoBlock_ParsingFailsOnTopLevel() {
+        // when
+        val result = '''
+            With Operation "CreateUser"
+        '''.parse
+
+        // then
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Invocations missing"
+        )
+    }
+
+    @Test
+    def void withOperation_withNoChildren_ParsingFailsOnTopLevel() {
+        // when
+        val result = '''
+            With Operation "CreateUser" {}
+        '''.parse
+
+        // then
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Invocations missing"
+        )
+    }
+
+    @Test
+    def void expectOperation_withNoChildren_parsesSuccessfullyInsideClassBlock() {
+        // when
+        val result = '''
+            With Class "Foo" {
+                Expect Operation "CreateUser"
+            }
+        '''.parse
+
+        // then
+        result.assertNoIssues
+    }
+
+    @Test
+    def void withOperation_emptyBlock_warnsWhenChildOfClass() {
+        // when
+        val result = '''
+            With Class "Foo" {
+                With Operation "CreateUser" {
+                }
+            }
+        '''.parse
+
+        // then
+        result.assertWarning(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            'Invocations missing'
+        )
     }
 
     @Test

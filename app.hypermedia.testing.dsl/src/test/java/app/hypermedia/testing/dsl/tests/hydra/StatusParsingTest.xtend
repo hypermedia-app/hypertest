@@ -8,12 +8,11 @@ import com.google.inject.Inject
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.extensions.InjectionExtension
 import org.eclipse.xtext.testing.util.ParseHelper
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.^extension.ExtendWith
 import static org.junit.Assert.assertEquals
 import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
 import app.hypermedia.testing.dsl.tests.TestHelpers
-import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
+import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.core.StatusStatement
 import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.ParameterizedTest
@@ -42,7 +41,7 @@ class StatusParsingTest {
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
 
-        val operationBlock = result.steps.get(0) as RelaxedOperationBlock
+        val operationBlock = result.steps.get(0) as OperationBlock
         val invocationBlock = operationBlock.invocations.get(0) as InvocationBlock
         val statusBlock = invocationBlock.children.get(0) as StatusStatement
         assertEquals(statusBlock.status, status)
