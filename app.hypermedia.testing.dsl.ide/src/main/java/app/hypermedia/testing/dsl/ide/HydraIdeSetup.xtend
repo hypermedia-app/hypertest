@@ -16,5 +16,5 @@ class HydraIdeSetup extends HydraStandaloneSetup {
 	override createInjector() {
 		Guice.createInjector(Modules2.mixin(new HydraRuntimeModule, new HydraIdeModule))
 	}
-	
+
 }

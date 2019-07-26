@@ -21,7 +21,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 class LinkTest {
     @Inject IGenerator2 generator
     @Inject extension ParseHelper<Model>
-    
+
     @BeforeAll
     static def beforeAll() {
         start()
@@ -40,7 +40,7 @@ class LinkTest {
                 Expect Property "name"
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -61,7 +61,7 @@ class LinkTest {
                 }
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -82,7 +82,7 @@ class LinkTest {
                 }
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -101,7 +101,7 @@ class LinkTest {
                 Expect Link "author"
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())

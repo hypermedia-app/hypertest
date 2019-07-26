@@ -21,7 +21,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 class ClassTest {
     @Inject IGenerator2 generator
     @Inject    ParseHelper<Model> parseHelper
-    
+
     @BeforeAll
     static def beforeAll() {
         start()
@@ -37,10 +37,10 @@ class ClassTest {
         // given
         val model = parseHelper.parse('''
             With Class "Foo" {
-                
+
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())

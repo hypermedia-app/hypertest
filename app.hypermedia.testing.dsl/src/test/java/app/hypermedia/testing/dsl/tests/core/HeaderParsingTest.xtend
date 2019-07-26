@@ -123,7 +123,7 @@ class HeaderParsingTest {
         // then
         TestHelpers.assertModelParsingFailed(result)
     }
-    
+
     static def invalidVariableReferences() {
          return #[
             "[unclosed",
@@ -131,5 +131,5 @@ class HeaderParsingTest {
             "[]",
             "unopened]"
         ]
-    } 
+    }
 }

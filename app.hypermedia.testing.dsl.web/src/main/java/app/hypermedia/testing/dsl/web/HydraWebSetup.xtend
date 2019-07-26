@@ -14,9 +14,9 @@ import org.eclipse.xtext.util.Modules2
  * Initialization support for running Xtext languages in web applications.
  */
 class HydraWebSetup extends HydraStandaloneSetup {
-	
+
 	override Injector createInjector() {
 		return Guice.createInjector(Modules2.mixin(new HydraRuntimeModule, new HydraIdeModule, new HydraWebModule))
 	}
-	
+
 }
