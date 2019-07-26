@@ -21,7 +21,6 @@ import org.eclipse.xtext.generator.GeneratorContext
 class HeaderTest {
     @Inject IGenerator2 generator
     @Inject extension ParseHelper<CoreScenario>
-    
     @BeforeAll
     static def beforeAll() {
         start()
@@ -40,7 +39,7 @@ class HeaderTest {
                 Expect Header ETag
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -50,7 +49,7 @@ class HeaderTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
-    
+
     @Test
     def headerExactValueAssertion_generatesStep() {
         // given
@@ -59,7 +58,7 @@ class HeaderTest {
                 Expect Header Content-Type "application/problem+json"
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -69,7 +68,7 @@ class HeaderTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
-    
+
     @Test
     def headerRegexValueAssertion_generatesStep() {
         // given
@@ -78,7 +77,7 @@ class HeaderTest {
                 Expect Header Content-Type Matching "^application/"
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -88,16 +87,16 @@ class HeaderTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
-    
+
     @Test
     def headerWithVariableCapture_generatesStep() {
         // given
         val model = '''
             With Link "author" {
-                Expect Header Location [uri] 
+                Expect Header Location [uri]
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())

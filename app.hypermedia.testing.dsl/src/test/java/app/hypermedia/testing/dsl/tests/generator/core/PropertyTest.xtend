@@ -21,7 +21,6 @@ import org.eclipse.xtext.generator.GeneratorContext
 class PropertyTest {
     @Inject IGenerator2 generator
     @Inject ParseHelper<CoreScenario> parseHelper
-    
     @BeforeAll
     static def beforeAll() {
         start()
@@ -42,7 +41,7 @@ class PropertyTest {
                 }
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -52,7 +51,7 @@ class PropertyTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
-    
+
     @Test
     def expectProperty_generatesStrictPropertyStep() {
         // given
@@ -63,7 +62,7 @@ class PropertyTest {
                 }
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -73,7 +72,7 @@ class PropertyTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
-    
+
     @Test
     def expectPropertyValue_generatesValue() {
         // given
@@ -82,7 +81,7 @@ class PropertyTest {
                 Expect Property "name" "Tomasz"
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())

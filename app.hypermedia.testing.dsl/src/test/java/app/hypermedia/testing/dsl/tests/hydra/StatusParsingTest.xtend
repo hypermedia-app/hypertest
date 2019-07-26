@@ -12,7 +12,7 @@ import org.junit.jupiter.api.^extension.ExtendWith
 import static org.assertj.core.api.Assertions.*
 import app.hypermedia.testing.dsl.tests.HydraInjectorProvider
 import app.hypermedia.testing.dsl.tests.TestHelpers
-import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
+import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.core.StatusStatement
 import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.ParameterizedTest
@@ -40,8 +40,8 @@ class StatusParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
-        val operationBlock = result.steps.get(0) as RelaxedOperationBlock
+
+        val operationBlock = result.steps.get(0) as OperationBlock
         val invocationBlock = operationBlock.invocations.get(0) as InvocationBlock
         val statusBlock = invocationBlock.children.get(0) as StatusStatement
         assertThat(statusBlock.status).isEqualTo(status)
@@ -66,7 +66,7 @@ class StatusParsingTest {
             "Status can be an integer between 100 and 599"
         )
     }
-    
+
     static def invalidStatuses() {
         return #[
             1000,
@@ -75,11 +75,11 @@ class StatusParsingTest {
             0,
             99
         ]
-    } 
-    
+    }
+
     static def validStatuses() {
         return #[
             100, 201, 404, 599
         ]
-    } 
+    }
 }

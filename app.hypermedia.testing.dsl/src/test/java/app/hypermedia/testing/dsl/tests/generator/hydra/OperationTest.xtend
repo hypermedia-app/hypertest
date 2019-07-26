@@ -21,7 +21,6 @@ import org.eclipse.xtext.generator.GeneratorContext
 class OperationTest {
     @Inject IGenerator2 generator
     @Inject ParseHelper<HydraScenario> parseHelper
-    
     @BeforeAll
     static def beforeAll() {
         start()
@@ -37,10 +36,9 @@ class OperationTest {
         // given
         val model = parseHelper.parse('''
             With Operation <http://example.com/CreateUser>" {
-                
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -58,15 +56,15 @@ class OperationTest {
             With Operation <http://example.com/CreateUser> {
                 Invoke {
                 }
-                
+
                 Invoke {
                 }
-                
+
                 Invoke {
                 }
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -87,7 +85,7 @@ class OperationTest {
                 }
             }
         ''')
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -109,7 +107,7 @@ class OperationTest {
                     Expect Status 201
                 }
             }
-            
+
             With Class test:User {
                 With Operation test:Delete {
                     Invoke {
@@ -117,7 +115,26 @@ class OperationTest {
                 }
             }
         ''')
-        
+
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
+
+    @Test
+    def expectOperationNoChildren_generatesStepsNoChildren() {
+        // given
+        val model = parseHelper.parse('''
+            With Class <http://example.com/User> {
+                Expect Operation <http://example.com/Create>
+            }
+        ''')
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())

@@ -35,7 +35,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyBlock = classBlock.children.get(0) as PropertyBlock
+        val propertyBlock = classBlock.classChildren.get(0) as PropertyBlock
         assertThat(propertyBlock.name.value).isEqualTo("name")
     }
 
@@ -52,7 +52,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStmt = classBlock.children.get(0) as PropertyStatement
+        val propertyStmt = classBlock.classChildren.get(0) as PropertyStatement
         assertThat(propertyStmt.name.value).isEqualTo("name")
     }
 
@@ -69,10 +69,10 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStmt = classBlock.children.get(0) as PropertyStatement
+        val propertyStmt = classBlock.classChildren.get(0) as PropertyStatement
         assertThat(propertyStmt.value).isEqualTo("TOMASZ")
     }
-    
+
     @Test
     def void withProperty_parsedSuccessfullyWithChildren() {
         // when
@@ -88,11 +88,11 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyBlock = classBlock.children.get(0) as PropertyBlock
+        val propertyBlock = classBlock.classChildren.get(0) as PropertyBlock
         assertThat(propertyBlock.children.length).isEqualTo(1)
         assertThat(propertyBlock.children.get(0)).isInstanceOf(PropertyStatement)
     }
-    
+
     @Test
     def void withProperty_parsingFailsWhenItHasNoChildren() {
         // when

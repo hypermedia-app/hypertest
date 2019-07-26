@@ -12,21 +12,21 @@ import org.eclipse.xtext.web.servlet.XtextServlet
  */
 @WebServlet(name = 'XtextServices', urlPatterns = '/xtext-service/*')
 class HydraServlet extends XtextServlet {
-	
-	DisposableRegistry disposableRegistry
-	
-	override init() {
-		super.init()
-		val injector = new HydraWebSetup().createInjectorAndDoEMFRegistration()
-		disposableRegistry = injector.getInstance(DisposableRegistry)
-	}
-	
-	override destroy() {
-		if (disposableRegistry !== null) {
-			disposableRegistry.dispose()
-			disposableRegistry = null
-		}
-		super.destroy()
-	}
-	
+
+    DisposableRegistry disposableRegistry
+
+    override init() {
+        super.init()
+        val injector = new HydraWebSetup().createInjectorAndDoEMFRegistration()
+        disposableRegistry = injector.getInstance(DisposableRegistry)
+    }
+
+    override destroy() {
+        if (disposableRegistry !== null) {
+            disposableRegistry.dispose()
+            disposableRegistry = null
+        }
+        super.destroy()
+    }
+
 }

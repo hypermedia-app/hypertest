@@ -23,9 +23,10 @@ import org.json.JSONObject
 import org.json.JSONArray
 import java.util.Map
 import java.util.HashMap
-import app.hypermedia.testing.dsl.core.ResponseStep
 import app.hypermedia.testing.dsl.core.FollowStatement
 import app.hypermedia.testing.dsl.core.Identifier
+import app.hypermedia.testing.dsl.core.CoreScenario
+import org.eclipse.emf.common.util.EList
 
 /**
  * Generates code from your model files on save.
@@ -37,7 +38,7 @@ class CoreGenerator extends AbstractGenerator {
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 
-        val Iterable<EObject> blocks = resource.allContents.filter(TopLevelStep).toList
+        val Iterable<TopLevelStep> blocks = getSteps(resource.contents).toList
 
         if ( ! blocks.empty) {
             val String dslFileName = resource.getURI().lastSegment.toString();
@@ -46,13 +47,13 @@ class CoreGenerator extends AbstractGenerator {
         }
     }
 
-    def generateSteps(Iterable<EObject> blocks) {
+    def generateSteps(Iterable<TopLevelStep> blocks) {
         val scenario = new JSONObject();
         val steps = new JSONArray()
 
         for (block : blocks) {
             val stepJson = block.step
-        	steps.put(new JSONObject(stepJson.toString()))
+            steps.put(new JSONObject(stepJson.toString()))
         }
 
         scenario.put('steps', steps)
@@ -76,7 +77,7 @@ class CoreGenerator extends AbstractGenerator {
         val map = new HashMap<String, Object>
         map.put('classId', cb.name.identifier)
 
-        return buildBlock('Class', cb.children, map)
+        return buildBlock('Class', cb.classChildren, map)
     }
 
     def dispatch step(PropertyBlock it) {
@@ -152,7 +153,7 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch step(FollowStatement it) {
         val map = new HashMap<String, Object>
         map.put('variable', variable)
-        
+
         return buildStatement('Follow', map)
     }
 
@@ -163,4 +164,8 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch identifier(Identifier it) {
         return value
     }
+    
+    protected def getSteps(EList<EObject> s) {
+        return s.filter(CoreScenario).flatMap[cs | cs.steps]
+    } 
 }

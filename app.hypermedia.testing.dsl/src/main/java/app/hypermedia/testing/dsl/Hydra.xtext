@@ -1,26 +1,26 @@
 grammar app.hypermedia.testing.dsl.Hydra with app.hypermedia.testing.dsl.Core
-    
+
 import "http://testing.hypermedia.app/dsl/core"
 generate hydra "http://testing.hypermedia.app/dsl/hydra"
 
 HydraScenario:
     (namespaces+=NamespaceDeclaration)*
     (steps+=TopLevelStep)*;
- 
-@Override 
+
+@Override
 TopLevelStep:
     super |
-    RelaxedOperationBlock;
-    
-@Override 
+    OperationBlock;
+
+@Override
 RepresentationStep:
 	super |
 	OperationBlock
 ;
 
-@Override 
-Identifier: 
-    UriName | 
+@Override
+Identifier:
+    UriName |
     PrefixedName
 ;
 
@@ -32,17 +32,10 @@ PrefixDeclaration: value=PREFIX;
 UriName: value=URI;
 PrefixedName: value=QNAME;
 
-RelaxedOperationBlock:
-    WithModifier 'Operation' name=Identifier '{'
-        (invocations+=InvocationBlock)*
-    '}'
-;
-
-// TODO: Can we use only one step for this and restrict Expect Operation from being used on top level?? 
 OperationBlock:
-    modifier=Modifier 'Operation' name=Identifier '{'
+    modifier=Modifier 'Operation' name=Identifier ('{'
         (invocations+=InvocationBlock)*
-    '}'
+    '}')?
 ;
 
 InvocationBlock:

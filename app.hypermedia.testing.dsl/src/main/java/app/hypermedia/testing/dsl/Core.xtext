@@ -36,7 +36,7 @@ WithModifier: 'With';
 
 ClassBlock:
 	WithModifier 'Class' name=Identifier '{'
-		(children+=RepresentationStep)*
+		(classChildren+=RepresentationStep)*
 	'}';
 
 PropertyBlock:

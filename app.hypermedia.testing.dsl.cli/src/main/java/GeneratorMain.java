@@ -75,7 +75,11 @@ public class GeneratorMain {
     private boolean validate(Resource resource) {
         List<Issue> issues = validator.validate(resource, CheckMode.ALL, CancelIndicator.NullImpl);
         if (!issues.isEmpty()) {
-            issues.forEach(issue -> System.out.printf("Line %3s: %s %n", issue.getLineNumber(), issue.getMessage()));
+            issues.forEach(issue -> System.out.printf(
+                    "Line %3s: %s %s %n",
+                    issue.getLineNumber(),
+                    issue.getSeverity(),
+                    issue.getMessage()));
             return false;
         }
 

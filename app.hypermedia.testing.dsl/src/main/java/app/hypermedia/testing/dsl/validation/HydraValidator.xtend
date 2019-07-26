@@ -11,17 +11,44 @@ import app.hypermedia.testing.dsl.core.CorePackage
 import java.net.URISyntaxException
 import app.hypermedia.testing.dsl.core.ClassBlock
 import app.hypermedia.testing.dsl.hydra.OperationBlock
-import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
-import app.hypermedia.testing.dsl.hydra.PrefixedName
+import app.hypermedia.testing.dsl.Modifier
 
 /**
- * This class contains custom validation rules. 
+ * This class contains custom validation rules.
  *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 class HydraValidator extends AbstractHydraValidator {
     static final String INVALID_URI = 'Value is not a valid URI'
-    
+
+    @Check
+    def checkTopLevelOperationModifier(OperationBlock it) {
+        val topLevel = eContainer.eContainer === null
+        if (topLevel && modifier == Modifier.EXPECT) {
+            error("Root operation can only use the 'With' modifier",
+                  HydraPackage.Literals.OPERATION_BLOCK__MODIFIER)
+        }
+    }
+
+    @Check
+    def checkOperationChildren(OperationBlock it) {
+        val topLevel = eContainer.eContainer === null
+        val hasInvocations = invocations !== null && invocations.length > 0
+
+        if (hasInvocations || modifier != Modifier.WITH) {
+            return
+        }
+
+        if (topLevel) {
+            error("Invocations missing",
+                  HydraPackage.Literals.OPERATION_BLOCK__INVOCATIONS)
+        }
+        else {
+            warning("Invocations missing",
+                    HydraPackage.Literals.OPERATION_BLOCK__INVOCATIONS)
+        }
+    }
+
     @Check
     def checkValidUri(NamespaceDeclaration ns) {
         if (tryParseUri(ns.namespace) === false) {
@@ -29,7 +56,7 @@ class HydraValidator extends AbstractHydraValidator {
                   HydraPackage.Literals.NAMESPACE_DECLARATION__NAMESPACE)
         }
     }
-    
+
     @Check
     def checkValidUri(ClassBlock clas) {
         if (tryParseUri(clas.name.value) === false) {
@@ -38,7 +65,7 @@ class HydraValidator extends AbstractHydraValidator {
             )
         }
     }
-    
+
     @Check
     def checkValidUri(OperationBlock clas) {
         if (tryParseUri(clas.name.value) === false) {
@@ -47,16 +74,7 @@ class HydraValidator extends AbstractHydraValidator {
             )
         }
     }
-    
-    @Check
-    def checkValidUri(RelaxedOperationBlock clas) {
-        if (tryParseUri(clas.name.value) === false) {
-            error(INVALID_URI,
-                  HydraPackage.Literals.RELAXED_OPERATION_BLOCK__NAME
-            )
-        }
-    }
-    
+
     @Check
     def checkNamespace(NamespaceDeclaration it) {
         if (!namespace.endsWith('#') && !namespace.endsWith('/') && !namespace.endsWith(':')) {
@@ -65,7 +83,7 @@ class HydraValidator extends AbstractHydraValidator {
             )
         }
     }
-    
+
     private def tryParseUri(String uri) {
         try {
             val parsed = new URI(uri)

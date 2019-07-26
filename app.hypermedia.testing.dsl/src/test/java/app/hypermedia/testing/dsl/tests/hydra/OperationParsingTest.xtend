@@ -17,7 +17,6 @@ import app.hypermedia.testing.dsl.hydra.InvocationBlock
 import app.hypermedia.testing.dsl.tests.TestHelpers
 import app.hypermedia.testing.dsl.core.ClassBlock
 import app.hypermedia.testing.dsl.Modifier
-import app.hypermedia.testing.dsl.hydra.RelaxedOperationBlock
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import org.eclipse.xtext.testing.validation.ValidationTestHelper
@@ -41,8 +40,8 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
-        val classBlock = result.steps.get(0) as RelaxedOperationBlock
+
+        val classBlock = result.steps.get(0) as OperationBlock
         assertThat(classBlock.name.value).isEqualTo("http://example.com/CreateUser")
     }
 
@@ -60,7 +59,7 @@ class OperationParsingTest {
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
 
-        val classBlock = result.steps.get(0) as RelaxedOperationBlock
+        val classBlock = result.steps.get(0) as OperationBlock
         assertThat(classBlock.name.value).isEqualTo("schema:Person")
     }
 
@@ -71,7 +70,7 @@ class OperationParsingTest {
             With Operation <http://example.com/CreateUser> {
                 Invoke {
                 }
-                
+
                 Invoke {
                 }
 
@@ -82,8 +81,8 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
-        val operationBlock = result.steps.get(0) as RelaxedOperationBlock
+
+        val operationBlock = result.steps.get(0) as OperationBlock
         assertThat(operationBlock.invocations).hasSize(3)
         val invokeBlock = operationBlock.invocations.get(0)
         assertThat(invokeBlock).isInstanceOf(InvocationBlock)
@@ -101,9 +100,9 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val classBlock = result.steps.get(0) as ClassBlock
-        val operationBlock = classBlock.children.get(0) as OperationBlock
+        val operationBlock = classBlock.classChildren.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)
         assertThat(operationBlock.modifier).isEqualTo(Modifier.EXPECT)
     }
@@ -111,13 +110,78 @@ class OperationParsingTest {
     @Test
     def void expectOperation_ParsingFailsOnTopLevel() {
         // when
-        val result = parseHelper.parse('''
+        val result = '''
             Expect Operation <http://example.com/CreateUser> {
             }
-        ''')
+        '''.parse
 
         // then
-       assertThat(result).isNull()
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Root operation can only use the 'With' modifier"
+        )
+    }
+
+    @Test
+    def void withOperation_withNoBlock_ParsingFailsOnTopLevel() {
+        // when
+        val result = '''
+            With Operation "CreateUser"
+        '''.parse
+
+        // then
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Invocations missing"
+        )
+    }
+
+    @Test
+    def void withOperation_withNoChildren_ParsingFailsOnTopLevel() {
+        // when
+        val result = '''
+            With Operation <http://example.com/CreateUser> {}
+        '''.parse
+
+        // then
+        result.assertError(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            "Invocations missing"
+        )
+    }
+
+    @Test
+    def void expectOperation_withNoChildren_parsesSuccessfullyInsideClassBlock() {
+        // when
+        val result = '''
+            With Class <http://example.com/Foo> {
+                Expect Operation <http://example.com/CreateUser>
+            }
+        '''.parse
+
+        // then
+        result.assertNoIssues
+    }
+
+    @Test
+    def void withOperation_emptyBlock_warnsWhenChildOfClass() {
+        // when
+        val result = '''
+            With Class <http://example.com/Foo> {
+                With Operation <http://example.com/CreateUser> {
+                }
+            }
+        '''.parse
+
+        // then
+        result.assertWarning(
+            HydraPackage.Literals.OPERATION_BLOCK,
+            null,
+            'Invocations missing'
+        )
     }
 
     @Test
@@ -132,9 +196,9 @@ class OperationParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val classBlock = result.steps.get(0) as ClassBlock
-        val operationBlock = classBlock.children.get(0) as OperationBlock
+        val operationBlock = classBlock.classChildren.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)
         assertThat(operationBlock.modifier).isEqualTo(Modifier.WITH)
     }
@@ -149,7 +213,7 @@ class OperationParsingTest {
 
         // then
         result.assertError(
-            HydraPackage.Literals.RELAXED_OPERATION_BLOCK,
+            HydraPackage.Literals.OPERATION_BLOCK,
             null,
             "Value is not a valid URI"
         )
@@ -186,15 +250,15 @@ class OperationParsingTest {
 
     @ParameterizedTest
     @MethodSource("app.hypermedia.testing.dsl.tests.hydra.TestCases#validUris")
-    def void oeprationWithValidUri_passesValidation(String id) {
+    def void operationWithValidUri_passesValidation(String id) {
         // when
         val result = '''
             PREFIX some: <urn:test:>
-        
+
             With Class some:class { With Operation <«id»> {} }
         '''.parse
 
         // then
-        result.assertNoIssues()
+        result.assertNoErrors()
     }
 }

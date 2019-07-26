@@ -35,27 +35,6 @@ app.hypermedia.testing.dsl.tests.generator.core.LinkTest.canGenerateForClassLink
               "type": "Class"
             },
             "empty": false
-          },
-          {
-            "map": {
-              "children": {
-                "myArrayList": [
-                  {
-                    "map": {
-                      "propertyId": "name",
-                      "strict": true,
-                      "type": "Property"
-                    },
-                    "empty": false
-                  }
-                ],
-                "empty": false
-              },
-              "rel": "author",
-              "strict": false,
-              "type": "Link"
-            },
-            "empty": false
           }
         ],
         "empty": false
