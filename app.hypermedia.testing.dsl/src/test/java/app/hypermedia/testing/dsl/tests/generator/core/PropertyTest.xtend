@@ -91,4 +91,25 @@ class PropertyTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
+
+    @Test
+    def expectNonStringValues_generatesValue() {
+        // given
+        val model = parseHelper.parse('''
+            With Class "Person" {
+                Expect Property "age" 21
+                Expect Property "salary" 12.5
+                Expect Property "employed" true
+            }
+        ''')
+
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
 }

@@ -14,6 +14,10 @@ import org.junit.jupiter.api.^extension.ExtendWith
 import app.hypermedia.testing.dsl.core.PropertyBlock
 import app.hypermedia.testing.dsl.core.PropertyStatement
 import static org.assertj.core.api.Assertions.*;
+import app.hypermedia.testing.dsl.core.StringValue
+import app.hypermedia.testing.dsl.core.IntValue
+import app.hypermedia.testing.dsl.core.BooleanValue
+import app.hypermedia.testing.dsl.core.DecimalValue
 
 @ExtendWith(InjectionExtension)
 @InjectWith(CoreInjectorProvider)
@@ -70,7 +74,7 @@ class PropertyParsingTest {
 
         val classBlock = result.steps.get(0) as ClassBlock
         val propertyStmt = classBlock.classChildren.get(0) as PropertyStatement
-        assertThat(propertyStmt.value).isEqualTo("TOMASZ")
+        assertThat((propertyStmt.expectation as StringValue).value).isEqualTo("TOMASZ")
     }
 
     @Test
@@ -104,5 +108,56 @@ class PropertyParsingTest {
 
         // then
         TestHelpers.assertModelParsingFailed(result)
+    }
+
+    @Test
+    def void expectProperty_succesfullyParsesInt() {
+        // when
+        val result = parseHelper.parse('''
+            With Class "Book" {
+                Expect Property "pageCount" 1098
+            }
+        ''')
+
+        // then
+        TestHelpers.assertModelParsedSuccessfully(result)
+
+        val classBlock = result.steps.get(0) as ClassBlock
+        val propertyStatement = classBlock.classChildren.get(0) as PropertyStatement
+        assertThat(propertyStatement.expectation).isInstanceOf(IntValue)
+    }
+
+    @Test
+    def void expectProperty_succesfullyParsesBoolean() {
+        // when
+        val result = parseHelper.parse('''
+            With Class "Book" {
+                Expect Property "read" false
+            }
+        ''')
+
+        // then
+        TestHelpers.assertModelParsedSuccessfully(result)
+
+        val classBlock = result.steps.get(0) as ClassBlock
+        val propertyStatement = classBlock.classChildren.get(0) as PropertyStatement
+        assertThat(propertyStatement.expectation).isInstanceOf(BooleanValue)
+    }
+
+    @Test
+    def void expectProperty_succesfullyParsesDecimal() {
+        // when
+        val result = parseHelper.parse('''
+            With Class "Book" {
+                Expect Property "price" 10.99
+            }
+        ''')
+
+        // then
+        TestHelpers.assertModelParsedSuccessfully(result)
+
+        val classBlock = result.steps.get(0) as ClassBlock
+        val propertyStatement = classBlock.classChildren.get(0) as PropertyStatement
+        assertThat(propertyStatement.expectation).isInstanceOf(DecimalValue)
     }
 }

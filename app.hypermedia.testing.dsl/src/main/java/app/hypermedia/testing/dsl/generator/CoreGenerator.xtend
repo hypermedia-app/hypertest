@@ -27,6 +27,11 @@ import app.hypermedia.testing.dsl.core.FollowStatement
 import app.hypermedia.testing.dsl.core.Identifier
 import app.hypermedia.testing.dsl.core.CoreScenario
 import org.eclipse.emf.common.util.EList
+import app.hypermedia.testing.dsl.core.StringValue
+import app.hypermedia.testing.dsl.core.BooleanValue
+import app.hypermedia.testing.dsl.core.IntValue
+import app.hypermedia.testing.dsl.core.DecimalValue
+import java.math.BigDecimal
 
 /**
  * Generates code from your model files on save.
@@ -93,8 +98,8 @@ class CoreGenerator extends AbstractGenerator {
         map.put('propertyId', name.identifier)
         map.put('strict', true)
 
-        if(value !== null) {
-            map.put('value', value)
+        if(expectation !== null) {
+            map.put('value', expectation.propertyValue)
         }
 
         return buildStatement('Property', map)
@@ -163,6 +168,22 @@ class CoreGenerator extends AbstractGenerator {
 
     def dispatch identifier(Identifier it) {
         return value
+    }
+    
+    def dispatch Object propertyValue(StringValue it) {
+        return value
+    }
+    
+    def dispatch Object propertyValue(BooleanValue it) {
+        return value == 'true' ? true : false
+    }
+    
+    def dispatch Object propertyValue(IntValue it) {
+        return value
+    }
+    
+    def dispatch Object propertyValue(DecimalValue it) {
+        return new BigDecimal(value)
     }
 
     protected def getSteps(EList<EObject> s) {
