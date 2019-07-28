@@ -1,3 +1,56 @@
+app.hypermedia.testing.dsl.tests.generator.core.PropertyTest.expectNonStringValues_generatesValue=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "propertyId": "age",
+                      "strict": true,
+                      "type": "Property",
+                      "value": 21
+                    },
+                    "empty": false
+                  },
+                  {
+                    "map": {
+                      "propertyId": "salary",
+                      "strict": true,
+                      "type": "Property",
+                      "value": 12.5
+                    },
+                    "empty": false
+                  },
+                  {
+                    "map": {
+                      "propertyId": "employed",
+                      "strict": true,
+                      "type": "Property",
+                      "value": true
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "Person",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
 app.hypermedia.testing.dsl.tests.generator.core.PropertyTest.expectPropertyValue_generatesValue=[
   {
     "map": {

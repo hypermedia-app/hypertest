@@ -46,7 +46,27 @@ PropertyBlock:
 ;
 
 PropertyStatement:
-    ExpectModifier 'Property' name=Identifier (value=STRING)?
+    ExpectModifier 'Property' name=Identifier expectation=(
+        IntValue |
+        DecimalValue |
+        BooleanValue |
+        StringValue)?
+;
+
+DecimalValue:
+    value=DECIMAL
+;
+
+BooleanValue:
+    value=('true' | 'false')
+;
+
+IntValue:
+    value=INT
+;
+
+StringValue:
+    value=STRING
 ;
 
 StatusStatement:
@@ -115,3 +135,5 @@ terminal HYPHENATED_NAME: ('a'..'z' | 'A'..'Z') ('-' | 'a'..'z' | 'A'..'Z')*;
 terminal MULTILINE_BLOCK:
     '```' -> '```'
 ;
+
+terminal DECIMAL: INT '.' INT;
