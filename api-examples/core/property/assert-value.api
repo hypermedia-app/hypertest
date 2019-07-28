@@ -1,3 +1,6 @@
 With Class "Person" {
-    Expect Property "name" "Tomasz"
+    Expect Property "name" "John Doe"
+    Expect Property "age" 40
+    Expect Property "employed" true
+    Expect Property "wage" 13.5
 }

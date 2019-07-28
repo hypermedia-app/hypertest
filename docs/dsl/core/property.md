@@ -24,9 +24,8 @@ the actual value of the property.
 
 <<< @/api-examples/core/property/assert-value.api
 
-:::warning
-At the time of writing only string is allowed. The test runner should always compare
-textual form of non-string values.
+:::tip
+Supported are exact comparison of integers, decimals, booleans and strings.
 :::
 
 ### Step into nested resource
