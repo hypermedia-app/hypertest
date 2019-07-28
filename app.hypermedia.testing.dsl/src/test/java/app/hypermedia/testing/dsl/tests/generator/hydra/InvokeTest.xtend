@@ -21,7 +21,7 @@ import org.eclipse.xtext.generator.GeneratorContext
 class InvokeTest {
     @Inject IGenerator2 generator
     @Inject extension ParseHelper<HydraScenario>
-    
+
     @BeforeAll
     static def beforeAll() {
         start()
@@ -39,15 +39,15 @@ class InvokeTest {
             With Operation <http://example.com/CreateUser> {
                 Invoke {
                     Content-Type "text/csv"
-                    
+
                     <<< "/some/path/data.csv"
                 } => {
                     Expect Status 201
                 }
-                
+
                 Invoke {
                     Content-Type "application/json"
-                    
+
                     ```
                     {
                         "hello": "world",
@@ -59,7 +59,7 @@ class InvokeTest {
                 }
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
@@ -78,15 +78,15 @@ class InvokeTest {
                 With Operation <http://example.com/CreateUser> {
                     Invoke {
                         Content-Type "text/csv"
-                        
+
                         <<< "/some/path/data.csv"
                     } => {
                         Expect Status 201
                     }
-                    
+
                     Invoke {
                         Content-Type "application/json"
-                        
+
                         ```
                         {
                             "hello": "world",
@@ -99,7 +99,7 @@ class InvokeTest {
                 }
             }
         '''.parse
-        
+
         // when
         val fsa = new InMemoryFileSystemAccess()
         generator.doGenerate(model.eResource, fsa, new GeneratorContext())
