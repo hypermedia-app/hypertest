@@ -169,19 +169,19 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch identifier(Identifier it) {
         return value
     }
-    
+
     def dispatch Object propertyValue(StringValue it) {
         return value
     }
-    
+
     def dispatch Object propertyValue(BooleanValue it) {
         return value == 'true' ? true : false
     }
-    
+
     def dispatch Object propertyValue(IntValue it) {
         return value
     }
-    
+
     def dispatch Object propertyValue(DecimalValue it) {
         return new BigDecimal(value)
     }
