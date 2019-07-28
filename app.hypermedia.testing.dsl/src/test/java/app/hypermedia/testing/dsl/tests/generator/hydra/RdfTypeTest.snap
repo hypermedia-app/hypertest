@@ -1,0 +1,92 @@
+app.hypermedia.testing.dsl.tests.generator.hydra.RdfTypeTest.expectTypeWithPrefix_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "propertyId": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                              "strict": true,
+                              "type": "Property",
+                              "value": "http://example.com/NewUser"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "operationId": "http://example.com/CreateUser",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.hydra.RdfTypeTest.expectType_generatesStep=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "propertyId": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+                              "strict": true,
+                              "type": "Property",
+                              "value": "http://example.com/NewUser"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "type": "Invocation"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "operationId": "http://example.com/CreateUser",
+              "strict": false,
+              "type": "Operation"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]

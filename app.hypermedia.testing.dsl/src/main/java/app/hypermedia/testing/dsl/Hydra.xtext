@@ -15,13 +15,18 @@ TopLevelStep:
 @Override
 RepresentationStep:
 	super |
-	OperationBlock
+	OperationBlock |
+	RdfTypeStatement
 ;
 
 @Override
 Identifier:
     UriName |
     PrefixedName
+;
+
+RdfTypeStatement:
+    ExpectModifier 'Type' id=Identifier
 ;
 
 NamespaceDeclaration:
