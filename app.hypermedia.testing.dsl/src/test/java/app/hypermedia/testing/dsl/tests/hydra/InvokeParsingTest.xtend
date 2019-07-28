@@ -38,7 +38,7 @@ class InvokeParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val operationBlock = result.steps.get(0) as OperationBlock
         val invocation = operationBlock.invocations.get(0)
         assertThat(invocation.request.headers).hasSize(2)
@@ -65,7 +65,7 @@ class InvokeParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val operationBlock = result.steps.get(0) as OperationBlock
         val invocation = operationBlock.invocations.get(0)
         assertThat(invocation.request.body.contents).contains('<> a api:Person .')
@@ -86,7 +86,7 @@ class InvokeParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val operationBlock = result.steps.get(0) as OperationBlock
         val invocation = operationBlock.invocations.get(0)
         assertThat(invocation.request.body.reference.path).isEqualTo('../../sample-bodies/data.csv')
@@ -107,7 +107,7 @@ class InvokeParsingTest {
 
         // then
         TestHelpers.assertModelParsedSuccessfully(result)
-        
+
         val operationBlock = result.steps.get(0) as OperationBlock
         val invocation = operationBlock.invocations.get(0)
         assertThat(invocation.response.children).hasSize(1)
