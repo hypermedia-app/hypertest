@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/hypermedia-app/hypertest/compare/v0.3.0...v0.4.0) (2019-07-28)
+
+
+### Bug Fixes
+
+* hydra identifiers must be URIs ([6966deb](https://github.com/hypermedia-app/hypertest/commit/6966deb))
+* update xtext in cli ([81afff5](https://github.com/hypermedia-app/hypertest/commit/81afff5))
+* **web:** preselect Core language in `<select>` ([63cf1c1](https://github.com/hypermedia-app/hypertest/commit/63cf1c1))
+
+
+### Build System
+
+* add editorconfig maven plugin ([e526c26](https://github.com/hypermedia-app/hypertest/commit/e526c26))
+
+
+### Features
+
+* **core-dsl:** extend property statement with other data types ([db1a72a](https://github.com/hypermedia-app/hypertest/commit/db1a72a)), closes [#50](https://github.com/hypermedia-app/hypertest/issues/50)
+* **hydra-dsl:** explicit rdf:type expectation statement ([7cb2311](https://github.com/hypermedia-app/hypertest/commit/7cb2311)), closes [#50](https://github.com/hypermedia-app/hypertest/issues/50)
+* allow expect operation without children ([16d2d0d](https://github.com/hypermedia-app/hypertest/commit/16d2d0d))
+* check that URIs are valid ([b9dd73e](https://github.com/hypermedia-app/hypertest/commit/b9dd73e))
+* generator reassembles prefixed names into URIs ([be056e9](https://github.com/hypermedia-app/hypertest/commit/be056e9))
+* setting up request messages ([a9be8fd](https://github.com/hypermedia-app/hypertest/commit/a9be8fd)), closes [#32](https://github.com/hypermedia-app/hypertest/issues/32) [#42](https://github.com/hypermedia-app/hypertest/issues/42)
+* warn if prefix does not seem right ([e498882](https://github.com/hypermedia-app/hypertest/commit/e498882))
+* **hydra-dsl:** add prefixed names to hydra ([1e660d4](https://github.com/hypermedia-app/hypertest/commit/1e660d4))
+
+
+### Tests
+
+* prefixed name can be more than just letters ([a2f1181](https://github.com/hypermedia-app/hypertest/commit/a2f1181))
+
+
+
 ## [0.3.0](https://github.com/hypermedia-app/hypertest/compare/v0.2.1...v0.3.0) (2019-07-17)
 
 
