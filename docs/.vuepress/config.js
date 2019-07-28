@@ -32,6 +32,7 @@ module.exports = {
                         '/dsl/hydra/invoke',
                         '/dsl/hydra/operation',
                         '/dsl/hydra/prefix',
+                        '/dsl/hydra/type',
                     ]
                 }
             ]

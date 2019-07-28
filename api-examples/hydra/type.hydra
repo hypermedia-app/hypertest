@@ -1,0 +1,5 @@
+With Operation <http://example.com/CreateProject> {
+    Invoke {
+        Expect Type <http://example.com/ProjectDraft>
+    }
+}

@@ -8,6 +8,7 @@ Hydra scenarios are text files with `.hydra` extension.
 ## Supported steps
 
 * [Operation](./operation)
+* [Type](./type)
 
 ## Helper statements
 
