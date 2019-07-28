@@ -29,6 +29,7 @@ module.exports = {
                     title: 'Hydra grammar',
                     path: '/dsl/hydra/',
                     children: [
+                        '/dsl/hydra/invoke',
                         '/dsl/hydra/operation',
                         '/dsl/hydra/prefix',
                     ]

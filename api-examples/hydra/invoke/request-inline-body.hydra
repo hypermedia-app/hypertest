@@ -1,0 +1,19 @@
+PREFIX api: <http://example.app/>
+
+With Operation api:UpdateProfile {
+    Invoke {
+        ```
+        {
+            "op": "add",
+            "s": "http://example.org/my/resource",
+            "p": "http://example.org/ontology#title",
+            "o": {
+              "value": "New Title",
+              "type": "http://www.w3.org/2001/XMLSchema#string"
+            }
+          }
+        ```
+    } => {
+        Expect Status 204
+    }
+}
