@@ -1,0 +1,11 @@
+PREFIX api: <http://example.app/>
+
+With Operation api:SetProfilePicture {
+    Invoke {
+        Content-Type "image/png"
+
+        <<< "./images/avatar.png"
+    } => {
+        Expect Status 204
+    }
+}

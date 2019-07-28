@@ -8,8 +8,7 @@ advertised by Hydra API Documentation or inlined in the resource representation.
 
 * Operation steps are valid where representation is the context.
 * Operation steps are also valid on top level.
-* Operation has a single child step `Invoke`.
-* `Invoke` accepts any child step which applies to responses and representations.
+* Operation has a single child step [`Invoke`](./invoke).
 
 ## Usage
 

@@ -12,6 +12,7 @@ Hydra scenarios are text files with `.hydra` extension.
 ## Helper statements
 
 * [Prefix](./prefix)
+* [Invoke](./invoke)
 
 ## Raw Xtext grammar
 

@@ -1,0 +1,9 @@
+PREFIX api: <http://example.app/>
+
+With Operation api:GetImage {
+    Invoke {
+        Accept "image/*"
+    } => {
+        Expect Status 200
+    }
+}
