@@ -80,13 +80,13 @@ final Map<String, String> _namespaces
     def dispatch identifier(UriName it) {
         return value
     }
-    
+
     def dispatch step(RdfTypeStatement it) {
         val map = new HashMap<String, Object>
         map.put('propertyId', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
         map.put('strict', true)
         map.put('value', id.identifier)
-        
+
         return buildStatement('Property', map)
     }
 
