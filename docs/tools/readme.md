@@ -62,7 +62,7 @@ Options:
 
 ## Web Editor
 
-A simple web editor is running at [http://hypertest.kube.zazuko.com/](http://hypertest.kube.zazuko.com/).
+A simple web editor is running at [https://hypertest.zazukoians.org/](https://hypertest.zazukoians.org/).
 
 It can be used to play with all languages supported by Hypertest.
 
