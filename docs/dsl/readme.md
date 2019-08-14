@@ -24,7 +24,7 @@ which enclose optional settings and child steps.
 
 Child step follow a similar pattern but with more relaxed syntax rules. Typically they
 will be structured similarly, as `Modifiers Type Parameters {}`. Individual types of those steps
-define the allowed modifiers and parameters. The children may also optional in some cases.  
+define the allowed modifiers and parameters. The children may also be optional in some cases.  
 
 ### Example
 
