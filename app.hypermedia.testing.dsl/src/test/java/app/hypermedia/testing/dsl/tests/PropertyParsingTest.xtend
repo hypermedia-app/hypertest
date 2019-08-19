@@ -39,7 +39,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyBlock = classBlock.classChildren.get(0) as PropertyBlock
+        val propertyBlock = classBlock.children.get(0) as PropertyBlock
         assertThat(propertyBlock.name.value).isEqualTo("name")
     }
 
@@ -56,7 +56,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStmt = classBlock.classChildren.get(0) as PropertyStatement
+        val propertyStmt = classBlock.children.get(0) as PropertyStatement
         assertThat(propertyStmt.name.value).isEqualTo("name")
     }
 
@@ -73,7 +73,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStmt = classBlock.classChildren.get(0) as PropertyStatement
+        val propertyStmt = classBlock.children.get(0) as PropertyStatement
         assertThat((propertyStmt.expectation as StringValue).value).isEqualTo("TOMASZ")
     }
 
@@ -92,7 +92,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyBlock = classBlock.classChildren.get(0) as PropertyBlock
+        val propertyBlock = classBlock.children.get(0) as PropertyBlock
         assertThat(propertyBlock.children.length).isEqualTo(1)
         assertThat(propertyBlock.children.get(0)).isInstanceOf(PropertyStatement)
     }
@@ -123,7 +123,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStatement = classBlock.classChildren.get(0) as PropertyStatement
+        val propertyStatement = classBlock.children.get(0) as PropertyStatement
         assertThat(propertyStatement.expectation).isInstanceOf(IntValue)
     }
 
@@ -140,7 +140,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStatement = classBlock.classChildren.get(0) as PropertyStatement
+        val propertyStatement = classBlock.children.get(0) as PropertyStatement
         assertThat(propertyStatement.expectation).isInstanceOf(BooleanValue)
     }
 
@@ -157,7 +157,7 @@ class PropertyParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val propertyStatement = classBlock.classChildren.get(0) as PropertyStatement
+        val propertyStatement = classBlock.children.get(0) as PropertyStatement
         assertThat(propertyStatement.expectation).isInstanceOf(DecimalValue)
     }
 }

@@ -36,11 +36,14 @@ WithModifier: 'With';
 
 ClassBlock:
 	WithModifier 'Class' name=Identifier '{'
-		(classChildren+=RepresentationStep)*
-	'}';
+        (constraints+=RepresentationConstraint)*
+        (children+=RepresentationStep)*
+    '}'
+;
 
 PropertyBlock:
     modifier=Modifier 'Property' name=Identifier '{'
+        (constraints+=RepresentationConstraint)*
         (children+=RepresentationStep)*
     '}'
 ;
@@ -75,12 +78,14 @@ StatusStatement:
 
 RelaxedLinkBlock:
     WithModifier 'Link' relation=Identifier '{'
+        (constraints+=ResponseConstraint)*
         (children+=ResponseStep)*
     '}'
 ;
 
 StrictLinkBlock:
     ExpectModifier 'Link' relation=Identifier '{'
+        (constraints+=ResponseConstraint)*
         (children+=ResponseStep)*
     '}'
 ;
@@ -117,6 +122,77 @@ ResponseBlock:
 RequestBody:
     contents=MULTILINE_BLOCK |
     reference=RequestFileBody
+;
+
+ResponseConstraint:
+    RepresentationConstraint |
+    StatusConstraint
+;
+
+RepresentationConstraint:
+    PropertyConstraint
+;
+
+IntCondition:
+    operator=(EqualityOperator | InequalityOperator)
+    value=INT
+;
+
+StringCondition:
+    operator=(EqualityOperator | InequalityOperator)
+    value=STRING
+;
+
+DecimalCondition:
+    operator=(EqualityOperator | InequalityOperator)
+    value=DECIMAL
+;
+
+RegexCondition:
+    operator=('Matches' | 'Matching')
+    value=STRING
+;
+
+BooleanCondition:
+    operator=EqualityOperator
+    value=('true' | 'false')
+;
+
+CustomCondition:
+    operator='=>'
+    value=MULTILINE_BLOCK
+;
+
+StatusConstraint:
+    'When' 'Status'
+    negation='Not'?
+    condition=(IntCondition | CustomCondition)
+;
+
+PropertyConstraint:
+    'When' 'Property'
+    name=Identifier?
+    negation='Not'?
+    condition=(
+        IntCondition |
+        StringCondition |
+        DecimalCondition |
+        RegexCondition |
+        BooleanCondition |
+        CustomCondition
+    )
+;
+
+EqualityOperator:
+    'Equal' | 'Equals'
+;
+
+RegexOperator:
+    'Matches' | 'Matching'
+;
+
+InequalityOperator: 
+    ('Less' | 'Greater') 'Than' ('Or' 'Equal')?
 ;
 
 RequestFileBody:

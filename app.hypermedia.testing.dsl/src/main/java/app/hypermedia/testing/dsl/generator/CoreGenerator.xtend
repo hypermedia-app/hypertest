@@ -3,34 +3,19 @@
  */
 package app.hypermedia.testing.dsl.generator
 
-import app.hypermedia.testing.dsl.core.ClassBlock
-import app.hypermedia.testing.dsl.core.TopLevelStep
+import app.hypermedia.testing.dsl.core.*
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.AbstractGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
-import app.hypermedia.testing.dsl.core.PropertyBlock
-import app.hypermedia.testing.dsl.core.PropertyStatement
 import org.apache.commons.lang3.NotImplementedException
 import org.eclipse.emf.ecore.EObject
 import app.hypermedia.testing.dsl.Modifier
-import app.hypermedia.testing.dsl.core.StatusStatement
-import app.hypermedia.testing.dsl.core.RelaxedLinkBlock
-import app.hypermedia.testing.dsl.core.StrictLinkBlock
-import app.hypermedia.testing.dsl.core.LinkStatement
-import app.hypermedia.testing.dsl.core.HeaderStatement
 import org.json.JSONObject
 import org.json.JSONArray
 import java.util.Map
 import java.util.HashMap
-import app.hypermedia.testing.dsl.core.FollowStatement
-import app.hypermedia.testing.dsl.core.Identifier
-import app.hypermedia.testing.dsl.core.CoreScenario
 import org.eclipse.emf.common.util.EList
-import app.hypermedia.testing.dsl.core.StringValue
-import app.hypermedia.testing.dsl.core.BooleanValue
-import app.hypermedia.testing.dsl.core.IntValue
-import app.hypermedia.testing.dsl.core.DecimalValue
 import java.math.BigDecimal
 
 /**
@@ -43,7 +28,7 @@ class CoreGenerator extends AbstractGenerator {
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 
-        val Iterable<TopLevelStep> blocks = getSteps(resource.contents).toList
+        val Iterable<TopLevelStep> blocks = getScenarioSteps(resource.contents).toList
 
         if ( ! blocks.empty) {
             val String dslFileName = resource.getURI().lastSegment.toString();
@@ -65,8 +50,17 @@ class CoreGenerator extends AbstractGenerator {
         return scenario
     }
 
-    def buildBlock(String type, Iterable<? extends EObject> children, Map<String, Object> map) {
+    def buildBlock(
+        String type,
+        Iterable<? extends EObject> children,
+        Iterable<? extends EObject> constraints,
+        Map<String, Object> map
+    ) {
         map.put('children', children.map([c | c.step]).toList())
+        
+        if (constraints.size > 0) {
+            map.put('constraints', constraints.map([c | c.constraint ]).toList())
+        }
 
         return buildStatement(type, map)
     }
@@ -82,7 +76,7 @@ class CoreGenerator extends AbstractGenerator {
         val map = new HashMap<String, Object>
         map.put('classId', cb.name.identifier)
 
-        return buildBlock('Class', cb.classChildren, map)
+        return buildBlock('Class', cb.children, cb.constraints, map)
     }
 
     def dispatch step(PropertyBlock it) {
@@ -90,7 +84,7 @@ class CoreGenerator extends AbstractGenerator {
         map.put('propertyId', name.identifier)
         map.put('strict', modifier != Modifier.WITH)
 
-        return buildBlock('Property', children, map)
+        return buildBlock('Property', children, constraints, map)
     }
 
     def dispatch step(PropertyStatement it) {
@@ -117,7 +111,7 @@ class CoreGenerator extends AbstractGenerator {
         map.put('rel', relation.identifier)
         map.put('strict', false)
 
-        return buildBlock('Link', children, map)
+        return buildBlock('Link', children, constraints, map)
     }
 
     def dispatch step(StrictLinkBlock it) {
@@ -125,7 +119,7 @@ class CoreGenerator extends AbstractGenerator {
         map.put('rel', relation.identifier)
         map.put('strict', true)
 
-        return buildBlock('Link', children, map)
+        return buildBlock('Link', children, constraints, map)
     }
 
     def dispatch step(LinkStatement it) {
@@ -165,6 +159,116 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch step(EObject step) {
         throw new NotImplementedException(String.format("Unrecognized step %s", step.class))
     }
+    
+    def dispatch constraint(PropertyConstraint it) {
+         val negatedCondition = negation !== null
+        
+        val map = new HashMap<String, Object>
+        map.put('constrain', 'Property')
+        map.put('left', name.identifier)
+        map.put('operator', condition.operator)
+        map.put('right', condition.operand)
+        map.put('negated', negatedCondition)
+        
+        return new JSONObject(map)
+    }
+    
+    def dispatch constraint(StatusConstraint it) {
+         val negatedCondition = negation !== null
+        
+        val map = new HashMap<String, Object>
+        map.put('constrain', 'Status')
+        map.put('operator', condition.operator)
+        map.put('right', condition.operand)
+        map.put('negated', negatedCondition)
+        
+        return new JSONObject(map)
+    }
+    
+    def dispatch constraint(EObject condition) {
+        throw new NotImplementedException(String.format("Unrecognized constraint %s", condition.class))
+    }
+    
+    def dispatch operand(StringCondition it) {
+        return value
+    }
+    
+    def dispatch operand(RegexCondition it) {
+        return value
+    }
+    
+    def dispatch operand(BooleanCondition it) {
+        return value == 'true' ? true : false
+    }
+    
+    def dispatch operand(IntCondition it) {
+        return value
+    }
+    
+    def dispatch operand(DecimalCondition it) {
+        return value
+    }
+    
+    def dispatch operand(CustomCondition it) {
+        return value
+    }
+    
+    def dispatch operand(EObject it) {
+        throw new NotImplementedException(String.format("Unrecognized condition %s", class))
+    }
+    
+    
+    def mapArithmeticOperator(String relation) {
+        if (relation.startsWith('Equal')) {
+            return 'eq'
+        }
+        
+        switch (relation) {
+            case 'Less Than': {
+                return 'lt'
+            }
+            case 'Greater Than': {
+                return 'gt'
+            }
+            case 'Less Than Or Equal': {
+                return 'le'
+            }
+            case 'Greater Than Or Equal': {
+                return 'ge'
+            }
+            default: {
+                throw new NotImplementedException(String.format("Unrecognized operator %s", relation))
+            }
+        }
+    }
+    
+    def dispatch String operator(IntCondition it) {
+        return operator.mapArithmeticOperator
+    }
+    
+    def dispatch String operator(DecimalCondition it) {
+        return operator.mapArithmeticOperator
+    }
+    
+    def dispatch String operator(RegexCondition it) {
+        return 'regex'
+    }
+    
+    def dispatch String operator(BooleanCondition it) {
+        return operator.mapArithmeticOperator
+    }
+    
+    def dispatch String operator(StringCondition it) {
+        return operator.mapArithmeticOperator
+    }
+    
+    def dispatch String operator(CustomCondition it) {
+        return 'function'
+    }
+    
+    def dispatch operator(EObject it) {
+        throw new NotImplementedException(String.format("Unrecognized operator %s", class))
+    }
 
     def dispatch identifier(Identifier it) {
         return value
@@ -186,7 +290,7 @@ class CoreGenerator extends AbstractGenerator {
         return new BigDecimal(value)
     }
 
-    protected def getSteps(EList<EObject> s) {
+    protected def getScenarioSteps(EList<EObject> s) {
         return s.filter(CoreScenario).flatMap[cs | cs.steps]
     }
 }

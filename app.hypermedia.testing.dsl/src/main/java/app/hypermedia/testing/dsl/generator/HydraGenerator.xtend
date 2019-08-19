@@ -38,7 +38,7 @@ final Map<String, String> _namespaces
         super.doGenerate(resource, fsa, context)
     }
 
-    protected override getSteps(EList<EObject> s) {
+    protected override getScenarioSteps(EList<EObject> s) {
         return s.filter(HydraScenario).flatMap[cs | cs.steps]
     }
 
@@ -47,7 +47,7 @@ final Map<String, String> _namespaces
         map.put('operationId', name.identifier)
         map.put('strict', modifier != Modifier.WITH)
 
-        return buildBlock('Operation', invocations, map)
+        return buildBlock('Operation', invocations, #[], map)
     }
 
     def dispatch step(InvocationBlock it) {
@@ -74,7 +74,7 @@ final Map<String, String> _namespaces
             }
         }
 
-        return buildBlock('Invocation', response.children, map)
+        return buildBlock('Invocation', response.children, #[], map)
     }
 
     def dispatch identifier(UriName it) {

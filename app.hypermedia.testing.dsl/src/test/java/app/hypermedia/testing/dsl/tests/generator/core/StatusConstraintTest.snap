@@ -1,0 +1,118 @@
+app.hypermedia.testing.dsl.tests.generator.core.StatusConstraintTest.gatedLink_whenStatusDoeNotSatisfyCustomCode=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "constraints": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "constrain": "Status",
+                      "negated": true,
+                      "operator": "function",
+                      "right": "code => code === 204 || code === 201"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "Foo",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.StatusConstraintTest.gatedLink_whenStatusEquals=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "constraints": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "constrain": "Status",
+                      "negated": false,
+                      "operator": "eq",
+                      "right": 200
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "Foo",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.StatusConstraintTest.gatedLink_whenStatusInequal=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "constraints": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "constrain": "Status",
+                      "negated": false,
+                      "operator": "ge",
+                      "right": 400
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "rel": "Foo",
+              "strict": false,
+              "type": "Link"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]

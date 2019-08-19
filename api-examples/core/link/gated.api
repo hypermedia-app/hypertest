@@ -1,0 +1,5 @@
+With Link "author" {
+    When Status Not Equals 404
+    
+    Expect Property "name"
+}

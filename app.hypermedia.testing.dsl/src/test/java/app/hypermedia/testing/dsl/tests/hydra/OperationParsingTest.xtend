@@ -102,7 +102,7 @@ class OperationParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val operationBlock = classBlock.classChildren.get(0) as OperationBlock
+        val operationBlock = classBlock.children.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)
         assertThat(operationBlock.modifier).isEqualTo(Modifier.EXPECT)
     }
@@ -198,7 +198,7 @@ class OperationParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val operationBlock = classBlock.classChildren.get(0) as OperationBlock
+        val operationBlock = classBlock.children.get(0) as OperationBlock
         assertThat(operationBlock).isInstanceOf(OperationBlock)
         assertThat(operationBlock.modifier).isEqualTo(Modifier.WITH)
     }
