@@ -9,7 +9,7 @@ app.hypermedia.testing.dsl.tests.generator.hydra.PropertyConstraintTest.gatedCla
                 "myArrayList": [ ],
                 "empty": true
               },
-              "classId": "http://example.comFoo",
+              "classId": "http://example.com/Foo",
               "constraints": {
                 "myArrayList": [
                   {
