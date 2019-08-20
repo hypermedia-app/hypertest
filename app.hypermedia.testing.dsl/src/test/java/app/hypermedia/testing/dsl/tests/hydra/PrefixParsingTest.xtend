@@ -46,7 +46,7 @@ class PrefixParsingTest {
         // when
         val result = '''
             PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-            
+
             With Class ex:foo {
             }
         '''.parse

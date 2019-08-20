@@ -86,23 +86,23 @@ class HydraValidator extends AbstractHydraValidator {
             )
         }
     }
-    
+
     @Check
     def checkPrefixExists(PrefixedName it) {
         val prefix = value.split(':').get(0)
 
         val nsDeclared = scenario.namespaces.exists[ns | ns.prefix.value == prefix]
-        
+
         if(nsDeclared === false) {
             error('''Unmapped prefix «prefix»''', CorePackage.Literals.IDENTIFIER__VALUE)
         }
     }
-    
+
     private def HydraScenario getScenario(EObject it) {
         while(!HydraScenario.isInstance(it)) {
             return eContainer.scenario
         }
-        
+
         return it as HydraScenario
     }
 
