@@ -12,6 +12,9 @@ import java.net.URISyntaxException
 import app.hypermedia.testing.dsl.core.ClassBlock
 import app.hypermedia.testing.dsl.hydra.OperationBlock
 import app.hypermedia.testing.dsl.Modifier
+import app.hypermedia.testing.dsl.hydra.PrefixedName
+import org.eclipse.emf.ecore.EObject
+import app.hypermedia.testing.dsl.hydra.HydraScenario
 
 /**
  * This class contains custom validation rules.
@@ -82,6 +85,25 @@ class HydraValidator extends AbstractHydraValidator {
                     HydraPackage.Literals.NAMESPACE_DECLARATION__NAMESPACE
             )
         }
+    }
+    
+    @Check
+    def checkPrefixExists(PrefixedName it) {
+        val prefix = value.split(':').get(0)
+
+        val nsDeclared = scenario.namespaces.exists[ns | ns.prefix.value == prefix]
+        
+        if(nsDeclared === false) {
+            error('''Unmapped prefix «prefix»''', CorePackage.Literals.IDENTIFIER__VALUE)
+        }
+    }
+    
+    private def HydraScenario getScenario(EObject it) {
+        while(!HydraScenario.isInstance(it)) {
+            return eContainer.scenario
+        }
+        
+        return it as HydraScenario
     }
 
     private def tryParseUri(String uri) {

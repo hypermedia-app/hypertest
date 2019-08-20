@@ -18,6 +18,7 @@ import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import app.hypermedia.testing.dsl.hydra.HydraPackage
+import app.hypermedia.testing.dsl.core.CorePackage
 
 @ExtendWith(InjectionExtension)
 @InjectWith(HydraInjectorProvider)
@@ -38,6 +39,23 @@ class PrefixParsingTest {
         val namespaceDeclaration = result.namespaces.get(0) as NamespaceDeclaration
         assertThat(namespaceDeclaration.prefix.value).isEqualTo('foaf')
         assertThat(namespaceDeclaration.namespace).isEqualTo('http://xmlns.com/foaf/0.1/')
+    }
+
+    @Test
+    def void prefixedName_unmappedNamespace_failsValidation() {
+        // when
+        val result = '''
+            PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+            
+            With Class ex:foo {
+            }
+        '''.parse
+
+        // then
+        result.assertError(
+            CorePackage.Literals.IDENTIFIER,
+            null,
+            "Unmapped prefix ex")
     }
 
     @ParameterizedTest
