@@ -51,4 +51,4 @@ terminal URI:
     '<' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'>'|'<') )* '>'
 ;
 terminal PREFIX: ID ':';
-terminal QNAME: PREFIX (INT | ID | '/' | '%')+;
+terminal QNAME: PREFIX (INT | ID | '/' | '%' | '-')+;
