@@ -21,5 +21,4 @@ class CoreValidator extends AbstractCoreValidator {
                   CorePackage.Literals.STATUS_STATEMENT__STATUS)
         }
     }
-
 }

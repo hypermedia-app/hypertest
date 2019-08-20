@@ -57,7 +57,7 @@ class LinkParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val linkBlock = classBlock.classChildren.get(0) as RelaxedLinkBlock
+        val linkBlock = classBlock.children.get(0) as RelaxedLinkBlock
         assertThat(linkBlock.relation.value).isEqualTo("Bar")
         assertThat(linkBlock.children).hasSize(2)
     }
@@ -78,7 +78,7 @@ class LinkParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val linkBlock = classBlock.classChildren.get(0) as StrictLinkBlock
+        val linkBlock = classBlock.children.get(0) as StrictLinkBlock
         assertThat(linkBlock.relation.value).isEqualTo("Bar")
         assertThat(linkBlock.children).hasSize(2)
     }
@@ -96,7 +96,7 @@ class LinkParsingTest {
         TestHelpers.assertModelParsedSuccessfully(result)
 
         val classBlock = result.steps.get(0) as ClassBlock
-        val linkBlock = classBlock.classChildren.get(0) as LinkStatement
+        val linkBlock = classBlock.children.get(0) as LinkStatement
         assertThat(linkBlock.relation.value).isEqualTo("Bar")
     }
 }

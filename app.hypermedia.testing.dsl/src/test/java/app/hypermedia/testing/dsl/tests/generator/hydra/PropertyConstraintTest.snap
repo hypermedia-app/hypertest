@@ -1,0 +1,38 @@
+app.hypermedia.testing.dsl.tests.generator.hydra.PropertyConstraintTest.gatedClass_whenPropertyPrefixedUri=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "classId": "http://example.com/Foo",
+              "constraints": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "constrain": "Property",
+                      "left": "http://example.com/bar",
+                      "negated": false,
+                      "operator": "eq",
+                      "right": "some text"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]

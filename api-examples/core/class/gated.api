@@ -1,0 +1,5 @@
+With Class "Person" {
+    When Property "maritalStatus" Not Equals "Single"
+
+    Expect Link "spouse"
+}

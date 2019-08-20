@@ -1,0 +1,9 @@
+With Class "Book" {
+    With Link "author" {
+        When Status => ```
+            status => status >= 400 && status != 404
+        ```
+
+        Expect Header Content-Type "application/problem+json"
+    }
+}

@@ -1,0 +1,158 @@
+app.hypermedia.testing.dsl.tests.generator.core.PropertyConstraintTest.gatedClass_whenPropertyEqualsBoolean=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "classId": "Foo",
+              "constraints": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "constrain": "Property",
+                      "left": "Bar",
+                      "negated": false,
+                      "operator": "eq",
+                      "right": true
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.PropertyConstraintTest.gatedClass_whenPropertyEqualsString=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "classId": "Foo",
+              "constraints": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "constrain": "Property",
+                      "left": "Bar",
+                      "negated": false,
+                      "operator": "eq",
+                      "right": "John Doe"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.PropertyConstraintTest.gatedClass_whenPropertyNotMatchesPattern=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "classId": "Foo",
+              "constraints": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "constrain": "Property",
+                      "left": "Bar",
+                      "negated": true,
+                      "operator": "regex",
+                      "right": "pl$"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.core.PropertyConstraintTest.gatedClass_whenPropertySatisfiesCustomCode=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [ ],
+                "empty": true
+              },
+              "classId": "Foo",
+              "constraints": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "constrain": "Property",
+                      "left": "Bar",
+                      "negated": false,
+                      "operator": "function",
+                      "right": "value => value > 30 && value < 40"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
