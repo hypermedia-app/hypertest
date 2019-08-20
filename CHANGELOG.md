@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/hypermedia-app/hypertest/compare/v0.4.0...v0.5.0) (2019-08-20)
+
+
+### Bug Fixes
+
+* allow hyphen in prefixed names ([cbb7797](https://github.com/hypermedia-app/hypertest/commit/cbb7797)), closes [#52](https://github.com/hypermedia-app/hypertest/issues/52)
+* validate unmapped prefixes ([d01b516](https://github.com/hypermedia-app/hypertest/commit/d01b516)), closes [#49](https://github.com/hypermedia-app/hypertest/issues/49)
+
+
+### Features
+
+* gated blocks ([d9a0881](https://github.com/hypermedia-app/hypertest/commit/d9a0881))
+
+
+### Tests
+
+* check that gated works with prefixed names ([63d4f25](https://github.com/hypermedia-app/hypertest/commit/63d4f25))
+
+
+
 ## [0.4.0](https://github.com/hypermedia-app/hypertest/compare/v0.3.0...v0.4.0) (2019-07-28)
 
 
