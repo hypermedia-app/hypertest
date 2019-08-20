@@ -14,8 +14,9 @@ module.exports = {
                 '/dsl/',
                 '/dsl/algorithm',
                 {
-                    title: 'Core grammar',
+                    title: 'Core steps',
                     path: '/dsl/core/',
+                    collapsable: false,
                     children: [
                         '/dsl/core/class',
                         '/dsl/core/follow',
@@ -26,15 +27,17 @@ module.exports = {
                     ]
                 },
                 {
-                    title: 'Hydra grammar',
+                    title: 'Hydra steps',
                     path: '/dsl/hydra/',
+                    collapsable: false,
                     children: [
                         '/dsl/hydra/invoke',
                         '/dsl/hydra/operation',
                         '/dsl/hydra/prefix',
                         '/dsl/hydra/type',
                     ]
-                }
+                },
+                '/dsl/constrained-blocks',
             ]
         },
         repo: 'hypermedia-app/hypertest',

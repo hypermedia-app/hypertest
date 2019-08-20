@@ -1,4 +1,5 @@
 With Class "Person" {
-    When Property "maritalStatus" Equals "Single"
-    When Property "age" Greater Than 30
+    When Property "maritalStatus" Not Equals "Single"
+
+    Expect Link "spouse"
 }
