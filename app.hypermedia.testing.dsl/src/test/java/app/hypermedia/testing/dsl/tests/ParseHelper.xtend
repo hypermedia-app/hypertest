@@ -18,43 +18,43 @@ class ParseHelper<T extends EObject> {
     @Inject IGrammarAccess grammar;
 
     @Inject IParser parser;
-    
+
     @Inject CoreValidator validator
-    
+
     def <X extends T> Either<List<String>, X> parse(CharSequence input, Class<X> t) {
         val ruleName = t.typeName.substring(t.typeName.lastIndexOf('.') + 1, t.typeName.length())
-        
+
         val parserRule = GrammarUtil
                 .findRuleForName(grammar.getGrammar(), ruleName) as ParserRule;
-                
+
         val px = parser.parse(parserRule, new StringReader(input.toString()))
-                
+
         val errors = new ArrayList<String>
         for (error : px.syntaxErrors) {
         	errors.add(error.syntaxErrorMessage.message)
         }
-        
+
         val diagnostic = new BasicDiagnostic()
         validator.validate(px.rootASTElement, diagnostic, null)
-        
+
         for (error : diagnostic.children) {
             errors.add(error.message)
         }
-        
+
         if (errors.size > 0) {
             return Either.left(errors)
         }
-                
+
         return Either.right(px.rootASTElement as X);
     }
-    
+
     def <X extends T> assertNoErrors(Either<List<String>, X> it) {
         if (isRight) {
             return get
         }
-        
+
         val errors = getLeft().join(', ')
-        
+
         fail('''Expected no errors but found «errors»''')
     }
 }

@@ -20,7 +20,7 @@ class StatusConditionTest {
     @Test
     def void condition_ParsesStatusEquals() {
         val result = 'When Status Equals 200'.parse(StatusConstraint)
-        
+
         val constraint = result.assertNoErrors
 
         // then
@@ -32,7 +32,7 @@ class StatusConditionTest {
     @Test
     def void condition_ParsesStatusLessThan() {
         val result = 'When Status Greater Than 200'.parse(StatusConstraint)
-        
+
         val constraint = result.assertNoErrors
 
         // then
@@ -44,7 +44,7 @@ class StatusConditionTest {
     @Test
     def void condition_ParsesStatusCustomCondition() {
         val result = 'When Status => ```status === 404 || status === 409```'.parse(StatusConstraint)
-        
+
         val constraint = result.assertNoErrors
 
         // then

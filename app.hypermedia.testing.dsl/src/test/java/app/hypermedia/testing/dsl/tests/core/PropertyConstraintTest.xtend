@@ -19,13 +19,13 @@ import app.hypermedia.testing.dsl.core.RegexCondition
 @InjectWith(CoreInjectorProvider)
 class PropertyConstraintTest {
     @Inject extension app.hypermedia.testing.dsl.tests.ParseHelper<RepresentationConstraint>
-    
+
     @Test
     def void condition_ParsesPropertyEqualsString() {
         val result = 'When Property "Foo" Equals "Bar"'.parse(PropertyConstraint)
 
         val constraint = result.assertNoErrors
-        
+
         // then
         assertThat(constraint.name.value).isEqualTo('Foo')
         assertThat(constraint.condition).isInstanceOf(StringCondition)
@@ -34,7 +34,7 @@ class PropertyConstraintTest {
     @Test
     def void condition_ParsesPropertyLessThanInt() {
         val result = 'When Property "Bar" Less Than Or Equal 10'.parse(PropertyConstraint)
-        
+
         val constraint = result.assertNoErrors
 
         // then
@@ -45,7 +45,7 @@ class PropertyConstraintTest {
     @Test
     def void condition_ParsesPropertyEqualsBoolean() {
         val result = 'When Property "Bar" Equals true'.parse(PropertyConstraint)
-        
+
         val constraint = result.assertNoErrors
 
         // then
@@ -56,7 +56,7 @@ class PropertyConstraintTest {
     @Test
     def void condition_ParsesPropertyRegexMatch() {
         val result = 'When Property "uri" Matches "^https://"'.parse(PropertyConstraint)
-        
+
         val constraint = result.assertNoErrors
 
         // then
@@ -67,7 +67,7 @@ class PropertyConstraintTest {
     @Test
     def void condition_ParsesNegatedPropertyRegexMatch() {
         val result = 'When Property "uri" Not Matches "^https://"'.parse(PropertyConstraint)
-        
+
         val constraint = result.assertNoErrors
 
         // then
@@ -79,12 +79,12 @@ class PropertyConstraintTest {
 
     @Test
     def void condition_ParsesPropertyWithCustomCode() {
-        val result = '''When Property "age" => 
+        val result = '''When Property "age" =>
                 ```
                 age => age > 20 && age < 30
                 ```
         '''.parse(PropertyConstraint)
-        
+
         val constraint = result.assertNoErrors
 
         // then

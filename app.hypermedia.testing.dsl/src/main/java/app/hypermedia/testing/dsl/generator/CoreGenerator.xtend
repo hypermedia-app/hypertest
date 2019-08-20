@@ -57,7 +57,7 @@ class CoreGenerator extends AbstractGenerator {
         Map<String, Object> map
     ) {
         map.put('children', children.map([c | c.step]).toList())
-        
+
         if (constraints.size > 0) {
             map.put('constraints', constraints.map([c | c.constraint ]).toList())
         }
@@ -159,70 +159,70 @@ class CoreGenerator extends AbstractGenerator {
     def dispatch step(EObject step) {
         throw new NotImplementedException(String.format("Unrecognized step %s", step.class))
     }
-    
+
     def dispatch constraint(PropertyConstraint it) {
          val negatedCondition = negation !== null
-        
+
         val map = new HashMap<String, Object>
         map.put('constrain', 'Property')
         map.put('left', name.identifier)
         map.put('operator', condition.operator)
         map.put('right', condition.operand)
         map.put('negated', negatedCondition)
-        
+
         return new JSONObject(map)
     }
-    
+
     def dispatch constraint(StatusConstraint it) {
          val negatedCondition = negation !== null
-        
+
         val map = new HashMap<String, Object>
         map.put('constrain', 'Status')
         map.put('operator', condition.operator)
         map.put('right', condition.operand)
         map.put('negated', negatedCondition)
-        
+
         return new JSONObject(map)
     }
-    
+
     def dispatch constraint(EObject condition) {
         throw new NotImplementedException(String.format("Unrecognized constraint %s", condition.class))
     }
-    
+
     def dispatch operand(StringCondition it) {
         return value
     }
-    
+
     def dispatch operand(RegexCondition it) {
         return value
     }
-    
+
     def dispatch operand(BooleanCondition it) {
         return value == 'true' ? true : false
     }
-    
+
     def dispatch operand(IntCondition it) {
         return value
     }
-    
+
     def dispatch operand(DecimalCondition it) {
         return value
     }
-    
+
     def dispatch operand(CustomCondition it) {
         return value
     }
-    
+
     def dispatch operand(EObject it) {
         throw new NotImplementedException(String.format("Unrecognized condition %s", class))
     }
-    
-    
+
+
     def mapArithmeticOperator(String relation) {
         if (relation.startsWith('Equal')) {
             return 'eq'
         }
-        
+
         switch (relation) {
             case 'Less Than': {
                 return 'lt'
@@ -241,31 +241,31 @@ class CoreGenerator extends AbstractGenerator {
             }
         }
     }
-    
+
     def dispatch String operator(IntCondition it) {
         return operator.mapArithmeticOperator
     }
-    
+
     def dispatch String operator(DecimalCondition it) {
         return operator.mapArithmeticOperator
     }
-    
+
     def dispatch String operator(RegexCondition it) {
         return 'regex'
     }
-    
+
     def dispatch String operator(BooleanCondition it) {
         return operator.mapArithmeticOperator
     }
-    
+
     def dispatch String operator(StringCondition it) {
         return operator.mapArithmeticOperator
     }
-    
+
     def dispatch String operator(CustomCondition it) {
         return 'function'
     }
-    
+
     def dispatch operator(EObject it) {
         throw new NotImplementedException(String.format("Unrecognized operator %s", class))
     }
