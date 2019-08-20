@@ -67,4 +67,19 @@ class PrefixParsingTest {
         // then
         result.assertNoErrors()
     }
+
+    @Test
+    def void prefxedName_shouldAllowHyphens() {
+        // when
+        val result = '''
+            PREFIX ex: <http://example.com/>
+
+            With Class ex:Movie {
+                Expect Operation ex:create-movie
+            }
+        '''.parse
+
+        // then
+        result.assertNoIssues()
+    }
 }
