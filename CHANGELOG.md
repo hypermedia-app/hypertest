@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/hypermedia-app/hypertest/compare/v0.5.0...v0.6.0) (2019-10-10)
+
+
+### Features
+
+* added expect id step ([1618fad](https://github.com/hypermedia-app/hypertest/commit/1618fad)), closes [#59](https://github.com/hypermedia-app/hypertest/issues/59)
+
+
+
 ## [0.5.0](https://github.com/hypermedia-app/hypertest/compare/v0.4.0...v0.5.0) (2019-08-20)
 
 
