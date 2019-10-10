@@ -1,9 +1,10 @@
 language: java
 before_install:
 - mvn editorconfig:check
-after_success:
+before_deploy:
 - nvm install 12
 - npm i -g jdeploy
+- echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
 deploy:
   provider: script
   script: npm run jdeploy
