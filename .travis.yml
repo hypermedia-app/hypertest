@@ -1,3 +1,16 @@
 language: java
 before_install:
-  - mvn editorconfig:check
+- mvn editorconfig:check
+after_success:
+- nvm install 12
+- npm i -g jdeploy
+deploy:
+  provider: script
+  script: npm run jdeploy
+  on:
+    tags: true
+    repo: hypermedia-app/hypertest
+  skip_cleanup: true
+env:
+  global:
+    secure: jOEqFu4I/afM2cI2XXTeEbAhNdWRnZ7Am1/EIf26ul0h+1rx4FQIdO3pVS96XKVaFXj1ZDhIGfYloPIO4BaJbQdA0EEB/z+bgMclwhIx13DR2jqeeqKVovUOXTFzikU2mjkLQoiX7smTCGThcs3pDQJBHwQLDaGUE3psSWyhfWaxwODMvN/AKR1Hyi4KqIJoVV8/qmxKPJnyRC9s+BCC3kUteSRYnU5NjSTycyZJqF4wLTEJtxRzuyokT+RJBsSNVGitgFK3IypLWyIOxnjiyuxsR7vwftHpyR2EO8vtNySrUYmVdRJ46BA1bBfdTaTL19NONw5Ew26IePXiE4okS8gH3rmRpM+WbJ4gJDyAsp7q5UxpNHOc9ZXd11xpWCxiVqxiTkR+X/w/vyoDQK5Bs4r3cji7uVS+YBYFfTVSGVLcXD1pTBXKH6iTOVicUtXyVMPvNOCiK/xN/MK0fYlH4/RLPsCiG1ETM8ewuRB4Q44wCorYZQikInnk4d6f74KN2YX9SIpTsSGbcnXOmdAhFXgnVMgtvzaT2m3uZrrcS4Sg/CjZ2KJUdcL4XMddT561bMeB+VI0nrTAerW5BVXuTQMR4ZFSnAjHDcYNNUkiaIuVzwCfAjo5WRgIXhZ34GIupYP5d7tiSSByLLnDtwYv4v0SajOsf0IZj2C7UGtDB6Q=
