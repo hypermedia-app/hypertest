@@ -16,7 +16,8 @@ TopLevelStep:
 RepresentationStep:
 	super |
 	OperationBlock |
-	RdfTypeStatement
+	RdfTypeStatement |
+	IdentifierStatement
 ;
 
 @Override
@@ -27,6 +28,10 @@ Identifier:
 
 RdfTypeStatement:
     ExpectModifier 'Type' id=Identifier
+;
+
+IdentifierStatement: 
+    ExpectModifier 'Id' id=Identifier
 ;
 
 NamespaceDeclaration:

@@ -3,22 +3,16 @@
  */
 package app.hypermedia.testing.dsl.generator
 
-import app.hypermedia.testing.dsl.hydra.OperationBlock
-import app.hypermedia.testing.dsl.hydra.InvocationBlock
+import app.hypermedia.testing.dsl.hydra.*
 import app.hypermedia.testing.dsl.Modifier
 import java.util.HashMap
 import org.json.JSONObject
-import app.hypermedia.testing.dsl.hydra.UriName
-import app.hypermedia.testing.dsl.hydra.PrefixedName
 import org.eclipse.xtext.generator.IFileSystemAccess2
 import org.eclipse.xtext.generator.IGeneratorContext
 import org.eclipse.emf.ecore.resource.Resource
-import app.hypermedia.testing.dsl.hydra.NamespaceDeclaration
 import java.util.Map
-import app.hypermedia.testing.dsl.hydra.HydraScenario
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
-import app.hypermedia.testing.dsl.hydra.RdfTypeStatement
 
 /**
  * Generates code from your model files on save.
@@ -88,6 +82,13 @@ final Map<String, String> _namespaces
         map.put('value', id.identifier)
 
         return buildStatement('Property', map)
+    }
+
+    def dispatch step(IdentifierStatement it) {
+        val map = new HashMap<String, Object>
+        map.put('value', id.identifier)
+
+        return buildStatement('Identifier', map)
     }
 
     def dispatch identifier(PrefixedName it) {

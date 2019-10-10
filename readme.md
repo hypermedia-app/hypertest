@@ -101,7 +101,8 @@ hypertest-compiler api-examples
 `@hydrofoil/hypertest` is published using [jDeploy][jd] which packages the executable JAR in an easy to use node package.  
 
 ```
-npm i -g jdeploy
 npm run release
-git push --follow-tags origin master && npm run jdeploy
+git push --follow-tags origin master
 ```
+
+Travis does the rest.
