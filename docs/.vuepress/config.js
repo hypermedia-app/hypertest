@@ -31,6 +31,7 @@ module.exports = {
                     path: '/dsl/hydra/',
                     collapsable: false,
                     children: [
+                        '/dsl/hydra/id',
                         '/dsl/hydra/invoke',
                         '/dsl/hydra/operation',
                         '/dsl/hydra/prefix',

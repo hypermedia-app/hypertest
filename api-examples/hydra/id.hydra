@@ -1,0 +1,15 @@
+PREFIX ex: <http://example.com/>
+
+With Operation ex:CreateProject {
+    Invoke {
+        Content-Type "text/turtle"
+
+        ```
+        @prefix schema: <http://schema.org/>
+
+        <> schema:name "Testing with Hypertest" .
+        ```
+    } => {
+        Expect Id <http://my.blog/article/testing-with-hypertest>
+    }
+}
