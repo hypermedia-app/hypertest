@@ -291,6 +291,6 @@ class CoreGenerator extends AbstractGenerator {
     }
 
     protected def getScenarioSteps(EList<EObject> s) {
-        return s.filter(CoreScenario).flatMap[cs | cs.steps]
+        return s.filter(CoreScenario).flatMap[cs |cs.steps]
     }
 }
