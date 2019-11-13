@@ -5,6 +5,9 @@ package app.hypermedia.testing.dsl
 
 import org.eclipse.xtext.conversion.IValueConverterService
 import app.hypermedia.testing.dsl.conversion.CoreValueConverterService
+import com.google.inject.Binder
+import org.eclipse.xtext.parser.IEncodingProvider
+import org.eclipse.xtext.service.DispatchingProvider
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
@@ -12,5 +15,11 @@ import app.hypermedia.testing.dsl.conversion.CoreValueConverterService
 class CoreRuntimeModule extends AbstractCoreRuntimeModule {
     override Class<? extends IValueConverterService> bindIValueConverterService() {
         return CoreValueConverterService
+    }
+
+    override configureRuntimeEncodingProvider(Binder binder) {
+        binder.bind(IEncodingProvider)
+              .annotatedWith(DispatchingProvider.Runtime)
+              .to(AlwaysUtfEncodingProvider)
     }
 }
