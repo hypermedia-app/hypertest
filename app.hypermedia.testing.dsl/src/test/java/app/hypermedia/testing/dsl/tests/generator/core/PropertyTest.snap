@@ -124,6 +124,41 @@ app.hypermedia.testing.dsl.tests.generator.core.PropertyTest.expectProperty_gene
 ]
 
 
+app.hypermedia.testing.dsl.tests.generator.core.PropertyTest.utf8Values_generatesCorrectOutput=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "propertyId": "name",
+                      "strict": true,
+                      "type": "Property",
+                      "value": "Łabędź"
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "Zwierzę",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
 app.hypermedia.testing.dsl.tests.generator.core.PropertyTest.withProperty_generatesNonStrictPropertyStep=[
   {
     "map": {
