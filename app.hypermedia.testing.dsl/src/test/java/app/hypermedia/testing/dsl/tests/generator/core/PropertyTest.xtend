@@ -112,4 +112,23 @@ class PropertyTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
+
+    @Test
+    def utf8Values_generatesCorrectOutput() {
+        // given
+        val model = parseHelper.parse('''
+            With Class "Zwierzę" {
+                Expect Property "name" "Łabędź"
+            }
+        ''')
+
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
 }
