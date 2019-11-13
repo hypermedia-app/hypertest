@@ -6,7 +6,7 @@
   "description": "",
   "preferGlobal": true,
   "repository": "https://github.com/hypermedia-app/hypertest",
-  "version": "0.6.0",
+  "version": "0.6.1-0",
   "jdeploy": {
     "jar": "app.hypermedia.testing.dsl.cli/target/app.hypermedia.testing.dsl.cli-1.0.0-SNAPSHOT-shaded.jar"
   },

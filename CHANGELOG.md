@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1-0](https://github.com/hypermedia-app/hypertest/compare/v0.6.0...v0.6.1-0) (2019-11-13)
+
+
+### Bug Fixes
+
+* enforce UTF-8 encoding ([3ef7d23](https://github.com/hypermedia-app/hypertest/commit/3ef7d23))
+
+
+### Tests
+
+* generating with non plain ascii characters ([eb76adc](https://github.com/hypermedia-app/hypertest/commit/eb76adc))
+
+
+
 ## [0.6.0](https://github.com/hypermedia-app/hypertest/compare/v0.5.0...v0.6.0) (2019-10-10)
 
 
