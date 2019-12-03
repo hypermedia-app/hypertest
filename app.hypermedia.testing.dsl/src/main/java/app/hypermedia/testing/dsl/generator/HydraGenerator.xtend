@@ -33,7 +33,14 @@ final Map<String, String> _namespaces
     }
 
     protected override getScenarioSteps(EList<EObject> s) {
-        return s.filter(HydraScenario).flatMap[cs | cs.steps]
+        return s.filter(HydraScenario).flatMap[hs | hs.steps]
+    }
+
+    protected override getEntrypointStep(EList<EObject> contents) {
+        return contents
+           .filter(HydraScenario)
+           .map[s | s.entrypoint]
+           .head
     }
 
     def dispatch step(OperationBlock it) {

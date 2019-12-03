@@ -1,0 +1,8 @@
+app.hypermedia.testing.dsl.tests.generator.hydra.EntrypointTest.entrypoint_generatesInJson=[
+  {
+    "map": {
+      "entrypoint": "path/to/hydra"
+    },
+    "empty": false
+  }
+]

@@ -19,6 +19,7 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/dsl/core/class',
+                        '/dsl/core/entrypoint',
                         '/dsl/core/follow',
                         '/dsl/core/header',
                         '/dsl/core/link',
