@@ -41,7 +41,7 @@ class CoreGenerator extends AbstractGenerator {
 
         val String dslFileName = resource.getURI().lastSegment.toString();
 
-        fsa.generateFile(dslFileName + '.json', scenario.toString(INDENTATION));
+        fsa.generateFile(dslFileName + '.hypertest.json', scenario.toString(INDENTATION));
     }
 
     def generateSteps(Iterable<TopLevelStep> blocks) {
