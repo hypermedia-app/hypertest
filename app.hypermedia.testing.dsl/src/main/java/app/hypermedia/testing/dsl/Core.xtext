@@ -3,11 +3,16 @@ grammar app.hypermedia.testing.dsl.Core with org.eclipse.xtext.common.Terminals
 generate core "http://testing.hypermedia.app/dsl/core"
 
 CoreScenario:
+    (entrypoint=EntrypointStep)?
     (steps+=TopLevelStep)*;
 
 TopLevelStep:
 	ClassBlock |
 	RelaxedLinkBlock;
+	
+EntrypointStep:
+    'ENTRYPOINT' path=STRING
+;
 
 ResponseStep:
     StatusStatement |
