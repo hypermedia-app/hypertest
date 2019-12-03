@@ -28,17 +28,17 @@ class CoreGenerator extends AbstractGenerator {
 
     override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
         val scenario = new JSONObject()
-        
-        val entrypoint = getEntrypoint(resource.contents)        
+
+        val entrypoint = getEntrypoint(resource.contents)
         if (entrypoint !== null) {
             scenario.put('entrypoint', entrypoint)
         }
-        
+
         val Iterable<TopLevelStep> blocks = getScenarioSteps(resource.contents).toList
         if ( ! blocks.empty) {
             scenario.put('steps', generateSteps(blocks))
         }
-        
+
         val String dslFileName = resource.getURI().lastSegment.toString();
 
         fsa.generateFile(dslFileName + '.json', scenario.toString(INDENTATION));
@@ -298,21 +298,21 @@ class CoreGenerator extends AbstractGenerator {
     protected def getScenarioSteps(EList<EObject> s) {
         return s.filter(CoreScenario).flatMap[cs |cs.steps]
     }
-    
+
     protected def getEntrypointStep(EList<EObject> contents) {
         return contents
            .filter(CoreScenario)
            .map[s | s.entrypoint]
            .head
     }
-    
+
     private def getEntrypoint(EList<EObject> contents) {
     	val entrypointStatement = getEntrypointStep(contents)
-    	
+
     	if (entrypointStatement !== null) {
     	    return entrypointStatement.path
     	}
-    	
+
     	return null
     }
 }

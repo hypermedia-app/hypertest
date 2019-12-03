@@ -35,7 +35,7 @@ final Map<String, String> _namespaces
     protected override getScenarioSteps(EList<EObject> s) {
         return s.filter(HydraScenario).flatMap[hs | hs.steps]
     }
-    
+
     protected override getEntrypointStep(EList<EObject> contents) {
         return contents
            .filter(HydraScenario)
