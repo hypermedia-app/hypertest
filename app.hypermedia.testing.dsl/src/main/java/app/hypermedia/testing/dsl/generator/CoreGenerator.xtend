@@ -33,7 +33,7 @@ class CoreGenerator extends AbstractGenerator {
         if ( ! blocks.empty) {
             val String dslFileName = resource.getURI().lastSegment.toString();
 
-            fsa.generateFile(dslFileName + '.json', generateSteps(blocks).toString(INDENTATION));
+            fsa.generateFile(dslFileName + '.hypertest.json', generateSteps(blocks).toString(INDENTATION));
         }
     }
 
