@@ -1,4 +1,4 @@
-# Entrypoint Step
+# Entrypoint Statement
 
 It may be desired to start the test scenario by requesting
 
