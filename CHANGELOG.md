@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/hypermedia-app/hypertest/compare/v0.6.1-0...v0.6.1) (2019-12-03)
+
+
+### Bug Fixes
+
+* change the output names to be easily distinguishable ([695219b](https://github.com/hypermedia-app/hypertest/commit/695219b))
+
+
+### Features
+
+* entrypoint statement to change the first request ([ca6c40e](https://github.com/hypermedia-app/hypertest/commit/ca6c40e))
+
+
+
 ### [0.6.1-0](https://github.com/hypermedia-app/hypertest/compare/v0.6.0...v0.6.1-0) (2019-11-13)
 
 
