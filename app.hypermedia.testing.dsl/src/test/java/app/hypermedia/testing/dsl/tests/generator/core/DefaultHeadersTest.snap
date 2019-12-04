@@ -1,0 +1,19 @@
+app.hypermedia.testing.dsl.tests.generator.core.DefaultHeadersTest.multipleHeadersWithSameName_allGetGenerated=[
+  {
+    "map": {
+      "defaultHeaders": {
+        "map": {
+          "X-Foo": {
+            "myArrayList": [
+              "Bar",
+              "Baz"
+            ],
+            "empty": false
+          }
+        },
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]

@@ -34,6 +34,11 @@ class CoreGenerator extends AbstractGenerator {
             scenario.put('entrypoint', entrypoint)
         }
 
+        val defaultHeaders = getDefaultHeaders(resource.contents)
+        if (defaultHeaders !== null) {
+            scenario.put('defaultHeaders', defaultHeaders)
+        }
+
         val Iterable<TopLevelStep> blocks = getScenarioSteps(resource.contents).toList
         if ( ! blocks.empty) {
             scenario.put('steps', generateSteps(blocks))
@@ -306,6 +311,13 @@ class CoreGenerator extends AbstractGenerator {
            .head
     }
 
+    protected def getDefaultHeadersBlock(EList<EObject> contents) {
+        return contents
+           .filter(CoreScenario)
+           .map[s | s.defaultHeaders]
+           .head
+    }
+
     private def getEntrypoint(EList<EObject> contents) {
     	val entrypointStatement = getEntrypointStep(contents)
 
@@ -314,5 +326,22 @@ class CoreGenerator extends AbstractGenerator {
     	}
 
     	return null
+    }
+    
+    private def getDefaultHeaders(EList<EObject> contents) {
+        val headersBlock = getDefaultHeadersBlock(contents)
+        
+        if (headersBlock !== null) {
+            val map = new HashMap<String, JSONArray>
+            headersBlock.headers
+                .groupBy[header | header.fieldName ]
+                .forEach[fieldName, values | {
+                    map.put(fieldName, new JSONArray(values.map[header | header.value]))
+                }]
+        
+            return new JSONObject(map)
+        }
+
+        return null
     }
 }

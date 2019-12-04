@@ -43,6 +43,13 @@ final Map<String, String> _namespaces
            .head
     }
 
+    protected override getDefaultHeadersBlock(EList<EObject> contents) {
+        return contents
+           .filter(HydraScenario)
+           .map[s | s.defaultHeaders]
+           .head
+    }
+
     def dispatch step(OperationBlock it) {
         val map = new HashMap<String, Object>
         map.put('operationId', name.identifier)

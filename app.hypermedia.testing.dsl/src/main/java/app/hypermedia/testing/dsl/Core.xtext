@@ -4,6 +4,7 @@ generate core "http://testing.hypermedia.app/dsl/core"
 
 CoreScenario:
     (entrypoint=EntrypointStep)?
+    (defaultHeaders=ScenarioHeadersBlock)?
     (steps+=TopLevelStep)*;
 
 TopLevelStep:
@@ -38,6 +39,10 @@ Modifier: WithModifier | ExpectModifier;
 
 ExpectModifier: 'Expect';
 WithModifier: 'With';
+
+ScenarioHeadersBlock: 'HEADERS' '{'
+    (headers+=RequestHeader)+
+'}';
 
 ClassBlock:
 	WithModifier 'Class' name=Identifier '{'

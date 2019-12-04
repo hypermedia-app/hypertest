@@ -6,6 +6,7 @@ generate hydra "http://testing.hypermedia.app/dsl/hydra"
 HydraScenario:
     (namespaces+=NamespaceDeclaration)*
     (entrypoint=EntrypointStep)?
+    (defaultHeaders=ScenarioHeadersBlock)?
     (steps+=TopLevelStep)*;
 
 @Override
