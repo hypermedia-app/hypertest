@@ -5,8 +5,7 @@ model/
 xtend-gen/
 target/
 xtext-gen/
-*.api.json
-*.hydra.json
+api-examples/**/*.json
 node_modules/
 jdeploy-bundle/
 dist/
