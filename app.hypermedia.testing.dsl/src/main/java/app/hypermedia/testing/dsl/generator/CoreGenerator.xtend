@@ -327,10 +327,10 @@ class CoreGenerator extends AbstractGenerator {
 
     	return null
     }
-    
+
     private def getDefaultHeaders(EList<EObject> contents) {
         val headersBlock = getDefaultHeadersBlock(contents)
-        
+
         if (headersBlock !== null) {
             val map = new HashMap<String, JSONArray>
             headersBlock.headers
@@ -338,7 +338,7 @@ class CoreGenerator extends AbstractGenerator {
                 .forEach[fieldName, values | {
                     map.put(fieldName, new JSONArray(values.map[header | header.value]))
                 }]
-        
+
             return new JSONObject(map)
         }
 

@@ -36,9 +36,9 @@ class DefaultHeadersParsingTest {
         assertThat(headers.headers).haveExactly(1, headerMatching("Authorization", "some token"))
         assertThat(headers.headers).haveExactly(1, headerMatching("User-Agent", "Googlebot"))
     }
-    
+
     private def headerMatching(String name, String value) {
-      new Condition<RequestHeader>([ header | 
+      new Condition<RequestHeader>([ header |
           name.equals(header.fieldName) && value.equals(header.value)
         ], "matching header")
     }
