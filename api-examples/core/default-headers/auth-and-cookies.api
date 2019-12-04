@@ -1,0 +1,9 @@
+HEADERS {
+  Authorization "Bearer __token__"
+  Set-Cookie "foo"
+  Set-Cookie "bar"
+}
+
+With Class "Entrypoint" {
+    Expect Link "only-visible-when-authorized"
+}

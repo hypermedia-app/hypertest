@@ -24,6 +24,7 @@ module.exports = {
                         '/dsl/core/header',
                         '/dsl/core/link',
                         '/dsl/core/property',
+                        '/dsl/core/default-headers',
                         '/dsl/core/status',
                     ]
                 },
