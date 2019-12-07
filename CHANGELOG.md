@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/hypermedia-app/hypertest/compare/v0.6.1...v0.7.0) (2019-12-07)
+
+
+### Features
+
+* add a headers block to set scenario-wide headers ([a488249](https://github.com/hypermedia-app/hypertest/commit/a488249))
+
+
+
 ### [0.6.1](https://github.com/hypermedia-app/hypertest/compare/v0.6.1-0...v0.6.1) (2019-12-03)
 
 
