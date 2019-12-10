@@ -57,7 +57,7 @@ public class GeneratorMain {
             GeneratorRunner runner = runners.get(ext);
 
             if (runner != null) {
-                runner.generate(file);
+                runner.generate(dir, file);
             }
         }
     }
@@ -76,8 +76,8 @@ class GeneratorRunner {
     @Inject
     JavaIoFileSystemAccess fileAccess;
 
-    public void generate(File input) {
-        System.out.printf("Compiling %s %n", input.getPath());
+    public void generate(File dir, File input) {
+        System.out.printf("Compiling %s %n", dir.toPath().relativize(input.toPath()));
 
         ResourceSet resourceSet = resourceSetProvider.get();
         Resource resource = resourceSet.getResource(URI.createFileURI(input.getPath()), true);
