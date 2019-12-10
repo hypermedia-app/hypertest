@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.1](https://github.com/hypermedia-app/hypertest/compare/v0.7.0...v0.7.1) (2019-12-10)
+
+
+### Bug Fixes
+
+* **cli:** log only relative paths of compiled files ([5579ea6](https://github.com/hypermedia-app/hypertest/commit/5579ea6))
+
+
+
 ## [0.7.0](https://github.com/hypermedia-app/hypertest/compare/v0.6.1...v0.7.0) (2019-12-07)
 
 
