@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.2](https://github.com/hypermedia-app/hypertest/compare/v0.7.1...v0.7.2) (2019-12-12)
+
+
+### Bug Fixes
+
+* return non-zero when any scenario fails to compile ([a08ccf6](https://github.com/hypermedia-app/hypertest/commit/a08ccf6)), closes [hypermedia-app/hypertest-docker#3](https://github.com/hypermedia-app/hypertest/issues/3)
+
+
+
 ### [0.7.1](https://github.com/hypermedia-app/hypertest/compare/v0.7.0...v0.7.1) (2019-12-10)
 
 
