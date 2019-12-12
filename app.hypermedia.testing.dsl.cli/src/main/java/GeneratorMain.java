@@ -37,15 +37,19 @@ public class GeneratorMain {
         runners.put("api", coreInjector.getInstance(GeneratorRunner.class));
         runners.put("hydra", hydraInjector.getInstance(GeneratorRunner.class));
 
-        generateDirectory(args[0]);
-        System.out.println("Done!");
+        if (generateDirectory(args[0])) {
+            System.exit(0);
+        } else {
+            System.exit(1);
+        }
     }
 
-    private static void generateDirectory(String directoryName) {
+    private static boolean generateDirectory(String directoryName) {
         File dir = new File(directoryName);
         Collection<File> files = FileUtils.listFiles(dir, new RegexFileFilter(".+\\.(api|hydra)$"),
                 TrueFileFilter.INSTANCE);
 
+        boolean allSucceeded = true;
         for (File file : files) {
             if (file.isDirectory()) {
                 generateDirectory(file.getPath());
@@ -57,9 +61,11 @@ public class GeneratorMain {
             GeneratorRunner runner = runners.get(ext);
 
             if (runner != null) {
-                runner.generate(dir, file);
+                allSucceeded &= runner.generate(dir, file);
             }
         }
+        
+        return allSucceeded;
     }
 }
 
@@ -76,18 +82,19 @@ class GeneratorRunner {
     @Inject
     JavaIoFileSystemAccess fileAccess;
 
-    public void generate(File dir, File input) {
+    public boolean generate(File dir, File input) {
         System.out.printf("Compiling %s %n", dir.toPath().relativize(input.toPath()));
 
         ResourceSet resourceSet = resourceSetProvider.get();
         Resource resource = resourceSet.getResource(URI.createFileURI(input.getPath()), true);
 
         if (!this.validate(resource)) {
-            return;
+            return false;
         }
 
         fileAccess.setOutputPath(input.getParentFile().getPath());
         generator.generate(resource, fileAccess, new GeneratorContext());
+        return true;
     }
 
     private boolean validate(Resource resource) {
