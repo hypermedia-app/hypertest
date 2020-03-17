@@ -8,6 +8,10 @@ representations.
 * Property steps are valid where representation is the context.
 * Property steps are not valid on top level.
 
+## Remarks
+
+If multiple valus are found for a property, the step will succeed if any one matches the expectation(s) and fail only if all values don't.
+
 ## Usage
 
 ### Strict property check
