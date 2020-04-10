@@ -1,0 +1,9 @@
+PREFIX api: <http://example.com/vocab#>
+
+With Class api:Book {
+    With Link api:search (
+        api:name = "Tomasz"
+    ) {
+        Expect Type api:SearchResults
+    }
+}
