@@ -117,4 +117,21 @@ final Map<String, String> _namespaces
 
         return '''«namespace»«term»'''
     }
+
+    def dispatch step(TemplatedLinkBlock it) {
+        val map = new HashMap<String, Object>
+        map.put('rel', relation.identifier)
+        map.put('strict', false)
+
+        val variables = new HashMap<String, String>
+        it.templateVariables.fold(variables, [ folded, variable |
+            folded.put(identifier(variable.key), variable.value)
+
+            return folded
+        ])
+
+        map.put('variables', variables)
+
+        return buildBlock('Link', children, constraints, map)
+    }
 }
