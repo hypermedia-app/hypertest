@@ -27,10 +27,89 @@ app.hypermedia.testing.dsl.tests.generator.hydra.LinkTest.canGenerateForTemplate
                       "strict": false,
                       "type": "Link",
                       "variables": {
-                        "map": {
-                          "http://example.com/from": "2010-12-12",
-                          "http://example.com/to": "2011-12-12"
-                        },
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "key": "http://example.com/from",
+                              "value": "2010-12-12"
+                            },
+                            "empty": false
+                          },
+                          {
+                            "map": {
+                              "key": "http://example.com/to",
+                              "value": "2011-12-12"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      }
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "http://example.com/People",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
+
+
+app.hypermedia.testing.dsl.tests.generator.hydra.LinkTest.canGenerateForTemplatedLinkWithMultipleValuesForSameKey=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "propertyId": "http://example.com/count",
+                              "strict": true,
+                              "type": "Property",
+                              "value": 5
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "rel": "http://example.com/search",
+                      "strict": false,
+                      "type": "Link",
+                      "variables": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "key": "http://example.com/name",
+                              "value": "John"
+                            },
+                            "empty": false
+                          },
+                          {
+                            "map": {
+                              "key": "http://example.com/name",
+                              "value": "Jane"
+                            },
+                            "empty": false
+                          }
+                        ],
                         "empty": false
                       }
                     },
@@ -82,10 +161,22 @@ app.hypermedia.testing.dsl.tests.generator.hydra.LinkTest.canGenerateForTemplate
                       "strict": false,
                       "type": "Link",
                       "variables": {
-                        "map": {
-                          "http://example.com/from": "2010-12-12",
-                          "http://example.com/to": "2011-12-12"
-                        },
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "key": "http://example.com/from",
+                              "value": "2010-12-12"
+                            },
+                            "empty": false
+                          },
+                          {
+                            "map": {
+                              "key": "http://example.com/to",
+                              "value": "2011-12-12"
+                            },
+                            "empty": false
+                          }
+                        ],
                         "empty": false
                       }
                     },

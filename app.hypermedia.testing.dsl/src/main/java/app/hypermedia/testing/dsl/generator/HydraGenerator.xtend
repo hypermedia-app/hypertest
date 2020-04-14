@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.resource.Resource
 import java.util.Map
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
+import org.json.JSONArray
 
 /**
  * Generates code from your model files on save.
@@ -123,9 +124,12 @@ final Map<String, String> _namespaces
         map.put('rel', relation.identifier)
         map.put('strict', false)
 
-        val variables = new HashMap<String, String>
+        val variables = new JSONArray
         it.templateVariables.fold(variables, [ folded, variable |
-            folded.put(identifier(variable.key), variable.value)
+            val variableJson = new JSONObject()
+            variableJson.put('key', identifier(variable.key))
+            variableJson.put('value', variable.value)
+            folded.put(variableJson)
 
             return folded
         ])

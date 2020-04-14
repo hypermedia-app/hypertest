@@ -80,4 +80,30 @@ class LinkTest {
         val file = new JSONObject(fsa.textFiles.values.get(0).toString)
         expect(file).toMatchSnapshot()
     }
+
+    @Test
+    def canGenerateForTemplatedLinkWithMultipleValuesForSameKey() {
+        // given
+        val model = '''
+            PREFIX ex: <http://example.com/>
+
+            With Class ex:People {
+                With Link ex:search (
+                    ex:name = "John"
+                    ex:name = "Jane"
+                ) {
+                    Expect Property <http://example.com/count> 5
+                }
+            }
+        '''.parse
+
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
 }
