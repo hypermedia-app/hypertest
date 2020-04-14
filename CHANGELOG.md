@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/hypermedia-app/hypertest/compare/v0.7.2...v0.8.0) (2020-04-14)
+
+
+### Build System
+
+* **deps:** [security] bump acorn from 6.2.0 to 6.4.1 ([bf008d5](https://github.com/hypermedia-app/hypertest/commit/bf008d5))
+* **deps:** [security] bump handlebars from 4.1.2 to 4.5.3 ([b9304d9](https://github.com/hypermedia-app/hypertest/commit/b9304d9))
+
+
+### Features
+
+* support for following templated links ([65bc229](https://github.com/hypermedia-app/hypertest/commit/65bc229))
+
+
+
 ### [0.7.2](https://github.com/hypermedia-app/hypertest/compare/v0.7.1...v0.7.2) (2019-12-12)
 
 
