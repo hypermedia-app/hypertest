@@ -35,6 +35,7 @@ module.exports = {
                     children: [
                         '/dsl/hydra/id',
                         '/dsl/hydra/invoke',
+                        '/dsl/hydra/link',
                         '/dsl/hydra/operation',
                         '/dsl/hydra/prefix',
                         '/dsl/hydra/type',
