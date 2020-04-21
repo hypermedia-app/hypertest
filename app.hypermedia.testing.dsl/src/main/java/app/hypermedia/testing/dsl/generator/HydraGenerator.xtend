@@ -122,7 +122,7 @@ final Map<String, String> _namespaces
     def dispatch step(TemplatedLinkBlock it) {
         val map = new HashMap<String, Object>
         map.put('rel', relation.identifier)
-        map.put('strict', false)
+        map.put('strict', modifier == Modifier.EXPECT)
 
         val variables = new JSONArray
         it.templateVariables.fold(variables, [ folded, variable |

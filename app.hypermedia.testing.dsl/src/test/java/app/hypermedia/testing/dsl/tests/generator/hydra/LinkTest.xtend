@@ -82,6 +82,31 @@ class LinkTest {
     }
 
     @Test
+    def canGenerateStrictTemplatedLink() {
+        // given
+        val model = '''
+            PREFIX ex: <http://example.com/>
+
+            With Class ex:People {
+                Expect Link ex:search (
+                    ex:from = "2010-12-12"
+                ) {
+                    Expect Property <http://example.com/count> 5
+                }
+            }
+        '''.parse
+
+        // when
+        val fsa = new InMemoryFileSystemAccess()
+        generator.doGenerate(model.eResource, fsa, new GeneratorContext())
+        println(fsa.textFiles)
+
+        // then
+        val file = new JSONObject(fsa.textFiles.values.get(0).toString)
+        expect(file).toMatchSnapshot()
+    }
+
+    @Test
     def canGenerateForTemplatedLinkWithMultipleValuesForSameKey() {
         // given
         val model = '''

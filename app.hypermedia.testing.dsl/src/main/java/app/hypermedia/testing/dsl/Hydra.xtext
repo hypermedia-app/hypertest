@@ -46,7 +46,7 @@ UriName: value=URI;
 PrefixedName: value=QNAME;
 
 TemplatedLinkBlock:
-    (ExpectModifier | WithModifier) 'Link' relation=Identifier '(' 
+    modifier=(ExpectModifier | WithModifier) 'Link' relation=Identifier '(' 
         (templateVariables+=TemplateVariable)* 
     ')' '{'    
         (constraints+=ResponseConstraint)*

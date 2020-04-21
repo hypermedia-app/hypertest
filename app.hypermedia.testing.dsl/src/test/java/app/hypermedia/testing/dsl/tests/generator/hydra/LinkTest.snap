@@ -197,3 +197,63 @@ app.hypermedia.testing.dsl.tests.generator.hydra.LinkTest.canGenerateForTemplate
     "empty": false
   }
 ]
+
+
+app.hypermedia.testing.dsl.tests.generator.hydra.LinkTest.canGenerateStrictTemplatedLink=[
+  {
+    "map": {
+      "steps": {
+        "myArrayList": [
+          {
+            "map": {
+              "children": {
+                "myArrayList": [
+                  {
+                    "map": {
+                      "children": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "propertyId": "http://example.com/count",
+                              "strict": true,
+                              "type": "Property",
+                              "value": 5
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      },
+                      "rel": "http://example.com/search",
+                      "strict": true,
+                      "type": "Link",
+                      "variables": {
+                        "myArrayList": [
+                          {
+                            "map": {
+                              "key": "http://example.com/from",
+                              "value": "2010-12-12"
+                            },
+                            "empty": false
+                          }
+                        ],
+                        "empty": false
+                      }
+                    },
+                    "empty": false
+                  }
+                ],
+                "empty": false
+              },
+              "classId": "http://example.com/People",
+              "type": "Class"
+            },
+            "empty": false
+          }
+        ],
+        "empty": false
+      }
+    },
+    "empty": false
+  }
+]
