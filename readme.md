@@ -1,7 +1,7 @@
 > # Hypertest DSL
 > Domain-Specific Language for testing APIs, hypermedia-style
 
-_:exclamation: Early version; work in progress :construction: at [Zazuko][zazuko]._
+_:exclamation: Early version; work in progress :construction:_
 
 [![zazuko](https://zazuko.com/images/logo.png)][zazuko]
 
