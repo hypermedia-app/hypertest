@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v2.5.0
       - run: mvn editorconfig:check
       - run: npm i -g jdeploy
-      - run: echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+      - run: mvn clean package
       - run: npx jdeploy package
       - uses: JS-DevTools/npm-publish@v1
         with:
