@@ -18,4 +18,5 @@ jobs:
       - uses: actions/setup-node@v2.5.0
       - run: mvn editorconfig:check
       - run: npm i -g jdeploy
+      - run: mvn clean package
       - run: npx jdeploy package
