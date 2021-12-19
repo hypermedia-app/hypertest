@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    tags: '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2.4.0
+      - uses: actions/setup-node@v2.5.0
+      - run: mvn editorconfig:check
+      - run: npm i -g jdeploy
+      - run: npm run jdeploy
