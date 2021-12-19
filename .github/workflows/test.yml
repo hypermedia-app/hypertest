@@ -20,3 +20,4 @@ jobs:
       - run: npm i -g jdeploy
       - run: mvn clean package
       - run: npx jdeploy package
+      - run: npm pack
