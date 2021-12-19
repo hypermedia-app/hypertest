@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    tags: 
+    tags:
     - '*'
 
 jobs:
@@ -18,4 +18,5 @@ jobs:
       - uses: actions/setup-node@v2.5.0
       - run: mvn editorconfig:check
       - run: npm i -g jdeploy
+      - run: echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
       - run: npm run jdeploy
